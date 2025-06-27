@@ -23,7 +23,8 @@ const useLoginSubmit = () => {
 
   // console.log("router", router.pathname === "/auth/signup");
 
-  const submitHandler = async ({ name, email, password, phone }) => {
+  const submitHandler = async ({ name, email, password, phone, location }) => {
+
     setLoading(true);
 
     // console.log("submitHandler", phone);
@@ -34,14 +35,17 @@ const useLoginSubmit = () => {
         // console.log("Need to use custom sign-up method");
 
         // Call the sign-up API which also handles sending the email verification
+        //Llama a la API de registro que también gestiona el envío de la verificación por correo electrónico.
         const res = await CustomerServices.verifyEmailAddress({
           name,
           email,
           password,
+          location,
         });
 
         // console.log("res", res);
         notifySuccess(res.message);
+        router.push("/auth/signup-location"); //-------------------------------------------------> aqui direcciona a signup-location
         return setLoading(false);
       } else if (router.pathname === "/auth/forget-password") {
         // Call the forget password API for reset password
@@ -82,6 +86,7 @@ const useLoginSubmit = () => {
       }
     } catch (error) {
       // Catch any unexpected errors here (e.g., network issues, unexpected API failures)
+      // Detecte aquí cualquier error inesperado (por ejemplo, problemas de red, fallos inesperados de API)
       console.error(
         "Error in submitHandler:",
         error?.response?.data?.message || error?.message
