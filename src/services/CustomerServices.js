@@ -50,6 +50,13 @@ const CustomerServices = {
       shippingAddressData
     );
   },
+
+  getCustomerByEmail: async (email) => {
+  return requests.get(`/customer/email/${email}`);
+  },
+  updateLocation(data) {
+  return axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/customer/location`, data);
+  }
 };
 
 export default CustomerServices;

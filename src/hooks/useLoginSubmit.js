@@ -23,7 +23,7 @@ const useLoginSubmit = () => {
 
   // console.log("router", router.pathname === "/auth/signup");
 
-  const submitHandler = async ({ name, email, password, phone, location }) => {
+  const submitHandler = async ({ name, email, password, phone }) => {
 
     setLoading(true);
 
@@ -40,12 +40,12 @@ const useLoginSubmit = () => {
           name,
           email,
           password,
-          location,
+          
         });
 
         // console.log("res", res);
         notifySuccess(res.message);
-        router.push("/auth/signup-location"); //-------------------------------------------------> aqui direcciona a signup-location
+        
         return setLoading(false);
       } else if (router.pathname === "/auth/forget-password") {
         // Call the forget password API for reset password
@@ -62,6 +62,12 @@ const useLoginSubmit = () => {
         });
         notifySuccess(res.message);
         // console.log("sing up with phone", phone, "result", res);
+        return setLoading(false);
+      } else if (router.pathname === "/auth/signup-location") {
+        
+        const res = await CustomerServices.updateLocation({ location });
+        notifySuccess("Location registered!");
+        router.push("/user/dashboard");
         return setLoading(false);
       } else {
         // Login logic (no changes)
@@ -80,7 +86,17 @@ const useLoginSubmit = () => {
           setLoading(false);
         } else if (result?.ok) {
           const url = redirectUrl ? "/checkout" : result.url;
-          router.push(url);
+
+
+            const res = await fetch(`http://localhost:5055/api/customer/email/${email}`)
+
+            const user = await res.json();
+
+            if (!user.location) {
+              router.push("/auth/signup-location");
+            } else {
+              router.push("/user/dashboard");
+            }
           setLoading(false);
         }
       }
