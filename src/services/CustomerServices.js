@@ -54,8 +54,9 @@ const CustomerServices = {
   getCustomerByEmail: async (email) => {
   return requests.get(`/customer/email/${email}`);
   },
-  updateLocation(data) {
-  return axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/customer/location`, data);
+
+  updateLocation: async (data) => {
+  return requests.put("/customer/location", data);
   }
 };
 

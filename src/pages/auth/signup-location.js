@@ -36,8 +36,7 @@ const SignUpLocation = () => {
                       <label htmlFor="location" className="block text-sm font-semibold text-gray-700 mb-1">
                         Departamento
                       </label>
-                      <select
-                        {...register("location")}
+                      <select {...register("location", { required: true })}
                         name="location"
                         id="location"
                         className="w-full px-4 py-3 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"

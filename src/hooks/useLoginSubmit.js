@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { getSession } from "next-auth/react";
+
 
 //internal import
 
@@ -23,7 +25,9 @@ const useLoginSubmit = () => {
 
   // console.log("router", router.pathname === "/auth/signup");
 
-  const submitHandler = async ({ name, email, password, phone }) => {
+  const submitHandler = async (data) => {
+    const { name, email, password, phone, location } = data;
+
 
     setLoading(true);
 
@@ -63,9 +67,17 @@ const useLoginSubmit = () => {
         notifySuccess(res.message);
         // console.log("sing up with phone", phone, "result", res);
         return setLoading(false);
-      } else if (router.pathname === "/auth/signup-location") {
-        
-        const res = await CustomerServices.updateLocation({ location });
+      }else if (router.pathname === "/auth/signup-location") {
+        const session = await getSession();
+        const email = session?.user?.email;
+            
+        if (!email) {
+          throw new Error("No email found in session");
+        }
+      
+        const { location } = data;
+      
+        const res = await CustomerServices.updateLocation({ email, location });
         notifySuccess("Location registered!");
         router.push("/user/dashboard");
         return setLoading(false);
@@ -110,6 +122,7 @@ const useLoginSubmit = () => {
       setLoading(false);
       notifyError(error?.response?.data?.message || error?.message);
     }
+
   };
 
   return {
