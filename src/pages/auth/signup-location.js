@@ -1,15 +1,36 @@
 import Link from "next/link";
 import { FiLock, FiMail, FiUser } from "react-icons/fi";
+import axios from "axios";
 //internal import
 import Layout from "@layout/Layout";
 import Error from "@components/form/Error";
 import InputArea from "@components/form/InputArea";
 import useLoginSubmit from "@hooks/useLoginSubmit";
 import BottomNavigation from "@components/login/BottomNavigation";
+import { useEffect, useState } from "react";
+
 
 const SignUpLocation = () => {
   const { handleSubmit, submitHandler, register, errors, loading } =
     useLoginSubmit();
+
+    const [locations, setLocations] = useState([]);
+    const [loadingLocations, setLoadingLocations] = useState(true);
+
+    useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/available-locations`);
+        setLocations(data);
+      } catch (error) {
+        console.error("Error al obtener ubicaciones:", error);
+      } finally {
+        setLoadingLocations(false);
+      }
+    };
+
+    fetchLocations();
+  }, []);
 
   // console.log("errors", errors);
 
@@ -36,15 +57,18 @@ const SignUpLocation = () => {
                       <label htmlFor="location" className="block text-sm font-semibold text-gray-700 mb-1">
                         Departamento
                       </label>
-                      <select {...register("location", { required: true })}
+                      <select
+                        {...register("location", { required: true })}
                         name="location"
                         id="location"
                         className="w-full px-4 py-3 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       >
                         <option value="">Selecciona un departamento</option>
-                        <option value="Cochabamba">Cochabamba</option>
-                        <option value="Santa Cruz">Santa Cruz</option>
-                        <option value="La Paz">La Paz</option>
+                        {locations.map((loc) => (
+                          <option key={loc} value={loc}>
+                            {loc}
+                          </option>
+                        ))}
                       </select>
                       <Error errorName={errors.location} />
                     </div>
