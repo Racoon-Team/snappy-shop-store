@@ -50,6 +50,14 @@ const CustomerServices = {
       shippingAddressData
     );
   },
+
+  getCustomerByEmail: async (email) => {
+  return requests.get(`/customer/email/${email}`);
+  },
+
+  updateLocation: async (data) => {
+  return requests.put("/customer/location", data);
+  }
 };
 
 export default CustomerServices;
