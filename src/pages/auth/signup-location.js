@@ -75,18 +75,7 @@ const SignUpLocation = () => {
 
                     <div className="flex items-center justify-between">
                       <div className="flex ms-auto">
-                        {/* <Link
-                          href="/auth/phone-signup"
-                          className="text-end text-sm text-heading ps-3 underline hover:no-underline focus:outline-none"
-                        >
-                          Sign Up with Number?
-                        </Link> */}
-                        {/* <Link
-                          href="/auth/login"
-                          className="text-end text-sm text-heading ps-3 underline hover:no-underline focus:outline-none"
-                        >
-                          Already have account?
-                        </Link> */}
+                        
                       </div>
                     </div>
                     {loading ? (
@@ -123,12 +112,6 @@ const SignUpLocation = () => {
                     </Link>
                   </div>
                 </form>
-                {/* <BottomNavigation
-                  or={true}
-                  route={"/auth/signup"}
-                  pageName={"Sign Up"}
-                  loginTitle="Login"
-                /> */}
               </div>
             </div>
           </div>
