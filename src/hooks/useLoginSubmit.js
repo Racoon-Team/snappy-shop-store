@@ -38,7 +38,7 @@ const useLoginSubmit = () => {
         // Custom sign-up method
         // console.log("Need to use custom sign-up method");
 
-        // NOTE: Call the sign-up API which also handles sending the email verification
+        // NOTE:Call the sign-up API which also handles sending the email verification
         const res = await CustomerServices.verifyEmailAddress({
           name,
           email,
