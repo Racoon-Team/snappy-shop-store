@@ -21,7 +21,7 @@ export const setToken = (token) => {
 const responseBody = (response) => response.data;
 
 const requests = {
-  get: (url, body) => instance.get(url, body).then(responseBody),
+  get: (url, params) => instance.get(url, { params }).then(responseBody),
   post: (url, body, headers) =>
     instance.post(url, body, headers).then(responseBody),
   put: (url, body) => instance.put(url, body).then(responseBody),

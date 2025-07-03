@@ -38,8 +38,7 @@ const useLoginSubmit = () => {
         // Custom sign-up method
         // console.log("Need to use custom sign-up method");
 
-        // Call the sign-up API which also handles sending the email verification
-        //Llama a la API de registro que también gestiona el envío de la verificación por correo electrónico.
+        // NOTE: Call the sign-up API which also handles sending the email verification
         const res = await CustomerServices.verifyEmailAddress({
           name,
           email,
@@ -99,10 +98,7 @@ const useLoginSubmit = () => {
         } else if (result?.ok) {
           const url = redirectUrl ? "/checkout" : result.url;
 
-
-            const res = await fetch(`http://localhost:5055/api/customer/email/${email}`)
-
-            const user = await res.json();
+            const user = await CustomerServices.getCustomerByEmail(email);
 
             if (!user.location) {
               router.push("/auth/signup-location");
@@ -113,8 +109,7 @@ const useLoginSubmit = () => {
         }
       }
     } catch (error) {
-      // Catch any unexpected errors here (e.g., network issues, unexpected API failures)
-      // Detecte aquí cualquier error inesperado (por ejemplo, problemas de red, fallos inesperados de API)
+      // NOTE:Catch any unexpected errors here (e.g., network issues, unexpected API failures)
       console.error(
         "Error in submitHandler:",
         error?.response?.data?.message || error?.message
