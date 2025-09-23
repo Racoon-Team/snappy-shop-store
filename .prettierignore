@@ -1,0 +1,9 @@
+# Ignore artifacts:
+/build
+/coverage
+/public
+
+*.config.js
+*.md
+.gitlab-ci.yml
+.eslintrc.js

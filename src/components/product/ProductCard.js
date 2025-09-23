@@ -1,21 +1,21 @@
-import dynamic from "next/dynamic";
-import Image from "next/image";
-import { useState } from "react";
-import { IoAdd, IoBagAddSharp, IoRemove } from "react-icons/io5";
-import { useCart } from "react-use-cart";
-
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import { useState } from 'react';
+import { IoAdd, IoBagAddSharp, IoRemove } from 'react-icons/io5';
+import { useCart } from 'react-use-cart';
+import { useTranslation } from 'react-i18next';
 //internal import
 
-import Price from "@components/common/Price";
-import Stock from "@components/common/Stock";
-import { notifyError } from "@utils/toast";
-import useAddToCart from "@hooks/useAddToCart";
-import useGetSetting from "@hooks/useGetSetting";
-import Discount from "@components/common/Discount";
-import useUtilsFunction from "@hooks/useUtilsFunction";
-import ProductModal from "@components/modal/ProductModal";
-import ImageWithFallback from "@components/common/ImageWithFallBack";
-import { handleLogEvent } from "src/lib/analytics";
+import Price from '@components/common/Price';
+import Stock from '@components/common/Stock';
+import { notifyError } from '@utils/toast';
+import useAddToCart from '@hooks/useAddToCart';
+import useGetSetting from '@hooks/useGetSetting';
+import Discount from '@components/common/Discount';
+import useUtilsFunction from '@hooks/useUtilsFunction';
+import ProductModal from '@components/modal/ProductModal';
+import ImageWithFallback from '@components/common/ImageWithFallBack';
+import { handleLogEvent } from 'src/lib/analytics';
 
 const ProductCard = ({ product, attributes }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -24,20 +24,19 @@ const ProductCard = ({ product, attributes }) => {
   const { handleIncreaseQuantity } = useAddToCart();
   const { globalSetting } = useGetSetting();
   const { showingTranslateValue } = useUtilsFunction();
-
-  const currency = globalSetting?.default_currency || "$";
+  const { t } = useTranslation();
+  const currency = globalSetting?.default_currency || '$';
 
   // console.log('attributes in product cart',attributes)
 
   const handleAddItem = (p) => {
-    if (p.stock < 1) return notifyError("Insufficient stock!");
+    if (p.stock < 1) return notifyError(t('homeScreen.notificationOfInsufficient'));
 
     if (p?.variants?.length > 0) {
       setModalOpen(!modalOpen);
       return;
     }
-    const { slug, variants, categories, description, ...updatedProduct } =
-      product;
+    const { slug, variants, categories, description, ...updatedProduct } = product;
     const newItem = {
       ...updatedProduct,
       title: showingTranslateValue(p?.title),
@@ -73,10 +72,7 @@ const ProductCard = ({ product, attributes }) => {
         <div
           onClick={() => {
             handleModalOpen(!modalOpen, product._id);
-            handleLogEvent(
-              "product",
-              `opened ${showingTranslateValue(product?.title)} product modal`
-            );
+            handleLogEvent('product', `opened ${showingTranslateValue(product?.title)} product modal`);
           }}
           className="relative flex justify-center cursor-pointer pt-2 w-full h-44"
         >
@@ -88,7 +84,7 @@ const ProductCard = ({ product, attributes }) => {
                 src="https://res.cloudinary.com/ahossain/image/upload/v1655097002/placeholder_kvepfp.png"
                 fill
                 style={{
-                  objectFit: "contain",
+                  objectFit: 'contain',
                 }}
                 sizes="100%"
                 alt="product"
@@ -99,13 +95,9 @@ const ProductCard = ({ product, attributes }) => {
         </div>
         <div className="w-full px-3 lg:px-4 pb-4 overflow-hidden">
           <div className="relative mb-1">
-            <span className="text-gray-400 font-medium text-xs d-block mb-1">
-              {product.unit}
-            </span>
+            <span className="text-gray-400 font-medium text-xs d-block mb-1">{product.unit}</span>
             <h2 className="text-heading truncate mb-0 block text-sm font-medium text-gray-600">
-              <span className="line-clamp-2">
-                {showingTranslateValue(product?.title)}
-              </span>
+              <span className="line-clamp-2">{showingTranslateValue(product?.title)}</span>
             </h2>
           </div>
 
@@ -114,15 +106,9 @@ const ProductCard = ({ product, attributes }) => {
               card
               product={product}
               currency={currency}
-              price={
-                product?.isCombination
-                  ? product?.variants[0]?.price
-                  : product?.prices?.price
-              }
+              price={product?.isCombination ? product?.variants[0]?.price : product?.prices?.price}
               originalPrice={
-                product?.isCombination
-                  ? product?.variants[0]?.originalPrice
-                  : product?.prices?.originalPrice
+                product?.isCombination ? product?.variants[0]?.originalPrice : product?.prices?.originalPrice
               }
             />
 
@@ -135,23 +121,15 @@ const ProductCard = ({ product, attributes }) => {
                         key={item.id}
                         className="h-9 w-auto flex flex-wrap items-center justify-evenly py-1 px-2 bg-emerald-500 text-white rounded"
                       >
-                        <button
-                          onClick={() =>
-                            updateItemQuantity(item.id, item.quantity - 1)
-                          }
-                        >
+                        <button onClick={() => updateItemQuantity(item.id, item.quantity - 1)}>
                           <span className="text-dark text-base">
                             <IoRemove />
                           </span>
                         </button>
-                        <p className="text-sm text-dark px-1 font-serif font-semibold">
-                          {item.quantity}
-                        </p>
+                        <p className="text-sm text-dark px-1 font-serif font-semibold">{item.quantity}</p>
                         <button
                           onClick={() =>
-                            item?.variants?.length > 0
-                              ? handleAddItem(item)
-                              : handleIncreaseQuantity(item)
+                            item?.variants?.length > 0 ? handleAddItem(item) : handleIncreaseQuantity(item)
                           }
                         >
                           <span className="text-dark text-base">
@@ -160,7 +138,7 @@ const ProductCard = ({ product, attributes }) => {
                         </button>
                       </div>
                     )
-                )}{" "}
+                )}{' '}
               </div>
             ) : (
               <button
@@ -168,10 +146,10 @@ const ProductCard = ({ product, attributes }) => {
                 aria-label="cart"
                 className="h-9 w-9 flex items-center justify-center border border-gray-200 rounded text-emerald-500 hover:border-emerald-500 hover:bg-emerald-500 hover:text-white transition-all"
               >
-                {" "}
+                {' '}
                 <span className="text-xl">
                   <IoBagAddSharp />
-                </span>{" "}
+                </span>{' '}
               </button>
             )}
           </div>

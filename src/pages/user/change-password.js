@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 //internal import
-import { getUserSession } from "@lib/auth";
-import Error from "@components/form/Error";
-import Dashboard from "@pages/user/dashboard";
-import InputArea from "@components/form/InputArea";
-import useGetSetting from "@hooks/useGetSetting";
-import CustomerServices from "@services/CustomerServices";
-import { notifyError, notifySuccess } from "@utils/toast";
-import useUtilsFunction from "@hooks/useUtilsFunction";
+import { getUserSession } from '@lib/auth';
+import Error from '@components/form/Error';
+import Dashboard from '@pages/user/dashboard';
+import InputArea from '@components/form/InputArea';
+import useGetSetting from '@hooks/useGetSetting';
+import CustomerServices from '@services/CustomerServices';
+import { notifyError, notifySuccess } from '@utils/toast';
+import useUtilsFunction from '@hooks/useUtilsFunction';
 
 const ChangePassword = () => {
   const {
@@ -19,7 +19,7 @@ const ChangePassword = () => {
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
-
+  const { t } = useTranslation();
   const { storeCustomizationSetting } = useGetSetting();
   const { showingTranslateValue } = useUtilsFunction();
   const userInfo = getUserSession();
@@ -38,25 +38,21 @@ const ChangePassword = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      notifyError(error ? error.response.data.message : error.message);
+      notifyError(error ? t('changePasswordScreen.passwordChangeNotification') : error.message);
     }
   };
 
   useEffect(() => {
-    setValue("email", userInfo?.email);
+    setValue('email', userInfo?.email);
   }, []);
 
   return (
     <Dashboard
-      title={showingTranslateValue(
-        storeCustomizationSetting?.dashboard?.change_password
-      )}
+      title={showingTranslateValue(storeCustomizationSetting?.dashboard?.change_password)}
       description="This is change-password page"
     >
       <h2 className="text-xl font-serif font-semibold mb-5">
-        {showingTranslateValue(
-          storeCustomizationSetting?.dashboard?.change_password
-        )}
+        {showingTranslateValue(storeCustomizationSetting?.dashboard?.change_password)}
       </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="md:grid-cols-6 md:gap-6">
@@ -66,15 +62,11 @@ const ChangePassword = () => {
                 <div className="col-span-6 sm:col-span-6">
                   <InputArea
                     register={register}
-                    label={showingTranslateValue(
-                      storeCustomizationSetting?.dashboard?.user_email
-                    )}
+                    label={showingTranslateValue(storeCustomizationSetting?.dashboard?.user_email)}
                     name="email"
                     type="email"
                     autocomplete="username"
-                    placeholder={showingTranslateValue(
-                      storeCustomizationSetting?.dashboard?.user_email
-                    )}
+                    placeholder={showingTranslateValue(storeCustomizationSetting?.dashboard?.user_email)}
                     readOnly={true}
                   />
                   <Error errorName={errors.email} />
@@ -82,39 +74,29 @@ const ChangePassword = () => {
                 <div className="col-span-6 sm:col-span-6">
                   <InputArea
                     register={register}
-                    label={showingTranslateValue(
-                      storeCustomizationSetting?.dashboard?.current_password
-                    )}
+                    label={showingTranslateValue(storeCustomizationSetting?.dashboard?.current_password)}
                     name="currentPassword"
                     type="password"
                     autocomplete="new-password"
-                    placeholder={showingTranslateValue(
-                      storeCustomizationSetting?.dashboard?.current_password
-                    )}
+                    placeholder={showingTranslateValue(storeCustomizationSetting?.dashboard?.current_password)}
                   />
                   <Error errorName={errors.currentPassword} />
                 </div>
                 <div className="col-span-6 sm:col-span-6">
                   <InputArea
                     register={register}
-                    label={showingTranslateValue(
-                      storeCustomizationSetting?.dashboard?.new_password
-                    )}
+                    label={showingTranslateValue(storeCustomizationSetting?.dashboard?.new_password)}
                     name="newPassword"
                     type="password"
                     autocomplete="new-password"
-                    placeholder={showingTranslateValue(
-                      storeCustomizationSetting?.dashboard?.new_password
-                    )}
-                    pattern={
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/
-                    }
+                    placeholder={showingTranslateValue(storeCustomizationSetting?.dashboard?.new_password)}
+                    pattern={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/}
                     patternMessage={[
-                      "1. Password must be at least 8 characters long.",
-                      "2. Password must contain at least one uppercase letter.",
-                      "3. Password must contain at least one lowercase letter.",
-                      "4. Password must contain at least one number.",
-                      "5. Password must contain at least one special character.",
+                      t('changePasswordScreen.passwordValidation'),
+                      t('changePasswordScreen.uppercaseValidation'),
+                      t('changePasswordScreen.lowercaseValidation'),
+                      t('changePasswordScreen.numberValidation'),
+                      t('changePasswordScreen.specialValidation'),
                     ]}
                   />
                   <Error errorName={errors.newPassword} />
@@ -130,12 +112,7 @@ const ChangePassword = () => {
               type="submit"
               className="md:text-sm leading-5 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-medium text-center justify-center border-0 border-transparent rounded-md placeholder-white focus-visible:outline-none focus:outline-none bg-emerald-500 text-white px-5 md:px-6 lg:px-8 py-2 md:py-3 lg:py-3 hover:text-white hover:bg-emerald-600 h-12 mt-1 text-sm lg:text-sm w-full sm:w-auto"
             >
-              <img
-                src="/loader/spinner.gif"
-                alt="Loading"
-                width={20}
-                height={10}
-              />
+              <img src="/loader/spinner.gif" alt="Loading" width={20} height={10} />
               <span className="font-serif ml-2 font-light">Processing</span>
             </button>
           ) : (
@@ -143,9 +120,7 @@ const ChangePassword = () => {
               type="submit"
               className="md:text-sm leading-5 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-medium text-center justify-center border-0 border-transparent rounded-md placeholder-white focus-visible:outline-none focus:outline-none bg-emerald-500 text-white px-5 md:px-6 lg:px-8 py-2 md:py-3 lg:py-3 hover:text-white hover:bg-emerald-600 h-12 mt-1 text-sm lg:text-sm w-full sm:w-auto"
             >
-              {showingTranslateValue(
-                storeCustomizationSetting?.dashboard?.change_password
-              )}
+              {showingTranslateValue(storeCustomizationSetting?.dashboard?.change_password)}
             </button>
           )}
         </div>

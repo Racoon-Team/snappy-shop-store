@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useDropzone } from "react-dropzone";
-import { FiUploadCloud } from "react-icons/fi";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useDropzone } from 'react-dropzone';
+import { FiUploadCloud } from 'react-icons/fi';
+import { useTranslation } from 'react-i18next';
 
 const Uploader = ({ setImageUrl, imageUrl }) => {
+  const { t } = useTranslation();
   const [files, setFiles] = useState([]);
   const uploadUrl = process.env.NEXT_PUBLIC_CLOUDINARY_URL;
-  const upload_Preset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+  const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
-      "image/jpeg": [".jpeg"],
-      "image/png": [".png"],
-      "image/webp": [".webp"],
+      'image/jpeg': ['.jpeg'],
+      'image/png': ['.png'],
+      'image/webp': ['.webp'],
     },
     multiple: false,
-    maxSize: 100000, //the size of image,
+    maxSize: 5 * 1024 * 1024,
     onDrop: (acceptedFiles) => {
       setFiles(
         acceptedFiles.map((file) =>
@@ -30,43 +32,33 @@ const Uploader = ({ setImageUrl, imageUrl }) => {
   const thumbs = files.map((file) => (
     <div key={file.name}>
       <div>
-        <img
-          className="inline-flex border-2 border-gray-100 w-24 max-h-24"
-          src={file.preview}
-          alt={file.name}
-        />
+        <img className="inline-flex border-2 border-gray-100 w-24 max-h-24" src={file.preview} alt={file.name} />
       </div>
     </div>
   ));
 
   useEffect(() => {
-    const uploadURL = uploadUrl;
-    const uploadPreset = upload_Preset;
-    if (files) {
+    if (files.length > 0) {
       files.forEach((file) => {
         const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", uploadPreset);
-        axios({
-          url: uploadURL,
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          data: formData,
-        })
+        formData.append('file', file);
+        formData.append('upload_preset', uploadPreset);
+
+        axios
+          .post(uploadUrl, formData)
           .then((res) => {
+            console.log('Respuesta Cloudinary:', res.data);
             setImageUrl(res.data.secure_url);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            console.error('Error al subir imagen:', err.response?.data || err.message);
+          });
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [files]);
+  }, [files, uploadUrl, uploadPreset, setImageUrl]);
 
   useEffect(
     () => () => {
-      // Make sure to revoke the data uris to avoid memory leaks
       files.forEach((file) => URL.revokeObjectURL(file.preview));
     },
     [files]
@@ -82,10 +74,8 @@ const Uploader = ({ setImageUrl, imageUrl }) => {
         <span className="mx-auto flex justify-center">
           <FiUploadCloud className="text-3xl text-emerald-500" />
         </span>
-        <p className="text-sm mt-2">Drag your image here</p>
-        <em className="text-xs text-gray-400">
-          (Only *.jpeg and *.png images will be accepted)
-        </em>
+        <p className="text-sm mt-2">{t('common.imgUploader.description')}</p>
+        <em className="text-xs text-gray-400">({t('common.imgUploader.format')})</em>
       </div>
       <aside className="flex flex-row flex-wrap mt-4">
         {imageUrl ? (

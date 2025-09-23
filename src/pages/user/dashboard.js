@@ -1,9 +1,9 @@
-import Cookies from "js-cookie";
-import dynamic from "next/dynamic";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
-import { IoLockOpenOutline } from "react-icons/io5";
+import Cookies from 'js-cookie';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useContext, useEffect, useState } from 'react';
+import { IoLockOpenOutline } from 'react-icons/io5';
 import {
   FiCheck,
   FiFileText,
@@ -14,21 +14,26 @@ import {
   FiShoppingCart,
   FiTruck,
   FiUser,
-} from "react-icons/fi";
-import { signOut } from "next-auth/react";
-import { useQuery } from "@tanstack/react-query";
+} from 'react-icons/fi';
+import { signOut } from 'next-auth/react';
+import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 //internal import
-import Layout from "@layout/Layout";
-import Card from "@components/order-card/Card";
-import OrderServices from "@services/OrderServices";
-import RecentOrder from "@pages/user/recent-order";
-import { SidebarContext } from "@context/SidebarContext";
-import Loading from "@components/preloader/Loading";
-import useGetSetting from "@hooks/useGetSetting";
-import useUtilsFunction from "@hooks/useUtilsFunction";
+import Layout from '@layout/Layout';
+import Card from '@components/order-card/Card';
+import OrderServices from '@services/OrderServices';
+import RecentOrder from '@pages/user/recent-order';
+import { SidebarContext } from '@context/SidebarContext';
+import Loading from '@components/preloader/Loading';
+import useGetSetting from '@hooks/useGetSetting';
+import useUtilsFunction from '@hooks/useUtilsFunction';
+import { useDispatch } from 'react-redux';
+import { resetPreferences } from '@redux/slice/preferencesSlice';
 
 const Dashboard = ({ title, description, children }) => {
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
   const router = useRouter();
   const { isLoading, setIsLoading, currentPage } = useContext(SidebarContext);
 
@@ -40,7 +45,7 @@ const Dashboard = ({ title, description, children }) => {
     error,
     isLoading: loading,
   } = useQuery({
-    queryKey: ["orders", { currentPage }],
+    queryKey: ['orders', { currentPage }],
     queryFn: async () =>
       await OrderServices.getOrderCustomer({
         page: currentPage,
@@ -50,8 +55,9 @@ const Dashboard = ({ title, description, children }) => {
 
   const handleLogOut = () => {
     signOut();
-    Cookies.remove("couponInfo");
-    router.push("/");
+    Cookies.remove('couponInfo');
+    dispatch(resetPreferences());
+    router.push('/');
   };
 
   useEffect(() => {
@@ -60,38 +66,30 @@ const Dashboard = ({ title, description, children }) => {
 
   const userSidebar = [
     {
-      title: showingTranslateValue(
-        storeCustomizationSetting?.dashboard?.dashboard_title
-      ),
-      href: "/user/dashboard",
+      title: showingTranslateValue(storeCustomizationSetting?.dashboard?.dashboard_title),
+      href: '/user/dashboard',
       icon: FiGrid,
     },
 
     {
-      title: showingTranslateValue(
-        storeCustomizationSetting?.dashboard?.my_order
-      ),
-      href: "/user/my-orders",
+      title: showingTranslateValue(storeCustomizationSetting?.dashboard?.my_order),
+      href: '/user/my-orders',
       icon: FiList,
     },
     {
-      title: "My Account",
-      href: "/user/my-account",
+      title: t('myAccount.label'),
+      href: '/user/my-account',
       icon: FiUser,
     },
 
     {
-      title: showingTranslateValue(
-        storeCustomizationSetting?.dashboard?.update_profile
-      ),
-      href: "/user/update-profile",
+      title: showingTranslateValue(storeCustomizationSetting?.dashboard?.update_profile),
+      href: '/user/update-profile',
       icon: FiSettings,
     },
     {
-      title: showingTranslateValue(
-        storeCustomizationSetting?.dashboard?.change_password
-      ),
-      href: "/user/change-password",
+      title: showingTranslateValue(storeCustomizationSetting?.dashboard?.change_password),
+      href: '/user/change-password',
       icon: FiFileText,
     },
   ];
@@ -101,10 +99,7 @@ const Dashboard = ({ title, description, children }) => {
       {isLoading ? (
         <Loading loading={isLoading} />
       ) : (
-        <Layout
-          title={title ? title : "Dashboard"}
-          description={description ? description : "This is User Dashboard"}
-        >
+        <Layout title={title ? title : 'Dashboard'} description={description ? description : 'This is User Dashboard'}>
           <div className="mx-auto max-w-screen-2xl px-3 sm:px-10">
             <div className="py-10 lg:py-12 flex flex-col lg:flex-row w-full">
               <div className="flex-shrink-0 w-full lg:w-80 mr-7 lg:mr-10  xl:mr-10 ">
@@ -114,10 +109,7 @@ const Dashboard = ({ title, description, children }) => {
                       key={item.title}
                       className="p-2 my-2 flex font-serif items-center rounded-md hover:bg-gray-50 w-full hover:text-emerald-600"
                     >
-                      <item.icon
-                        className="flex-shrink-0 h-4 w-4"
-                        aria-hidden="true"
-                      />
+                      <item.icon className="flex-shrink-0 h-4 w-4" aria-hidden="true" />
                       <Link
                         href={item.href}
                         className="inline-flex items-center justify-between ml-2 text-sm font-medium w-full hover:text-emerald-600"
@@ -129,14 +121,12 @@ const Dashboard = ({ title, description, children }) => {
                   <span className="p-2 flex font-serif items-center rounded-md hover:bg-gray-50 w-full hover:text-emerald-600">
                     <span className="mr-2">
                       <IoLockOpenOutline />
-                    </span>{" "}
+                    </span>{' '}
                     <button
                       onClick={handleLogOut}
                       className="inline-flex items-center justify-between text-sm font-medium w-full hover:text-emerald-600"
                     >
-                      {showingTranslateValue(
-                        storeCustomizationSetting?.navbar?.logout
-                      )}
+                      {showingTranslateValue(storeCustomizationSetting?.navbar?.logout)}
                     </button>
                   </span>
                 </div>
@@ -145,39 +135,29 @@ const Dashboard = ({ title, description, children }) => {
                 {!children && (
                   <div className="overflow-hidden">
                     <h2 className="text-xl font-serif font-semibold mb-5">
-                      {showingTranslateValue(
-                        storeCustomizationSetting?.dashboard?.dashboard_title
-                      )}
+                      {showingTranslateValue(storeCustomizationSetting?.dashboard?.dashboard_title)}
                     </h2>
                     <div className="grid gap-4 mb-8 md:grid-cols-2 xl:grid-cols-4">
                       <Card
-                        title={showingTranslateValue(
-                          storeCustomizationSetting?.dashboard?.total_order
-                        )}
+                        title={showingTranslateValue(storeCustomizationSetting?.dashboard?.total_order)}
                         Icon={FiShoppingCart}
                         quantity={data?.totalDoc}
                         className="text-red-600  bg-red-200"
                       />
                       <Card
-                        title={showingTranslateValue(
-                          storeCustomizationSetting?.dashboard?.pending_order
-                        )}
+                        title={showingTranslateValue(storeCustomizationSetting?.dashboard?.pending_order)}
                         Icon={FiRefreshCw}
                         quantity={data?.pending}
                         className="text-orange-600 bg-orange-200"
                       />
                       <Card
-                        title={showingTranslateValue(
-                          storeCustomizationSetting?.dashboard?.processing_order
-                        )}
+                        title={showingTranslateValue(storeCustomizationSetting?.dashboard?.processing_order)}
                         Icon={FiTruck}
                         quantity={data?.processing}
                         className="text-indigo-600 bg-indigo-200"
                       />
                       <Card
-                        title={showingTranslateValue(
-                          storeCustomizationSetting?.dashboard?.complete_order
-                        )}
+                        title={showingTranslateValue(storeCustomizationSetting?.dashboard?.complete_order)}
                         Icon={FiCheck}
                         quantity={data?.delivered}
                         className="text-emerald-600 bg-emerald-200"

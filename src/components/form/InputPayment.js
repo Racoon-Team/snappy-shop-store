@@ -9,9 +9,7 @@ const InputPayment = ({ register, Icon, name, value, setShowCard }) => {
             <span className="text-xl mr-3 text-gray-400">
               <Icon />
             </span>
-            <h6 className="font-serif font-medium text-sm text-gray-600">
-              {name}
-            </h6>
+            <h6 className="font-serif font-medium text-sm text-gray-600">{name}</h6>
           </div>
           <input
             onClick={() => setShowCard(value === 'Card' ? true : false)}

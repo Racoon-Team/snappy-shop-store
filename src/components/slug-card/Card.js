@@ -1,17 +1,9 @@
-import React from "react";
-import {
-  FiDollarSign,
-  FiHome,
-  FiMapPin,
-  FiRepeat,
-  FiShieldOff,
-  FiSun,
-  FiTruck,
-} from "react-icons/fi";
+import React from 'react';
+import { FiDollarSign, FiHome, FiMapPin, FiRepeat, FiShieldOff, FiSun, FiTruck } from 'react-icons/fi';
 
 //internal import
-import useGetSetting from "@hooks/useGetSetting";
-import useUtilsFunction from "@hooks/useUtilsFunction";
+import useGetSetting from '@hooks/useGetSetting';
+import useUtilsFunction from '@hooks/useUtilsFunction';
 
 const Card = () => {
   const { storeCustomizationSetting } = useGetSetting();
@@ -24,9 +16,7 @@ const Card = () => {
           <FiTruck />
         </span>
         <p className="font-sans leading-5 text-sm text-gray-500">
-          {showingTranslateValue(
-            storeCustomizationSetting?.slug?.card_description_one
-          )}
+          {showingTranslateValue(storeCustomizationSetting?.slug?.card_description_one)}
         </p>
       </li>
       <li className="flex items-center py-3">
@@ -34,9 +24,7 @@ const Card = () => {
           <FiHome />
         </span>
         <p className="font-sans leading-5 text-sm text-gray-500">
-          {showingTranslateValue(
-            storeCustomizationSetting?.slug?.card_description_two
-          )}
+          {showingTranslateValue(storeCustomizationSetting?.slug?.card_description_two)}
         </p>
       </li>
       <li className="flex items-center py-3">
@@ -44,9 +32,7 @@ const Card = () => {
           <FiDollarSign />
         </span>
         <p className="font-sans leading-5 text-sm text-gray-500">
-          {showingTranslateValue(
-            storeCustomizationSetting?.slug?.card_description_three
-          )}
+          {showingTranslateValue(storeCustomizationSetting?.slug?.card_description_three)}
         </p>
       </li>
       <li className="flex items-center py-3">
@@ -54,9 +40,7 @@ const Card = () => {
           <FiRepeat />
         </span>
         <p className="font-sans leading-5 text-sm text-gray-500">
-          {showingTranslateValue(
-            storeCustomizationSetting?.slug?.card_description_four
-          )}
+          {showingTranslateValue(storeCustomizationSetting?.slug?.card_description_four)}
         </p>
       </li>
 
@@ -65,9 +49,7 @@ const Card = () => {
           <FiShieldOff />
         </span>
         <p className="font-sans leading-5 text-sm text-gray-500">
-          {showingTranslateValue(
-            storeCustomizationSetting?.slug?.card_description_five
-          )}
+          {showingTranslateValue(storeCustomizationSetting?.slug?.card_description_five)}
         </p>
       </li>
       <li className="flex items-center py-3">
@@ -75,9 +57,7 @@ const Card = () => {
           <FiSun />
         </span>
         <p className="font-sans leading-5 text-sm text-gray-500">
-          {showingTranslateValue(
-            storeCustomizationSetting?.slug?.card_description_six
-          )}
+          {showingTranslateValue(storeCustomizationSetting?.slug?.card_description_six)}
         </p>
       </li>
 
@@ -86,9 +66,7 @@ const Card = () => {
           <FiMapPin />
         </span>
         <p className="font-sans leading-5 text-sm text-gray-500">
-          {showingTranslateValue(
-            storeCustomizationSetting?.slug?.card_description_seven
-          )}
+          {showingTranslateValue(storeCustomizationSetting?.slug?.card_description_seven)}
         </p>
       </li>
     </ul>

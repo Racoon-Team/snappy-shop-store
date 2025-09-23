@@ -1,15 +1,15 @@
-import requests from "./httpServices";
+import requests from './httpServices';
 
 const CustomerServices = {
   loginCustomer: async (body) => {
-    return requests.post("/customer/login", body);
+    return requests.post('/customer/login', body);
   },
 
   verifyEmailAddress: async (body) => {
-    return requests.post("/customer/verify-email", body);
+    return requests.post('/customer/verify-email', body);
   },
   verifyPhoneNumber: async (body) => {
-    return requests.post("/customer/verify-phone", body);
+    return requests.post('/customer/verify-phone', body);
   },
 
   registerCustomer: async (token, body) => {
@@ -25,39 +25,44 @@ const CustomerServices = {
   },
 
   forgetPassword: async (body) => {
-    return requests.put("/customer/forget-password", body);
+    return requests.put('/customer/forget-password', body);
   },
 
   resetPassword: async (body) => {
-    return requests.put("/customer/reset-password", body);
+    return requests.put('/customer/reset-password', body);
   },
 
   changePassword: async (body) => {
-    return requests.post("/customer/change-password", body);
+    return requests.post('/customer/change-password', body);
   },
 
   updateCustomer: async (id, body) => {
     return requests.put(`/customer/${id}`, body);
   },
 
-  getShippingAddress: async ({ userId = "" }) => {
+  getShippingAddress: async ({ userId = '' }) => {
     return requests.get(`/customer/shipping/address/${userId}`);
   },
 
-  addShippingAddress: async ({ userId = "", shippingAddressData }) => {
-    return requests.post(
-      `customer/shipping/address/${userId}`,
-      shippingAddressData
-    );
+  addShippingAddress: async ({ userId = '', shippingAddressData }) => {
+    return requests.post(`customer/shipping/address/${userId}`, shippingAddressData);
   },
 
   getCustomerByEmail: async (email) => {
-  return requests.get(`/customer/email/${email}`);
+    return requests.get(`/customer/email/${email}`);
   },
 
   updateLocation: async (data) => {
-  return requests.put("/customer/location", data);
-  }
+    return requests.put('/customer/location', data);
+  },
+
+  updateCustomerPreferences: async (data) => {
+    return requests.put('/customer/preferences', data);
+  },
+
+  getCustomerById: async (id) => {
+    return requests.get(`/customer/${id}`);
+  },
 };
 
 export default CustomerServices;

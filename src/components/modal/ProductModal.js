@@ -1,42 +1,35 @@
-import useTranslation from "next-translate/useTranslation";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
-import { FiMinus, FiPlus } from "react-icons/fi";
+import { useTranslation } from 'react-i18next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useContext, useEffect, useState } from 'react';
+import { FiMinus, FiPlus } from 'react-icons/fi';
 
 //internal import
-import Price from "@components/common/Price";
-import Stock from "@components/common/Stock";
-import Tags from "@components/common/Tags";
-import { notifyError } from "@utils/toast";
-import useAddToCart from "@hooks/useAddToCart";
-import MainModal from "@components/modal/MainModal";
-import Discount from "@components/common/Discount";
-import VariantList from "@components/variants/VariantList";
-import { SidebarContext } from "@context/SidebarContext";
-import useUtilsFunction from "@hooks/useUtilsFunction";
-import { handleLogEvent } from "src/lib/analytics";
+import Discount from '@components/common/Discount';
+import Price from '@components/common/Price';
+import Stock from '@components/common/Stock';
+import Tags from '@components/common/Tags';
+import MainModal from '@components/modal/MainModal';
+import VariantList from '@components/variants/VariantList';
+import { SidebarContext } from '@context/SidebarContext';
+import useAddToCart from '@hooks/useAddToCart';
+import useUtilsFunction from '@hooks/useUtilsFunction';
+import { notifyError } from '@utils/toast';
+import { handleLogEvent } from 'src/lib/analytics';
 
-const ProductModal = ({
-  modalOpen,
-  setModalOpen,
-  product,
-  attributes,
-  currency,
-}) => {
+const ProductModal = ({ modalOpen, setModalOpen, product, attributes, currency }) => {
   const router = useRouter();
   const { setIsLoading, isLoading } = useContext(SidebarContext);
-  const { t } = useTranslation("ns1");
+  const { t } = useTranslation();
 
   const { handleAddItem, setItem, item } = useAddToCart();
-  const { lang, showingTranslateValue, getNumber, getNumberTwo } =
-    useUtilsFunction();
+  const { lang, showingTranslateValue, getNumber, getNumberTwo } = useUtilsFunction();
 
   // react hook
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
   const [price, setPrice] = useState(0);
-  const [img, setImg] = useState("");
+  const [img, setImg] = useState('');
   const [originalPrice, setOriginalPrice] = useState(0);
   const [stock, setStock] = useState(0);
   const [discount, setDiscount] = useState(0);
@@ -53,34 +46,16 @@ const ProductModal = ({
       );
 
       const res = result?.map(
-        ({
-          originalPrice,
-          price,
-          discount,
-          quantity,
-          barcode,
-          sku,
-          productId,
-          image,
-          ...rest
-        }) => ({
+        ({ originalPrice, price, discount, quantity, barcode, sku, productId, image, ...rest }) => ({
           ...rest,
         })
       );
 
       const filterKey = Object.keys(Object.assign({}, ...res));
-      const selectVar = filterKey?.reduce(
-        (obj, key) => ({ ...obj, [key]: selectVariant[key] }),
-        {}
-      );
-      const newObj = Object.entries(selectVar).reduce(
-        (a, [k, v]) => (v ? ((a[k] = v), a) : a),
-        {}
-      );
+      const selectVar = filterKey?.reduce((obj, key) => ({ ...obj, [key]: selectVariant[key] }), {});
+      const newObj = Object.entries(selectVar).reduce((a, [k, v]) => (v ? ((a[k] = v), a) : a), {});
 
-      const result2 = result?.find((v) =>
-        Object.keys(newObj).every((k) => newObj[k] === v[k])
-      );
+      const result2 = result?.find((v) => Object.keys(newObj).every((k) => newObj[k] === v[k]));
 
       // console.log("result2", result2);
 
@@ -93,9 +68,7 @@ const ProductModal = ({
       setStock(result2?.quantity);
       const price = getNumber(result2?.price);
       const originalPrice = getNumber(result2?.originalPrice);
-      const discountPercentage = getNumber(
-        ((originalPrice - price) / originalPrice) * 100
-      );
+      const discountPercentage = getNumber(((originalPrice - price) / originalPrice) * 100);
       setDiscount(getNumber(discountPercentage));
       setPrice(price);
       setOriginalPrice(originalPrice);
@@ -111,9 +84,7 @@ const ProductModal = ({
       setImg(product.variants[0]?.image);
       const price = getNumber(product.variants[0]?.price);
       const originalPrice = getNumber(product.variants[0]?.originalPrice);
-      const discountPercentage = getNumber(
-        ((originalPrice - price) / originalPrice) * 100
-      );
+      const discountPercentage = getNumber(((originalPrice - price) / originalPrice) * 100);
       setDiscount(getNumber(discountPercentage));
       setPrice(price);
       setOriginalPrice(originalPrice);
@@ -122,9 +93,7 @@ const ProductModal = ({
       setImg(product?.image[0]);
       const price = getNumber(product?.prices?.price);
       const originalPrice = getNumber(product?.prices?.originalPrice);
-      const discountPercentage = getNumber(
-        ((originalPrice - price) / originalPrice) * 100
-      );
+      const discountPercentage = getNumber(((originalPrice - price) / originalPrice) * 100);
       setDiscount(getNumber(discountPercentage));
       setPrice(price);
       setOriginalPrice(originalPrice);
@@ -142,7 +111,7 @@ const ProductModal = ({
   // console.log("product", product);
 
   useEffect(() => {
-    const res = Object.keys(Object.assign({}, ...product?.variants));
+    const res = Object.keys(Object.assign({}, ...(product?.variants || [])));
 
     const varTitle = attributes?.filter((att) => res.includes(att?._id));
 
@@ -151,55 +120,41 @@ const ProductModal = ({
 
   const handleAddToCart = (p) => {
     if (p.variants.length === 1 && p.variants[0].quantity < 1)
-      return notifyError("Insufficient stock");
+      return notifyError(t('homeScreen.notificationOfInsufficient'));
 
-    if (stock <= 0) return notifyError("Insufficient stock");
+    if (stock <= 0) return notifyError(t('homeScreen.notificationOfInsufficient'));
 
     if (
       product?.variants.map(
-        (variant) =>
-          Object.entries(variant).sort().toString() ===
-          Object.entries(selectVariant).sort().toString()
+        (variant) => Object.entries(variant).sort().toString() === Object.entries(selectVariant).sort().toString()
       )
     ) {
       const { variants, categories, description, ...updatedProduct } = product;
       const newItem = {
         ...updatedProduct,
         id: `${
-          p?.variants.length <= 0
-            ? p._id
-            : p._id +
-              "-" +
-              variantTitle?.map((att) => selectVariant[att._id]).join("-")
+          p?.variants.length <= 0 ? p._id : p._id + '-' + variantTitle?.map((att) => selectVariant[att._id]).join('-')
         }`,
         title: `${
           p?.variants.length <= 0
             ? showingTranslateValue(p.title)
             : showingTranslateValue(p.title) +
-              "-" +
+              '-' +
               variantTitle
-                ?.map((att) =>
-                  att.variants?.find((v) => v._id === selectVariant[att._id])
-                )
+                ?.map((att) => att.variants?.find((v) => v._id === selectVariant[att._id]))
                 .map((el) => showingTranslateValue(el?.name))
         }`,
         image: img,
         variant: selectVariant || {},
-        price:
-          p.variants.length === 0
-            ? getNumber(p.prices.price)
-            : getNumber(price),
-        originalPrice:
-          p.variants.length === 0
-            ? getNumber(p.prices.originalPrice)
-            : getNumber(originalPrice),
+        price: p.variants.length === 0 ? getNumber(p.prices.price) : getNumber(price),
+        originalPrice: p.variants.length === 0 ? getNumber(p.prices.originalPrice) : getNumber(originalPrice),
       };
 
       // console.log("newItem", newItem);
 
       handleAddItem(newItem);
     } else {
-      return notifyError("Please select all variant first!");
+      return notifyError('Please select all variant first!');
     }
   };
 
@@ -208,12 +163,12 @@ const ProductModal = ({
 
     router.push(`/product/${slug}`);
     setIsLoading(!isLoading);
-    handleLogEvent("product", `opened ${slug} product details`);
+    handleLogEvent('product', `opened ${slug} product details`);
   };
 
   const category_name = showingTranslateValue(product?.category?.name)
     ?.toLowerCase()
-    ?.replace(/[^A-Z0-9]+/gi, "-");
+    ?.replace(/[^A-Z0-9]+/gi, '-');
 
   // console.log("product", product, "stock", stock);
 
@@ -229,12 +184,7 @@ const ProductModal = ({
               >
                 <Discount product={product} discount={discount} modal />
                 {product.image[0] ? (
-                  <Image
-                    src={img || product.image[0]}
-                    width={420}
-                    height={420}
-                    alt="product"
-                  />
+                  <Image src={img || product.image[0]} width={420} height={420} alt="product" />
                 ) : (
                   <Image
                     src="https://res.cloudinary.com/ahossain/image/upload/v1655097002/placeholder_kvepfp.png"
@@ -256,11 +206,7 @@ const ProductModal = ({
                     {showingTranslateValue(product?.title)}
                   </h1>
                 </Link>
-                <div
-                  className={`${
-                    stock <= 0 ? "relative py-1 mb-2" : "relative"
-                  }`}
-                >
+                <div className={`${stock <= 0 ? 'relative py-1 mb-2' : 'relative'}`}>
                   <Stock stock={stock} />
                 </div>
               </div>
@@ -268,12 +214,7 @@ const ProductModal = ({
                 {showingTranslateValue(product?.description)}
               </p>
               <div className="flex items-center my-4">
-                <Price
-                  product={product}
-                  price={price}
-                  currency={currency}
-                  originalPrice={originalPrice}
-                />
+                <Price product={product} price={price} currency={currency} originalPrice={originalPrice} />
               </div>
 
               <div className="mb-1">
@@ -316,9 +257,7 @@ const ProductModal = ({
                     </p>
                     <button
                       onClick={() => setItem(item + 1)}
-                      disabled={
-                        product.quantity < item || product.quantity === item
-                      }
+                      disabled={product.quantity < item || product.quantity === item}
                       className="flex items-center justify-center h-full flex-shrink-0 transition ease-in-out duration-300 focus:outline-none w-8 md:w-12 text-heading border-s border-gray-300 hover:text-gray-500"
                     >
                       <span className="text-dark text-base">
@@ -331,7 +270,7 @@ const ProductModal = ({
                     disabled={product.quantity < 1}
                     className="text-sm leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-serif text-center justify-center border-0 border-transparent rounded-md focus-visible:outline-none focus:outline-none text-white px-4 ml-4 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white bg-emerald-500 hover:bg-emerald-600 w-full h-12"
                   >
-                    {t("common:addToCart")}
+                    {t('homeScreen.addToCart')}
                   </button>
                 </div>
               </div>
@@ -339,12 +278,8 @@ const ProductModal = ({
                 <div className="flex items-center justify-between space-s-3 sm:space-s-4 w-full">
                   <div>
                     <span className="font-serif font-semibold py-1 text-sm d-block">
-                      <span className="text-gray-700">
-                        {t("common:category")}:
-                      </span>{" "}
-                      <Link
-                        href={`/search?category=${category_name}&_id=${product?.category?._id}`}
-                      >
+                      <span className="text-gray-700">{t('homeScreen.category')}:</span>{' '}
+                      <Link href={`/search?category=${category_name}&_id=${product?.category?._id}`}>
                         <button
                           type="button"
                           className="text-gray-600 font-serif font-medium underline ml-2 hover:text-teal-600"
@@ -363,17 +298,14 @@ const ProductModal = ({
                       onClick={() => handleMoreInfo(product.slug)}
                       className="font-sans font-medium text-sm text-orange-500"
                     >
-                      {t("common:moreInfo")}
+                      {t('homeScreen.moreInfo')}
                     </button>
                   </div>
                 </div>
               </div>
               <div className="flex justify-end mt-2">
                 <p className="text-xs sm:text-sm text-gray-600">
-                  Call Us To Order By Mobile Number :{" "}
-                  <span className="text-emerald-700 font-semibold">
-                    +0044235234
-                  </span>{" "}
+                  {t('homeScreen.callUs')}: <span className="text-emerald-700 font-semibold">+0044235234</span>{' '}
                 </p>
               </div>
             </div>

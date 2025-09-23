@@ -1,8 +1,8 @@
-import requests from "./httpServices";
+import requests from './httpServices';
 
 const AttributeServices = {
   getAllAttributes: async () => {
-    return requests.get("/attributes");
+    return requests.get('/attributes');
   },
 
   getShowingAttributes: async () => {

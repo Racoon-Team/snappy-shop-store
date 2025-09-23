@@ -1,11 +1,13 @@
+import { useTranslation } from 'react-i18next';
 //internal import
-import Layout from "@layout/Layout";
-import Coupon from "@components/coupon/Coupon";
-import PageHeader from "@components/header/PageHeader";
-import useGetSetting from "@hooks/useGetSetting";
-import useUtilsFunction from "@hooks/useUtilsFunction";
+import Layout from '@layout/Layout';
+import Coupon from '@components/coupon/Coupon';
+import PageHeader from '@components/header/PageHeader';
+import useGetSetting from '@hooks/useGetSetting';
+import useUtilsFunction from '@hooks/useUtilsFunction';
 
 const Offer = () => {
+  const { t } = useTranslation();
   const { storeCustomizationSetting } = useGetSetting();
   const { showingTranslateValue } = useUtilsFunction();
 

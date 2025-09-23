@@ -1,11 +1,11 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 //internal import
-import useGetSetting from "@hooks/useGetSetting";
-import CMSkeleton from "@components/preloader/CMSkeleton";
-import useUtilsFunction from "@hooks/useUtilsFunction";
+import useGetSetting from '@hooks/useGetSetting';
+import CMSkeleton from '@components/preloader/CMSkeleton';
+import useUtilsFunction from '@hooks/useUtilsFunction';
 
 const CardTwo = () => {
   const { storeCustomizationSetting, error, loading } = useGetSetting();
@@ -40,9 +40,7 @@ const CardTwo = () => {
                 height={20}
                 error={error}
                 loading={loading}
-                data={
-                  storeCustomizationSetting?.home?.quick_delivery_description
-                }
+                data={storeCustomizationSetting?.home?.quick_delivery_description}
               />
             </p>
             <Link
@@ -50,9 +48,7 @@ const CardTwo = () => {
               className="lg:w-1/3  text-xs font-serif font-medium inline-block mt-5 px-8 py-3 bg-emerald-500 text-center text-white rounded-full hover:text-white contact-btn"
               target="_blank"
             >
-              {showingTranslateValue(
-                storeCustomizationSetting?.home?.quick_delivery_button
-              )}
+              {showingTranslateValue(storeCustomizationSetting?.home?.quick_delivery_button)}
             </Link>
           </div>
           <div className="w-1/5 flex-grow hidden lg:flex md:flex md:justify-items-center lg:justify-end">
@@ -61,10 +57,7 @@ const CardTwo = () => {
               height={250}
               alt="Quick Delivery to Your Home"
               className="block w-auto object-contain"
-              src={
-                storeCustomizationSetting?.home?.quick_delivery_img ||
-                "/cta/delivery-boy.png"
-              }
+              src={storeCustomizationSetting?.home?.quick_delivery_img || '/cta/delivery-boy.png'}
             />
           </div>
         </div>

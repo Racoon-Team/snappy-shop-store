@@ -1,14 +1,14 @@
-import Head from "next/head";
-import { ToastContainer } from "react-toastify";
+import Head from 'next/head';
+import { ToastContainer } from 'react-toastify';
 
 //internal import
 
-import Navbar from "@layout/navbar/Navbar";
-import Footer from "@layout/footer/Footer";
-import NavBarTop from "./navbar/NavBarTop";
-import FooterTop from "@layout/footer/FooterTop";
-import MobileFooter from "@layout/footer/MobileFooter";
-import FeatureCard from "@components/feature-card/FeatureCard";
+import Navbar from '@layout/navbar/Navbar';
+import Footer from '@layout/footer/Footer';
+import NavBarTop from './navbar/NavBarTop';
+import FooterTop from '@layout/footer/FooterTop';
+import MobileFooter from '@layout/footer/MobileFooter';
+import FeatureCard from '@components/feature-card/FeatureCard';
 
 const Layout = ({ title, description, children }) => {
   return (
@@ -18,12 +18,10 @@ const Layout = ({ title, description, children }) => {
       <div className="font-sans">
         <Head>
           <title>
-            {title
-              ? `KachaBazar | ${title}`
-              : "KachaBazar - React Grocery & Organic Food Store e-commerce Template"}
+            {title ? `KachaBazar | ${title}` : 'KachaBazar - React Grocery & Organic Food Store e-commerce Template'}
           </title>
           {description && <meta name="description" content={description} />}
-          <link ref="icon" href="/favicon.png" />
+          <link href="/favicon.png" />
         </Head>
         <NavBarTop />
         <Navbar />

@@ -1,14 +1,15 @@
-import React from "react";
-import Image from "next/image";
-
+import React from 'react';
+import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 //internal import
-import Layout from "@layout/Layout";
-import useGetSetting from "@hooks/useGetSetting";
-import PageHeader from "@components/header/PageHeader";
-import CMSkeleton from "@components/preloader/CMSkeleton";
-import useUtilsFunction from "@hooks/useUtilsFunction";
+import Layout from '@layout/Layout';
+import useGetSetting from '@hooks/useGetSetting';
+import PageHeader from '@components/header/PageHeader';
+import CMSkeleton from '@components/preloader/CMSkeleton';
+import useUtilsFunction from '@hooks/useUtilsFunction';
 
 const AboutUs = () => {
+  const { t } = useTranslation();
   const { storeCustomizationSetting, loading, error } = useGetSetting();
   const { showingTranslateValue } = useUtilsFunction();
 
@@ -16,9 +17,7 @@ const AboutUs = () => {
     <Layout title="About Us" description="This is about us page">
       <PageHeader
         headerBg={storeCustomizationSetting?.about_us?.header_bg}
-        title={showingTranslateValue(
-          storeCustomizationSetting?.about_us?.title
-        )}
+        title={showingTranslateValue(storeCustomizationSetting?.about_us?.title)}
       />
 
       <div className="bg-white">
@@ -48,58 +47,34 @@ const AboutUs = () => {
               <div className="grid md:grid-cols-2 gap-6 lg:grid-cols-2 xl:gap-6 mt-8">
                 <div className="p-8 bg-indigo-50 shadow-sm rounded-lg">
                   {loading ? (
-                    <CMSkeleton
-                      count={8}
-                      height={20}
-                      error={error}
-                      loading={loading}
-                    />
+                    <CMSkeleton count={8} height={20} error={error} loading={loading} />
                   ) : (
                     <>
                       <span className="text-3xl block font-extrabold font-serif mb-4 text-gray-800">
-                        {showingTranslateValue(
-                          storeCustomizationSetting?.about_us?.card_two_title
-                        )}
+                        {showingTranslateValue(storeCustomizationSetting?.about_us?.card_two_title)}
                       </span>
                       <h4 className="text-lg font-serif font-bold mb-1">
-                        {showingTranslateValue(
-                          storeCustomizationSetting?.about_us?.card_two_sub
-                        )}
+                        {showingTranslateValue(storeCustomizationSetting?.about_us?.card_two_sub)}
                       </h4>
                       <p className="mb-0 opacity-90 leading-7">
-                        {showingTranslateValue(
-                          storeCustomizationSetting?.about_us
-                            ?.card_two_description
-                        )}
+                        {showingTranslateValue(storeCustomizationSetting?.about_us?.card_two_description)}
                       </p>
                     </>
                   )}
                 </div>
                 <div className="p-8 bg-indigo-50 shadow-sm rounded-lg">
                   {loading ? (
-                    <CMSkeleton
-                      count={8}
-                      height={20}
-                      error={error}
-                      loading={loading}
-                    />
+                    <CMSkeleton count={8} height={20} error={error} loading={loading} />
                   ) : (
                     <>
                       <span className="text-3xl block font-extrabold font-serif mb-4 text-gray-800">
-                        {showingTranslateValue(
-                          storeCustomizationSetting?.about_us?.card_one_title
-                        )}
+                        {showingTranslateValue(storeCustomizationSetting?.about_us?.card_one_title)}
                       </span>
                       <h4 className="text-lg font-serif font-bold mb-1">
-                        {showingTranslateValue(
-                          storeCustomizationSetting?.about_us?.card_one_sub
-                        )}
+                        {showingTranslateValue(storeCustomizationSetting?.about_us?.card_one_sub)}
                       </h4>
                       <p className="mb-0 opacity-90 leading-7">
-                        {showingTranslateValue(
-                          storeCustomizationSetting?.about_us
-                            ?.card_one_description
-                        )}
+                        {showingTranslateValue(storeCustomizationSetting?.about_us?.card_one_description)}
                       </p>
                     </>
                   )}
@@ -111,10 +86,7 @@ const AboutUs = () => {
               <img
                 width={920}
                 height={750}
-                src={
-                  storeCustomizationSetting?.about_us?.content_right_img ||
-                  "/about-us.jpg"
-                }
+                src={storeCustomizationSetting?.about_us?.content_right_img || '/about-us.jpg'}
                 alt="logo"
               />
             </div>
@@ -125,9 +97,7 @@ const AboutUs = () => {
                 count={5}
                 height={20}
                 loading={loading}
-                data={
-                  storeCustomizationSetting?.about_us?.middle_description_one
-                }
+                data={storeCustomizationSetting?.about_us?.middle_description_one}
               />
             </p>
 
@@ -137,9 +107,7 @@ const AboutUs = () => {
                 height={20}
                 error={error}
                 loading={loading}
-                data={
-                  storeCustomizationSetting?.about_us?.middle_description_two
-                }
+                data={storeCustomizationSetting?.about_us?.middle_description_two}
               />
             </p>
           </div>
@@ -147,10 +115,7 @@ const AboutUs = () => {
             <Image
               width={1920}
               height={570}
-              src={
-                storeCustomizationSetting?.about_us?.content_middle_Img ||
-                "/about-banner.jpg"
-              }
+              src={storeCustomizationSetting?.about_us?.content_middle_Img || '/about-banner.jpg'}
               alt="logo"
               className="block rounded-lg"
             />
@@ -173,9 +138,7 @@ const AboutUs = () => {
                     count={3}
                     height={20}
                     loading={loading}
-                    data={
-                      storeCustomizationSetting?.about_us?.founder_description
-                    }
+                    data={storeCustomizationSetting?.about_us?.founder_description}
                   />
                 </p>
               </div>
@@ -185,23 +148,16 @@ const AboutUs = () => {
                 <Image
                   width={420}
                   height={420}
-                  src={
-                    storeCustomizationSetting?.about_us?.founder_one_img ||
-                    "/team/team-1.jpg"
-                  }
+                  src={storeCustomizationSetting?.about_us?.founder_one_img || '/team/team-1.jpg'}
                   alt="team-1"
                   className="block rounded-lg"
                 />
                 <div className="py-4">
                   <h5 className="text-lg font-semibold font-serif">
-                    {showingTranslateValue(
-                      storeCustomizationSetting?.about_us?.founder_one_name
-                    )}
+                    {showingTranslateValue(storeCustomizationSetting?.about_us?.founder_one_name)}
                   </h5>
                   <span className="opacity-75 text-sm">
-                    {showingTranslateValue(
-                      storeCustomizationSetting?.about_us?.founder_one_sub
-                    )}
+                    {showingTranslateValue(storeCustomizationSetting?.about_us?.founder_one_sub)}
                   </span>
                 </div>
               </div>
@@ -209,23 +165,16 @@ const AboutUs = () => {
                 <Image
                   width={420}
                   height={420}
-                  src={
-                    storeCustomizationSetting?.about_us?.founder_two_img ||
-                    "/team/team-2.jpg"
-                  }
+                  src={storeCustomizationSetting?.about_us?.founder_two_img || '/team/team-2.jpg'}
                   alt="team-2"
                   className="block rounded-lg"
                 />
                 <div className="py-4">
                   <h5 className="text-lg font-semibold font-serif">
-                    {showingTranslateValue(
-                      storeCustomizationSetting?.about_us?.founder_two_name
-                    )}
+                    {showingTranslateValue(storeCustomizationSetting?.about_us?.founder_two_name)}
                   </h5>
                   <span className="opacity-75 text-sm">
-                    {showingTranslateValue(
-                      storeCustomizationSetting?.about_us?.founder_two_sub
-                    )}
+                    {showingTranslateValue(storeCustomizationSetting?.about_us?.founder_two_sub)}
                   </span>
                 </div>
               </div>
@@ -233,23 +182,16 @@ const AboutUs = () => {
                 <Image
                   width={420}
                   height={420}
-                  src={
-                    storeCustomizationSetting?.about_us?.founder_three_img ||
-                    "/team/team-3.jpg"
-                  }
+                  src={storeCustomizationSetting?.about_us?.founder_three_img || '/team/team-3.jpg'}
                   alt="team-3"
                   className="block rounded-lg"
                 />
                 <div className="py-4">
                   <h5 className="text-lg font-semibold font-serif">
-                    {showingTranslateValue(
-                      storeCustomizationSetting?.about_us?.founder_three_name
-                    )}
+                    {showingTranslateValue(storeCustomizationSetting?.about_us?.founder_three_name)}
                   </h5>
                   <span className="opacity-75 text-sm">
-                    {showingTranslateValue(
-                      storeCustomizationSetting?.about_us?.founder_three_sub
-                    )}
+                    {showingTranslateValue(storeCustomizationSetting?.about_us?.founder_three_sub)}
                   </span>
                 </div>
               </div>
@@ -257,23 +199,16 @@ const AboutUs = () => {
                 <Image
                   width={420}
                   height={420}
-                  src={
-                    storeCustomizationSetting?.about_us?.founder_four_img ||
-                    "/team/team-4.jpg"
-                  }
+                  src={storeCustomizationSetting?.about_us?.founder_four_img || '/team/team-4.jpg'}
                   alt="team-4"
                   className="block rounded-lg"
                 />
                 <div className="py-4">
                   <h5 className="text-lg font-semibold font-serif">
-                    {showingTranslateValue(
-                      storeCustomizationSetting?.about_us?.founder_four_name
-                    )}
+                    {showingTranslateValue(storeCustomizationSetting?.about_us?.founder_four_name)}
                   </h5>
                   <span className="opacity-75 text-sm">
-                    {showingTranslateValue(
-                      storeCustomizationSetting?.about_us?.founder_four_sub
-                    )}
+                    {showingTranslateValue(storeCustomizationSetting?.about_us?.founder_four_sub)}
                   </span>
                 </div>
               </div>
@@ -281,23 +216,16 @@ const AboutUs = () => {
                 <Image
                   width={420}
                   height={420}
-                  src={
-                    storeCustomizationSetting?.about_us?.founder_five_img ||
-                    "/team/team-5.jpg"
-                  }
+                  src={storeCustomizationSetting?.about_us?.founder_five_img || '/team/team-5.jpg'}
                   alt="team-5"
                   className="block rounded-lg"
                 />
                 <div className="py-4">
                   <h5 className="text-lg font-semibold font-serif">
-                    {showingTranslateValue(
-                      storeCustomizationSetting?.about_us?.founder_five_name
-                    )}
+                    {showingTranslateValue(storeCustomizationSetting?.about_us?.founder_five_name)}
                   </h5>
                   <span className="opacity-75 text-sm">
-                    {showingTranslateValue(
-                      storeCustomizationSetting?.about_us?.founder_five_sub
-                    )}
+                    {showingTranslateValue(storeCustomizationSetting?.about_us?.founder_five_sub)}
                   </span>
                 </div>
               </div>
@@ -305,23 +233,16 @@ const AboutUs = () => {
                 <Image
                   width={420}
                   height={420}
-                  src={
-                    storeCustomizationSetting?.about_us?.founder_six_img ||
-                    "/team/team-6.jpg"
-                  }
+                  src={storeCustomizationSetting?.about_us?.founder_six_img || '/team/team-6.jpg'}
                   alt="team-6"
                   className="block rounded-lg"
                 />
                 <div className="py-4">
                   <h5 className="text-lg font-semibold font-serif">
-                    {showingTranslateValue(
-                      storeCustomizationSetting?.about_us?.founder_six_name
-                    )}
+                    {showingTranslateValue(storeCustomizationSetting?.about_us?.founder_six_name)}
                   </h5>
                   <span className="opacity-75 text-sm">
-                    {showingTranslateValue(
-                      storeCustomizationSetting?.about_us?.founder_six_sub
-                    )}
+                    {showingTranslateValue(storeCustomizationSetting?.about_us?.founder_six_sub)}
                   </span>
                 </div>
               </div>

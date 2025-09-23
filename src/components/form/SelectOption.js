@@ -1,5 +1,5 @@
-import React from "react";
-import Label from "@components/form/Label";
+import React from 'react';
+import Label from '@components/form/Label';
 
 const SelectOption = ({ name, label, options, onChange, value, register }) => {
   return (

@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { useCart } from "react-use-cart";
-
-import { notifyError, notifySuccess } from "@utils/toast";
+import { useState } from 'react';
+import { useCart } from 'react-use-cart';
+import { useTranslation } from 'react-i18next';
+import { notifyError, notifySuccess } from '@utils/toast';
 
 const useAddToCart = () => {
   const [item, setItem] = useState(1);
   const { addItem, items, updateItemQuantity } = useCart();
   // console.log('products',products)
   // console.log("items", items);
-
+  const { t } = useTranslation();
   const handleAddItem = (product) => {
     const result = items.find((i) => i.id === product.id);
     // console.log(
@@ -24,28 +24,18 @@ const useAddToCart = () => {
     const { variants, categories, description, ...updatedProduct } = product;
 
     if (result !== undefined) {
-      if (
-        result?.quantity + item <=
-        (product?.variants?.length > 0
-          ? product?.variant?.quantity
-          : product?.stock)
-      ) {
+      if (result?.quantity + item <= (product?.variants?.length > 0 ? product?.variant?.quantity : product?.stock)) {
         addItem(updatedProduct, item);
-        notifySuccess(`${item} ${product.title} added to cart!`);
+        notifySuccess(`${item} ${product.title} ${t('homeScreen.notification')}`);
       } else {
-        notifyError("Insufficient stock!");
+        notifyError(t('homeScreen.notificationOfInsufficient'));
       }
     } else {
-      if (
-        item <=
-        (product?.variants?.length > 0
-          ? product?.variant?.quantity
-          : product?.stock)
-      ) {
+      if (item <= (product?.variants?.length > 0 ? product?.variant?.quantity : product?.stock)) {
         addItem(updatedProduct, item);
-        notifySuccess(`${item} ${product.title} added to cart!`);
+        notifySuccess(`${item} ${product.title}${t('homeScreen.notification')}`);
       } else {
-        notifyError("Insufficient stock!");
+        notifyError(t('homeScreen.notificationOfInsufficient'));
       }
     }
   };
@@ -61,15 +51,10 @@ const useAddToCart = () => {
     //     : product?.stock
     // );
     if (result) {
-      if (
-        result?.quantity + item <=
-        (product?.variants?.length > 0
-          ? product?.variant?.quantity
-          : product?.stock)
-      ) {
+      if (result?.quantity + item <= (product?.variants?.length > 0 ? product?.variant?.quantity : product?.stock)) {
         updateItemQuantity(product.id, product.quantity + 1);
       } else {
-        notifyError("Insufficient stock!");
+        notifyError(t('homeScreen.notificationOfInsufficient'));
       }
     }
   };

@@ -1,103 +1,62 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Controller, Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 //internal import
 
-import useGetSetting from "@hooks/useGetSetting";
-import useUtilsFunction from "@hooks/useUtilsFunction";
+import useGetSetting from '@hooks/useGetSetting';
+import useUtilsFunction from '@hooks/useUtilsFunction';
 
 const MainCarousel = () => {
   const { storeCustomizationSetting } = useGetSetting();
-  const { showingTranslateValue, showingUrl, showingImage } =
-    useUtilsFunction();
+  const { showingTranslateValue, showingUrl, showingImage } = useUtilsFunction();
 
   const sliderData = [
     {
       id: 1,
 
-      title: showingTranslateValue(
-        storeCustomizationSetting?.slider?.first_title
-      ),
-      info: showingTranslateValue(
-        storeCustomizationSetting?.slider?.first_description
-      ),
-      buttonName: showingTranslateValue(
-        storeCustomizationSetting?.slider?.first_button
-      ),
+      title: showingTranslateValue(storeCustomizationSetting?.slider?.first_title),
+      info: showingTranslateValue(storeCustomizationSetting?.slider?.first_description),
+      buttonName: showingTranslateValue(storeCustomizationSetting?.slider?.first_button),
       url: showingUrl(storeCustomizationSetting?.slider?.first_link),
-      image:
-        showingImage(storeCustomizationSetting?.slider?.first_img) ||
-        "/slider/slider-1.jpg",
+      image: showingImage(storeCustomizationSetting?.slider?.first_img) || '/slider/slider-1.jpg',
     },
     {
       id: 2,
-      title: showingTranslateValue(
-        storeCustomizationSetting?.slider?.second_title
-      ),
-      info: showingTranslateValue(
-        storeCustomizationSetting?.slider?.second_description
-      ),
-      buttonName: showingTranslateValue(
-        storeCustomizationSetting?.slider?.second_button
-      ),
+      title: showingTranslateValue(storeCustomizationSetting?.slider?.second_title),
+      info: showingTranslateValue(storeCustomizationSetting?.slider?.second_description),
+      buttonName: showingTranslateValue(storeCustomizationSetting?.slider?.second_button),
       url: showingUrl(storeCustomizationSetting?.slider?.second_link),
-      image:
-        showingImage(storeCustomizationSetting?.slider?.second_img) ||
-        "/slider/slider-2.jpg",
+      image: showingImage(storeCustomizationSetting?.slider?.second_img) || '/slider/slider-2.jpg',
     },
     {
       id: 3,
-      title: showingTranslateValue(
-        storeCustomizationSetting?.slider?.third_title
-      ),
-      info: showingTranslateValue(
-        storeCustomizationSetting?.slider?.third_description
-      ),
-      buttonName: showingTranslateValue(
-        storeCustomizationSetting?.slider?.third_button
-      ),
+      title: showingTranslateValue(storeCustomizationSetting?.slider?.third_title),
+      info: showingTranslateValue(storeCustomizationSetting?.slider?.third_description),
+      buttonName: showingTranslateValue(storeCustomizationSetting?.slider?.third_button),
       url: showingUrl(storeCustomizationSetting?.slider?.third_link),
-      image:
-        showingImage(storeCustomizationSetting?.slider?.third_img) ||
-        "/slider/slider-3.jpg",
+      image: showingImage(storeCustomizationSetting?.slider?.third_img) || '/slider/slider-3.jpg',
     },
     {
       id: 4,
-      title: showingTranslateValue(
-        storeCustomizationSetting?.slider?.four_title
-      ),
-      info: showingTranslateValue(
-        storeCustomizationSetting?.slider?.four_description
-      ),
-      buttonName: showingTranslateValue(
-        storeCustomizationSetting?.slider?.four_button
-      ),
+      title: showingTranslateValue(storeCustomizationSetting?.slider?.four_title),
+      info: showingTranslateValue(storeCustomizationSetting?.slider?.four_description),
+      buttonName: showingTranslateValue(storeCustomizationSetting?.slider?.four_button),
       url: showingUrl(storeCustomizationSetting?.slider?.four_link),
-      image:
-        showingImage(storeCustomizationSetting?.slider?.four_img) ||
-        "/slider/slider-1.jpg",
+      image: showingImage(storeCustomizationSetting?.slider?.four_img) || '/slider/slider-1.jpg',
     },
     {
       id: 5,
-      title: showingTranslateValue(
-        storeCustomizationSetting?.slider?.five_title
-      ),
-      info: showingTranslateValue(
-        storeCustomizationSetting?.slider?.five_description
-      ),
-      buttonName: showingTranslateValue(
-        storeCustomizationSetting?.slider?.five_button
-      ),
+      title: showingTranslateValue(storeCustomizationSetting?.slider?.five_title),
+      info: showingTranslateValue(storeCustomizationSetting?.slider?.five_description),
+      buttonName: showingTranslateValue(storeCustomizationSetting?.slider?.five_button),
       url: showingUrl(storeCustomizationSetting?.slider?.five_link),
-      image:
-        showingImage(storeCustomizationSetting?.slider?.five_img) ||
-        "/slider/slider-2.jpg",
+      image: showingImage(storeCustomizationSetting?.slider?.five_img) || '/slider/slider-2.jpg',
     },
   ];
 
@@ -112,14 +71,12 @@ const MainCarousel = () => {
         }}
         loop={true}
         pagination={
-          (storeCustomizationSetting?.slider?.bottom_dots ||
-            storeCustomizationSetting?.slider?.both_slider) && {
+          (storeCustomizationSetting?.slider?.bottom_dots || storeCustomizationSetting?.slider?.both_slider) && {
             clickable: true,
           }
         }
         navigation={
-          (storeCustomizationSetting?.slider?.left_right_arrow ||
-            storeCustomizationSetting?.slider?.both_slider) && {
+          (storeCustomizationSetting?.slider?.left_right_arrow || storeCustomizationSetting?.slider?.both_slider) && {
             clickable: true,
           }
         }
@@ -127,15 +84,12 @@ const MainCarousel = () => {
         className="mySwiper"
       >
         {sliderData?.map((item, i) => (
-          <SwiperSlide
-            className="h-full relative rounded-lg overflow-hidden"
-            key={i + 1}
-          >
+          <SwiperSlide className="h-full relative rounded-lg overflow-hidden" key={i + 1}>
             <div className="text-sm text-gray-600 hover:text-emerald-dark">
               <Image
                 width={950}
                 height={400}
-                src={item.image || "/slider/slider-1.jpg"}
+                src={item.image || '/slider/slider-1.jpg'}
                 alt={item.title}
                 className="object-cover"
                 priority

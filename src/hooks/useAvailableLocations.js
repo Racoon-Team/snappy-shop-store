@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const useAvailableLocations = () => {
   const [locations, setLocations] = useState([]);
@@ -8,10 +8,10 @@ const useAvailableLocations = () => {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const { data } = await axios.get("/api/admin/available-locations");
+        const { data } = await axios.get('/api/admin/available-locations');
         setLocations(data);
       } catch (error) {
-        console.error("Error al obtener ubicaciones:", error);
+        console.error('Error al obtener ubicaciones:', error);
         setLocations([]);
       } finally {
         setLoading(false);

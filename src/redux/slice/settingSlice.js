@@ -1,15 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const settingSlice = createSlice({
-  name: "setting",
+  name: 'setting',
   initialState: {
     settingItem: [],
   },
   reducers: {
     addSetting: (state, action) => {
-      const existsItem = state.settingItem.find(
-        (x) => x.name === action.payload.name
-      );
+      const existsItem = state.settingItem.find((x) => x.name === action.payload.name);
       if (existsItem) {
         return {
           ...state,

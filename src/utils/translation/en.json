@@ -1,0 +1,288 @@
+{
+  "common": {
+    "text": "Login with your email and password",
+    "isRequired": "is required!",
+
+    "imgUploader": {
+      "description": "Drag your image here",
+      "format": "Only *.jpeg and *.png images will be accepted"
+    },
+
+    "table": {
+      "id": "ID",
+      "time": "ORDER TIME",
+      "method": "PAYMENT METHOD",
+      "status": "STATUS",
+      "total": "TOTAL",
+      "action": "ACTION",
+      "details": "Details",
+      "Delivered": "Delivered",
+      "Pending": "Pending",
+      "Cancel": "Canceled",
+      "Processing": "Processing"
+    },
+
+    "invoiceDetails": {
+      "title": "Invoice",
+      "status": "Status :",
+      "date": "Date",
+      "number": "Invoice No.",
+      "invoiceTo": "Invoice To.",
+
+      "table": {
+        "serieNo": "SERIAL NUMBER",
+        "articulos": "ITEMS",
+        "quantity": "QUANTITY",
+        "itemPrice": "ITEM PRICE",
+        "amount": "QUANTITY",
+        "paymentMethod": "PAYMENT METHOD",
+        "shippingCost": "SHIPPING COST",
+        "discount": "DISCOUNT",
+        "totalAmount": "TOTAL AMOUNT"
+      },
+
+      "invoiceStatus": {
+        "Delivered": "Delivered",
+        "POS-Completed": "POS Completed",
+        "Pending": "Pending",
+        "Cancel": "Canceled",
+        "Processing": "Processing",
+        "Deleted": "Deleted"
+      }
+    }
+  },
+
+  "navbar": {
+    "search": "Search for product (e.g. fish, apple, oil)"
+  },
+
+  "contactUsScreen": {
+    "name": "Your Name",
+    "plaholderName": "Enter Your Name",
+    "email": "Your Email",
+    "plaholderEmail": "Enter Your Email",
+    "subject": "Subject",
+    "plaholderSubject": "Enter Your Subject",
+    "message": "Message",
+    "plaholderMessage": "Write your message here",
+    "sendBtn": "Send Message",
+    "required": "is required",
+    "validationMessage": "Message is required!",
+    "sentMessageNotification": "your message sent successfully. We will contact you shortly."
+  },
+
+  "couponScreen": {
+    "label": "Coupon",
+    "stateAct": "Active",
+    "stateInact": "Inactive",
+    "copied": "Copied",
+    "text": "This coupon code will apply on when you shopping more then",
+    "off": "Off"
+  },
+
+  "cart": {
+    "label": "Shopping Cart",
+    "closeBtn": "Close",
+    "emptyCartMessage": "Your cart is empty",
+    "addItems": "No items added in your cart. Please add product to your cart list.",
+    "proceedBtn": "Proceed To Checkout"
+  },
+
+  "checkoutScreen": {
+    "label": "Delivery Points",
+    "itemPrice": "Item Price",
+    "loading": "Loading delivery points...",
+    "errorLoading": "Error loading delivery points",
+    "text": "There are no delivery points available in your location.",
+    "buttonRegisterLocation": "Register your location",
+    "validationShipping": "Shipping Option is required!",
+    "paymentMethodCash": "Cash",
+    "paymentMethodQr": "QR Payment",
+    "couponCode": "Input your coupon code",
+
+    "modalQr": {
+      "title": "QR Payment",
+      "total": "Total: ",
+      "loadingGenerating": "Generating QR...",
+      "notGenerating": "The QR code could not be generated.",
+      "cancelButton": "Cancel",
+      "verifyButton": "Verify QR Payment",
+      "okButton": "OK"
+    },
+
+    "message": {
+      "default": "Please scan the QR code with your bank's app, then verify with the Verify QR Payment button.",
+      "pending": "Transaction pending payment. Scan the QR code with your bank's app.",
+      "success": "Transaction executed successfully, your invoice will be sent to your email, please wait a few minutes.",
+      "error": "Transaction error, please try again."
+    }
+  },
+
+  "page404Screen": {
+    "title": "KachaBazar | 404",
+    "message": "Page is not found!",
+    "paragraph": "Sorry! This page is not found! Please try again later.",
+    "home": " Back to Home"
+  },
+
+  "userScreen": {
+    "dashboard": {
+      "message": "You Have no order Yet!"
+    },
+
+    "myOrders": {
+      "title": "My Orders"
+    }
+  },
+
+  "myAccount": {
+    "label": "My Account",
+    "editBtn": "Edit",
+    "addDefaultAdress": "Add Default Shipping Address",
+    "addCategories": "Add Categories",
+    "defaultShippingAddress": "Default Shipping Address",
+    "selectedCategories": "Selected Categories",
+    "selected": "Selected",
+
+    "addAddressCard": {
+      "label": "Add Shipping Address",
+      "fullName": "Full Name",
+      "fullNamePH": "Input your full name",
+      "fullAddress": "Full Address",
+      "fullAddressPH": "Input your full address",
+      "phone": "Phone",
+      "phonePH": "Phone/Mobile",
+      "email": "Email",
+      "emailPH": "Email",
+      "country": "Country",
+      "city": "City",
+      "area": "Area",
+      "zipCode": "Zip Code",
+      "zipCodePH": "Zip Code",
+      "processing": "Processing",
+      "succesMessage": "Shipping address added or updated successfully."
+    },
+    "addPreferencesCard": {
+      "label": "Add Preferences",
+      "loadingCategories": "Loading categories...",
+      "successMessage": "Preferences updated successfully"
+    }
+  },
+
+  "updateProfile": {
+    "photo": "Photo",
+    "department": "Department",
+    "selectDepartment": "Select a Department"
+  },
+
+  "loginScreen": {
+    "title": "Login",
+    "text": "Login with your email and password",
+    "labelEmail": "Email",
+    "inputEmail": "Add Email",
+    "labelPassword": "Password",
+    "inputPassword": "Add Password",
+    "linkForgotPassword": "Forgot password?",
+    "processing": "Processing",
+    "buttonLogin": "Login",
+    "or": "OR",
+    "loginGoogle": "with Google",
+    "loginFacebook": "with Facebook",
+    "loginGithub": "with Github",
+    "textDontHaveAccount": "Don't have an account?"
+  },
+
+  "signupScreen": {
+    "title": "Signing Up",
+    "text": "Create an account by sign up with provider or email, password",
+    "labelName": "Name",
+    "inputName": "Add Name",
+    "labelEmail": "Email",
+    "inputEmail": "Add Email",
+    "labelPassword": "Password",
+    "inputPassword": "Add Password",
+
+    "minLength": "1. Password must be at least 8 characters long.",
+    "uppercase": "2. Password must contain at least one uppercase letter.",
+    "lowercase": "3. Password must contain at least one lowercase letter.",
+    "number": "4. Password must contain at least one number.",
+    "specialChar": "5. Password must contain at least one special character.",
+
+    "linkAlreadyHaveAccount": "Already have account?",
+    "buttonRegister": "Register",
+    "textAlreadyHaveAccount": "Already have an account?",
+    "message": "Please check your email to verify your account!"
+  },
+
+  "forgetPasswordScreen": {
+    "title": "Forget Password",
+    "text": "Reset Your Password",
+    "labelEmail": "Email",
+    "inputEmail": "Add Email",
+    "link": "Login",
+    "buttonRecover": "Recover password",
+    "message": "User Not found with this email!"
+  },
+
+  "changePasswordScreen": {
+    "passwordValidation": "1. Password must be at least 8 characters long.",
+    "uppercaseValidation": "2. Password must contain at least one uppercase letter.",
+    "lowercaseValidation": "3. Password must contain at least one lowercase letter.",
+    "numberValidation": "4. Password must contain at least one number.",
+    "specialValidation": "5. Password must contain at least one special character.",
+    "passwordChangeNotification": "Invalid email or current password"
+  },
+
+  "locationRegistrationScreen": {
+    "question": "Where do you live?",
+    "paragraph": " This helps us find you more relevant content. We wont show it on your profile.",
+    "department": "Department",
+    "selectDepartment": "Select a department",
+    "processing": "Processing",
+    "register": "Register",
+    "skip": "Skip",
+    "notification": "Location registered!",
+    "loading": "Loading departments...",
+    "noLocations": "Sorry, there are no locations to register. Please click the 'Skip' button for now."
+  },
+
+  "signUpPreferences": {
+    "question": "What are your interests?",
+    "registerBtn": "Register",
+    "successMessage": "Preferences saved successfully!"
+  },
+
+  "footerScreen": {
+    "follow": "Follow Us",
+    "callUs": "Footer Call Us",
+    "copy": "Copyright 2025 @",
+    "html": "HtmlLover",
+    "allRights": " , All rights reserved."
+  },
+
+  "homeScreen": {
+    "stock": "Stock",
+    "category": "Category",
+    "moreInfo": "More info ",
+    "callUs": "Call Us To Order By Mobile Number",
+    "addToCart": "Add to cart",
+    "coupon": " This coupon apply when shopping more then",
+    "notification": "added to cart!",
+    "share": "Share Your Social",
+    "shareText": "Share Your Social Text",
+    "week": "Weekend discount offer",
+    "shop": "Shop Now",
+    "sorryText": "Sorry, we can not find this product",
+    "title": "Taste of",
+    "subTitle1": "Fresh & Natural",
+    "subTitle2": "Fish & Meat",
+    "subTitle3": "Bread & Bakery",
+    "notificationOfInsufficient": "Insufficient stock",
+    "itemsFound": "items Found",
+    "totalI": "Total",
+    "sortByPrice": "Sort By Price",
+    "lowToHigh": "Low to High",
+    "highToLow": "High to Low",
+    "loadMoreBtn": "Load More"
+  }
+}

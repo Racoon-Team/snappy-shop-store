@@ -1,26 +1,22 @@
-import React from "react";
-
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 //internal import
-import Layout from "@layout/Layout";
-import useGetSetting from "@hooks/useGetSetting";
-import PageHeader from "@components/header/PageHeader";
-import CMSkeleton from "@components/preloader/CMSkeleton";
-import useUtilsFunction from "@hooks/useUtilsFunction";
+import Layout from '@layout/Layout';
+import useGetSetting from '@hooks/useGetSetting';
+import PageHeader from '@components/header/PageHeader';
+import CMSkeleton from '@components/preloader/CMSkeleton';
+import useUtilsFunction from '@hooks/useUtilsFunction';
 
 const TermAndConditions = () => {
+  const { t } = useTranslation();
   const { showingTranslateValue } = useUtilsFunction();
   const { storeCustomizationSetting, loading, error } = useGetSetting();
 
   return (
-    <Layout
-      title="Terms & Conditions"
-      description="This is terms and conditions page"
-    >
+    <Layout title="Terms & Conditions" description="This is terms and conditions page">
       <PageHeader
         headerBg={storeCustomizationSetting?.term_and_condition?.header_bg}
-        title={showingTranslateValue(
-          storeCustomizationSetting?.term_and_condition?.title
-        )}
+        title={showingTranslateValue(storeCustomizationSetting?.term_and_condition?.title)}
       />
       <div className="bg-white">
         <div className="max-w-screen-2xl mx-auto lg:py-20 py-10 px-3 sm:px-10">

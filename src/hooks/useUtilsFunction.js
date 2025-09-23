@@ -1,13 +1,13 @@
-import dayjs from "dayjs";
-import Cookies from "js-cookie";
-import useGetSetting from "./useGetSetting";
+import dayjs from 'dayjs';
+import Cookies from 'js-cookie';
+import useGetSetting from './useGetSetting';
 
 const useUtilsFunction = () => {
-  const lang = Cookies.get("_lang");
+  const lang = Cookies.get('i18next') || 'es';
 
   const { globalSetting } = useGetSetting();
 
-  const currency = globalSetting?.default_currency || "$";
+  const currency = globalSetting?.default_currency || '$';
 
   //for date and time format
   const showTimeFormat = (data, timeFormat) => {
@@ -34,9 +34,7 @@ const useUtilsFunction = () => {
 
   //for translation
   const showingTranslateValue = (data) => {
-    return data !== undefined && Object?.keys(data).includes(lang)
-      ? data[lang]
-      : data?.en;
+    return data !== undefined && Object?.keys(data).includes(lang) ? data[lang] : data?.en;
   };
 
   const showingImage = (data) => {
@@ -44,7 +42,7 @@ const useUtilsFunction = () => {
   };
 
   const showingUrl = (data) => {
-    return data !== undefined ? data : "!#";
+    return data !== undefined ? data : '!#';
   };
 
   return {

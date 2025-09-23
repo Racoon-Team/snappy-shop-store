@@ -1,44 +1,61 @@
-import Image from "next/image";
-import { useRouter } from "next/router";
-import React, { useContext, useRef } from "react";
-import { IoChevronBackOutline, IoChevronForward } from "react-icons/io5";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Controller, Navigation, Pagination } from "swiper/modules";
-import { useQuery } from "@tanstack/react-query";
-
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import React, { useContext, useRef } from 'react';
+import { IoChevronBackOutline, IoChevronForward } from 'react-icons/io5';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Controller, Navigation, Pagination } from 'swiper/modules';
+import { useQuery } from '@tanstack/react-query';
+import useTranslation from 'next-translate/useTranslation';
 //internal import
-import { SidebarContext } from "@context/SidebarContext";
-import CategoryServices from "@services/CategoryServices";
-import useUtilsFunction from "@hooks/useUtilsFunction";
-import Loading from "@components/preloader/Loading";
+import { SidebarContext } from '@context/SidebarContext';
+import CategoryServices from '@services/CategoryServices';
+import useUtilsFunction from '@hooks/useUtilsFunction';
+import Loading from '@components/preloader/Loading';
+import { useSelector } from 'react-redux';
 
 const CategoryCarousel = () => {
+  const { t } = useTranslation();
   const router = useRouter();
-
   const prevRef = useRef(null);
   const nextRef = useRef(null);
-
   const { showingTranslateValue } = useUtilsFunction();
   const { isLoading, setIsLoading } = useContext(SidebarContext);
+  const preferences = useSelector((state) => state.preferences.userCategories);
+  const isLoggedIn = preferences.length > 0;
 
   const {
     data,
     error,
     isLoading: loading,
   } = useQuery({
-    queryKey: ["category"],
+    queryKey: ['category'],
     queryFn: async () => await CategoryServices.getShowingCategory(),
   });
+
+  const categoryFilter =
+    data?.[0]?.children?.filter((category) => {
+      // level 1
+      if (preferences.includes(category._id)) return true;
+      // level 2
+      if (category.children?.some((child) => preferences.includes(child._id))) {
+        return true;
+      }
+      // level 3
+      if (category.children?.some((child) => child.children?.some((subChild) => preferences.includes(subChild._id)))) {
+        return true;
+      }
+      return false;
+    }) || [];
 
   // console.log("data", data, "error", error, "isFetched", isFetched);
 
   const handleCategoryClick = (id, category) => {
     const category_name = showingTranslateValue(category)
       ?.toLowerCase()
-      .replace(/[^A-Z0-9]+/gi, "-");
+      .replace(/[^A-Z0-9]+/gi, '-');
 
     router.push(`/search?category=${category_name}&_id=${id}`);
     setIsLoading(!isLoading);
@@ -114,37 +131,39 @@ const CategoryCarousel = () => {
             {error?.response?.data?.message || error?.message}
           </p>
         ) : (
-          <div>
-            {data[0]?.children?.map((category, i) => (
-              <SwiperSlide key={i + 1} className="group">
-                <div
-                  onClick={() =>
-                    handleCategoryClick(category?._id, category.name)
-                  }
-                  className="text-center cursor-pointer p-3 bg-white rounded-lg"
-                >
-                  <div className="bg-white p-2 mx-auto w-10 h-10 rounded-full shadow-md">
-                    <div className="relative w-6 h-8">
-                      <Image
-                        src={
-                          category?.icon ||
-                          "https://res.cloudinary.com/ahossain/image/upload/v1655097002/placeholder_kvepfp.png"
-                        }
-                        alt="category"
-                        width={40}
-                        height={40}
-                        className="object-fill"
-                      />
+          <>
+            {preferences.length === 0 && isLoggedIn ? (
+              <p className="text-center text-sm text-gray-500">{t('common.noCategories')}</p>
+            ) : (
+              categoryFilter.map((category, i) => (
+                <SwiperSlide key={i + 1} className="group">
+                  <div
+                    onClick={() => handleCategoryClick(category?._id, category.name)}
+                    className="text-center cursor-pointer p-3  bg-white rounded-lg "
+                  >
+                    <div className="bg-white p-2 mx-auto w-10 h-10 rounded-full shadow-md">
+                      <div className="relative w-6 h-8">
+                        <Image
+                          src={
+                            category?.icon ||
+                            'https://res.cloudinary.com/ahossain/image/upload/v1655097002/placeholder_kvepfp.png'
+                          }
+                          alt="category"
+                          width={40}
+                          height={40}
+                          className="object-fill"
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <h3 className="text-xs text-gray-600 mt-2 font-serif group-hover:text-emerald-500">
-                    {showingTranslateValue(category?.name)}
-                  </h3>
-                </div>
-              </SwiperSlide>
-            ))}
-          </div>
+                    <h3 className="text-xs text-gray-600 mt-2 font-serif group-hover:text-emerald-500">
+                      {showingTranslateValue(category?.name)}
+                    </h3>
+                  </div>
+                </SwiperSlide>
+              ))
+            )}
+          </>
         )}
         <button ref={prevRef} className="prev">
           <IoChevronBackOutline />

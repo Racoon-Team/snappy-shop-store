@@ -1,6 +1,6 @@
-import React, { Fragment, useRef } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { IoClose } from "react-icons/io5";
+import React, { Fragment, useRef } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { IoClose } from 'react-icons/io5';
 
 const MainModal = ({ modalOpen, setModalOpen, children }) => {
   const cancelButtonRef = useRef();

@@ -1,22 +1,24 @@
-import { notifyError, notifySuccess } from "@utils/toast";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
+import { notifyError, notifySuccess } from '@utils/toast';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 //internal import
-import { getUserSession } from "@lib/auth";
-import { countries } from "@utils/countries";
-import CustomerServices from "@services/CustomerServices";
+import { getUserSession } from '@lib/auth';
+import { countries } from '@utils/countries';
+import CustomerServices from '@services/CustomerServices';
 
 const useShippingAddressSubmit = (id) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const [cities, setCities] = useState([]);
   const [areas, setAreas] = useState([]);
   const [selectedValue, setSelectedValue] = useState({
-    country: "",
-    city: "",
-    area: "",
+    country: '',
+    city: '',
+    area: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -34,12 +36,8 @@ const useShippingAddressSubmit = (id) => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    if (
-      !selectedValue?.country ||
-      !selectedValue?.city ||
-      !selectedValue?.area
-    ) {
-      return notifyError("Country, city and area is required!");
+    if (!selectedValue?.country || !selectedValue?.city || !selectedValue?.area) {
+      return notifyError('Country, city and area is required!');
     }
     setIsSubmitting(true);
     try {
@@ -53,9 +51,9 @@ const useShippingAddressSubmit = (id) => {
         },
       });
 
-      notifySuccess(res.message);
+      notifySuccess(t('myAccount.addAddressCard.successMessage'));
       setIsSubmitting(false);
-      router.push("/user/my-account");
+      router.push('/user/my-account');
 
       // console.log("onSubmit", data);
     } catch (err) {
@@ -70,21 +68,19 @@ const useShippingAddressSubmit = (id) => {
       ...prevState,
       [name]: value,
     }));
-    if (name === "country") {
-      const result = countries?.find(
-        (country) => country?.name === value
-      ).cities;
+    if (name === 'country') {
+      const result = countries?.find((country) => country?.name === value).cities;
       setCities(result);
       setAreas([]);
     }
-    if (name === "city") {
+    if (name === 'city') {
       const result = cities?.find((city) => city?.name === value).areas;
       setAreas(result);
     }
   };
 
   const { data, isFetched } = useQuery({
-    queryKey: ["shippingAddress", { id: userInfo?.id }],
+    queryKey: ['shippingAddress', { id: userInfo?.id }],
     queryFn: async () =>
       await CustomerServices.getShippingAddress({
         userId: userInfo?.id,
@@ -94,14 +90,14 @@ const useShippingAddressSubmit = (id) => {
 
   useEffect(() => {
     if (isFetched && data) {
-      setValue("name", data.name);
-      setValue("address", data.address);
-      setValue("contact", data.contact);
-      setValue("email", data.email || userInfo?.email);
-      setValue("country", data.country);
-      setValue("city", data.city);
-      setValue("area", data.area);
-      setValue("zipCode", data.zipCode);
+      setValue('name', data.name);
+      setValue('address', data.address);
+      setValue('contact', data.contact);
+      setValue('email', data.email || userInfo?.email);
+      setValue('country', data.country);
+      setValue('city', data.city);
+      setValue('area', data.area);
+      setValue('zipCode', data.zipCode);
       setSelectedValue({
         country: data.country,
         city: data.city,
@@ -114,7 +110,7 @@ const useShippingAddressSubmit = (id) => {
       ]);
       setAreas([data.area]);
     } else {
-      setValue("email", userInfo?.email);
+      setValue('email', userInfo?.email);
     }
   }, [data]);
 

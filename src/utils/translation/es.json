@@ -1,0 +1,288 @@
+{
+  "common": {
+    "text": "Inicia sesion con email y contraseña",
+    "isRequired": "es obligatorio",
+
+    "imgUploader": {
+      "description": "Arrastra tu imagen aqui",
+      "format": "Solo imagenes con el formato *.jpeg and *.png seran aceptadas"
+    },
+
+    "table": {
+      "id": "ID",
+      "time": "HORA DEL PEDIDO",
+      "method": "MÉTODO DE PAGO",
+      "status": "ESTADO",
+      "total": "TOTAL",
+      "action": "ACCIÓN",
+      "details": "Detalles",
+      "Delivered": "Entregado",
+      "Pending": "Pendiente",
+      "Cancel": "Cancelado",
+      "Processing": "Procesando"
+    },
+
+    "invoiceDetails": {
+      "title": "Factura",
+      "status": "Estado :",
+      "date": "Fecha",
+      "number": "Número de factura",
+      "invoiceTo": "Factura a",
+
+      "table": {
+        "serieNo": "NUMERO DE SERIE",
+        "articulos": "ARTICULOS",
+        "quantity": "CANTIDAD",
+        "itemPrice": "PRECIO DEL ARTÍCULO",
+        "amount": "CANTIDAD",
+        "paymentMethod": "MÉTODO DE PAGO",
+        "shippingCost": "COSTOS DE ENVÍO",
+        "discount": "DESCUENTO",
+        "totalAmount": "IMPORTE TOTAL"
+      },
+
+      "invoiceStatus": {
+        "Delivered": "Entregado",
+        "POS-Completed": "POS Completado",
+        "Pending": "Pendiente",
+        "Cancel": "Cancelado",
+        "Processing": "Procesando",
+        "Deleted": "Eliminado"
+      }
+    }
+  },
+
+  "navbar": {
+    "search": "Buscar producto (por ejemplo, pescado, manzana, aceite)"
+  },
+
+  "contactUsScreen": {
+    "name": "Su nombre",
+    "plaholderName": "Ingrese su nombre",
+    "email": "Tu correo electrónico",
+    "plaholderEmail": "Ingrese su correo electrónico",
+    "subject": "Asunto o Tema",
+    "plaholderSubject": "Ingrese su tema",
+    "message": "Mensaje",
+    "plaholderMessage": "Escribe tu mensaje aquí",
+    "sendBtn": "Enviar mensaje",
+    "required": "se requiere",
+    "validationMessage": "¡Se requiere mensaje!",
+    "sentMessageNotification": "Su mensaje se envió correctamente. Nos pondremos en contacto con usted en breve."
+  },
+
+  "couponScreen": {
+    "label": "Cupon",
+    "stateAct": "Activo",
+    "stateInact": "Inactivo",
+    "copied": "Copiado",
+    "text": "Este código de cupón se aplicará cuando compres más de",
+    "off": "de descuento"
+  },
+
+  "cart": {
+    "label": "Carrito de compras",
+    "closeBtn": "Cerrar",
+    "emptyCartMessage": "Tu carrito esta vacio",
+    "addItems": "No hay artículos añadidos a tu carro de compras. Por favor, agrega productos en tu carrito.",
+    "proceedBtn": "Proceder al pago"
+  },
+
+  "checkoutScreen": {
+    "label": "Puntos de entrega",
+    "itemPrice": "Precio del artículo",
+    "loading": "Cargando puntos de entrega...",
+    "errorLoading": "Error al cargar los puntos de entrega",
+    "text": "No hay puntos de entrega disponibles en tu ubicación.",
+    "buttonRegisterLocation": "Registra tu ubicación",
+    "validationShipping": "¡Se requiere opción de envío!",
+    "paymentMethodCash": "Efectivo",
+    "paymentMethodQr": "Pago QR",
+    "couponCode": "Ingresa tu código de cupón",
+
+    "modalQr": {
+      "title": "Pago QR",
+      "total": "Total: ",
+      "loadingGenerating": "Generando QR...",
+      "notGenerating": "No se pudo generar el código QR.",
+      "cancelButton": "Cancelar",
+      "verifyButton": "Verificar Pago QR",
+      "okButton": "OK"
+    },
+
+    "message": {
+      "default": "Escanea el código QR con la app de tu banco y luego verifica con el botón 'Verificar Pago QR'.",
+      "pending": "Transacción pendiente de pago. Escanea el código QR con la app de tu banco.",
+      "success": "Transacción ejecutada correctamente. Tu factura se enviará a tu correo electrónico. Espera unos minutos.",
+      "error": "Error en la transacción. Inténtalo de nuevo."
+    }
+  },
+
+  "page404Screen": {
+    "title": "KachaBazar | 404",
+    "message": "¡No se encontró la página!",
+    "paragraph": "¡Lo sentimos! No se encontró esta página. Inténtalo de nuevo más tarde.",
+    "home": " Volver a Inicio"
+  },
+
+  "userScreen": {
+    "dashboard": {
+      "message": "¡Aún no tienes ningún pedido!"
+    },
+
+    "myOrders": {
+      "title": "Mis pedidos"
+    }
+  },
+
+  "myAccount": {
+    "label": "Mi Cuenta",
+    "editBtn": "Editar",
+    "addDefaultAdress": "Añadir dirección de envío por defecto",
+    "addCategories": "Agregar categorias",
+    "defaultShippingAddress": "Dirección de envío por defecto",
+    "selectedCategories": "Categorias seleccionadas",
+    "selected": "Seleccionados",
+
+    "addAddressCard": {
+      "label": "Agregar dirección de envío",
+      "fullName": "Nombre completo",
+      "fullNamePH": "Ingresa tu nombre completo",
+      "fullAddress": "Dirección completa",
+      "fullAddressPH": "Ingresa tu dirección completa",
+      "phone": "Teléfono",
+      "phonePH": "Teléfono/móvil",
+      "email": "Correo electrónico",
+      "emailPH": "Correo electrónico",
+      "country": "País",
+      "city": "Ciudad",
+      "area": "Zona",
+      "zipCode": "Código postal",
+      "zipCodePH": "Código postal",
+      "processing": "Procesando",
+      "successMessage": "Direccion de envio agregado satisfactoriamente."
+    },
+    "addPreferencesCard": {
+      "label": "Agregar preferencias",
+      "loadingCategories": "Cargando categorias...",
+      "successMessage": "Preferencias actualizadas correctamente"
+    }
+  },
+
+  "updateProfile": {
+    "photo": "Foto",
+    "department": "Departamento",
+    "selectDepartment": "Selecciona un departamento"
+  },
+
+  "loginScreen": {
+    "title": "Iniciar Sesión",
+    "text": "Inicia sesión con tu correo y contraseña",
+    "labelEmail": "Correo electrónico",
+    "inputEmail": "Ingresa tu correo electrónico",
+    "labelPassword": "Contraseña",
+    "inputPassword": "Ingresa tu contraseña",
+    "linkForgotPassword": "¿Olvidaste tu contraseña?",
+    "processing": "Procesando",
+    "buttonLogin": "Iniciar sesión",
+    "or": "O",
+    "loginGoogle": "con Google",
+    "loginFacebook": "con Facebook",
+    "loginGithub": "con Github",
+    "textDontHaveAccount": "¿No tienes una cuenta?"
+  },
+
+  "signupScreen": {
+    "title": "Registrate",
+    "text": "Crea una cuenta registrándote con un proveedor o con correo y contraseña",
+    "labelName": "Nombre",
+    "inputName": "Ingresa tu nombre",
+    "labelEmail": "Correo electrónico",
+    "inputEmail": "Ingresa tu correo",
+    "labelPassword": "Contraseña",
+    "inputPassword": "Ingresa tu contraseña",
+
+    "minLength": "1. La contraseña debe tener al menos 8 caracteres.",
+    "uppercase": "2. La contraseña debe contener al menos una letra mayúscula.",
+    "lowercase": "3. La contraseña debe contener al menos una letra minúscula.",
+    "number": "4. La contraseña debe contener al menos un número.",
+    "specialChar": "5. La contraseña debe contener al menos un carácter especial.",
+
+    "linkAlreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "buttonRegister": "Registrarse",
+    "textAlreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "message": "¡Por favor revise su correo electrónico para verificar su cuenta!"
+  },
+
+  "forgetPasswordScreen": {
+    "title": "Olvidé mi contraseña",
+    "text": "Restablece tu contraseña",
+    "labelEmail": "Correo electrónico",
+    "inputEmail": "Ingresa tu correo electrónico",
+    "link": "Inicia sesión",
+    "buttonRecover": "Recuperar contraseña",
+    "message": "¡Usuario no encontrado con este correo electrónico!"
+  },
+
+  "changePasswordScreen": {
+    "passwordValidation": "1. La contraseña debe tener al menos 8 caracteres.",
+    "uppercaseValidation": "2. La contraseña debe contener al menos una letra mayúscula.",
+    "lowercaseValidation": "3. La contraseña debe contener al menos una letra minúscula.",
+    "numberValidation": "4. La contraseña debe contener al menos un número.",
+    "specialValidation": "5. La contraseña debe contener al menos un carácter especial.",
+    "passwordChangeNotification": "Correo electrónico o contraseña actual no válidos"
+  },
+
+  "locationRegistrationScreen": {
+    "question": "¿Dónde vives?",
+    "paragraph": " Esto nos ayuda a encontrar contenido más relevante para ti. No lo mostraremos en tu perfil.",
+    "department": "Departamento",
+    "selectDepartment": "Seleccione un departamento",
+    "processing": "Procesando",
+    "register": "Registro",
+    "skip": "Saltar",
+    "notification": "¡Ubicación registrada!",
+    "loading": "Cargando departamentos...",
+    "noLocations": "Lo sentimos, no hay ubicaciones para registrar. Por favor, pulse el botón 'Saltar' por ahora."
+  },
+
+  "signUpPreferences": {
+    "question": "¿Cuales son tus intereses?",
+    "registerBtn": "Registrar",
+    "successMessage": "Preferencias agregadas exitosamente!"
+  },
+
+  "footerScreen": {
+    "follow": "Síganos",
+    "callUs": "Llámanos",
+    "copy": "Derechos de autor 2025 @",
+    "html": "Amante del HTML",
+    "allRights": " , Reservados todos los derechos."
+  },
+
+  "homeScreen": {
+    "stock": "Inventario",
+    "category": "Categoría",
+    "moreInfo": "Más información",
+    "callUs": "Llámanos para hacer tu pedido por número de móvil",
+    "addToCart": "Agregar al carrito",
+    "coupon": " * Este cupón se aplica al comprar más de",
+    "notification": " añadido al carrito!",
+    "share": "Comparte tus redes sociales",
+    "shareText": "Comparte tu texto social",
+    "week": "Oferta de descuento de fin de semana",
+    "shop": "Compra ahora",
+    "sorryText": "Lo sentimos, no podemos encontrar este producto.",
+    "title": "Sabor de",
+    "subTitle1": "Fresco y Natural",
+    "subTitle2": "Pescado y Carne",
+    "subTitle3": "Pan y panadería",
+    "notificationOfInsufficient": "Stock insuficiente",
+    "itemsFound": "Artículos encontrados",
+    "totalI": "Total",
+    "sortByPrice": "Ordenar por precio",
+    "lowToHigh": "De menor a mayor",
+    "highToLow": "De mayor a menor",
+    "loadMoreBtn": "Cargar más"
+  }
+}

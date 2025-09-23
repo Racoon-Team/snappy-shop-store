@@ -1,16 +1,16 @@
-import Image from "next/image";
-import { useCart } from "react-use-cart";
-import { FiPlus, FiMinus } from "react-icons/fi";
+import Image from 'next/image';
+import { useCart } from 'react-use-cart';
+import { FiPlus, FiMinus } from 'react-icons/fi';
 
 //internal imports
-import useGetSetting from "@hooks/useGetSetting";
+import useGetSetting from '@hooks/useGetSetting';
 
 const CheckoutCard = ({ item }) => {
   const { updateItemQuantity } = useCart();
 
   const { globalSetting } = useGetSetting();
 
-  const currency = globalSetting?.default_currency || "$";
+  const currency = globalSetting?.default_currency || '$';
 
   return (
     <div
@@ -32,21 +32,13 @@ const CheckoutCard = ({ item }) => {
             </span>
           </p>
           <div className="h-8 w-20 flex flex-wrap items-center justify-evenly p-1 border border-gray-100 bg-white text-gray-600 rounded-md">
-            <div
-              className="cursor-pointer"
-              onClick={() => updateItemQuantity(item.id, item.quantity - 1)}
-            >
+            <div className="cursor-pointer" onClick={() => updateItemQuantity(item.id, item.quantity - 1)}>
               <span className="text-dark text-base">
                 <FiMinus />
               </span>
             </div>
-            <p className="text-sm font-semibold text-dark px-1">
-              {item.quantity}
-            </p>
-            <div
-              className="cursor-pointer"
-              onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
-            >
+            <p className="text-sm font-semibold text-dark px-1">{item.quantity}</p>
+            <div className="cursor-pointer" onClick={() => updateItemQuantity(item.id, item.quantity + 1)}>
               <span className="text-dark text-base">
                 <FiPlus />
               </span>

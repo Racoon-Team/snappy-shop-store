@@ -18,6 +18,7 @@
   "Call Us": "We are available 24/7, Need help? Call Us :",
   "sliderH1": "POS and E-Commerce Website both controlled from a single easy to use Administration Panel",
   "Ckeckout": "Checkout",
+  "allCategorie": "All categories",
 
   "search-placeholder": "Search for products (e.g. fish, apple, oil)",
 
@@ -230,6 +231,7 @@
   "shippingCost": "Shipping Cost",
   "paymentDetails": "Payment Method",
   "cashOnDelivery": "Cash On Delivery",
+  "qrPayment": "QR Payment",
   "creditCard": "Credit Card",
   "payPal": "PayPal",
 
@@ -316,6 +318,7 @@
   "lowToHigh": "Low to High",
   "highToLow": "High to Low",
   "sorryText": "Sorry, we can not find this product",
+  "noCategories": "You have no favorite categories.",
 
   "/=================* faq* =================/": "",
   "faq-title": "Frequently Asked Questions",
@@ -401,6 +404,10 @@
   "terms-condition-disclaimer-docs3": "3. limit any of our or your liabilities in any way that is not permitted under applicable law; or  ",
   "terms-condition-disclaimer-docs4": "4. exclude any of our or your liabilities that may not be excluded under applicable law.  ",
   "terms-condition-disclaimer-docs5": "The limitations and prohibitions of liability set in this Section and elsewhere in this disclaimer: (a) are subject to the preceding paragraph; and (b) govern all liabilities arising under the disclaimer, including liabilities arising in contract, in tort and for breach of statutory duty. As long as the website and the information and services on the website are provided free of charge, we will not be liable for any loss or damage of any nature.",
-"/=================* Location* =================/": "",
-   "locationRegistered": "Location registered!"
+  "/=================* Location* =================/": "",
+  "locationRegistered": "Location registered!",
+
+  "/=================* Preference* =================/": "",
+  "question": " What are your interests?",
+  "skip": "Skip"
 }

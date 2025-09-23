@@ -1,19 +1,21 @@
-import Link from "next/link";
-import React from "react";
-import { FiPlus } from "react-icons/fi";
-import { useQuery } from "@tanstack/react-query";
+import Link from 'next/link';
+import React from 'react';
+import { FiPlus } from 'react-icons/fi';
+import { useQuery } from '@tanstack/react-query';
 
 //internal imports
-import { getUserSession } from "@lib/auth";
-import Dashboard from "@pages/user/dashboard";
-import Error from "@components/form/Error";
-import CustomerServices from "@services/CustomerServices";
+import { getUserSession } from '@lib/auth';
+import Dashboard from '@pages/user/dashboard';
+import Error from '@components/form/Error';
+import CustomerServices from '@services/CustomerServices';
+import { useTranslation } from 'react-i18next';
 
 const MyAccount = () => {
+  const { t } = useTranslation();
   const userInfo = getUserSession();
 
   const { data, error, isLoading } = useQuery({
-    queryKey: ["shippingAddress", { id: userInfo?.id }],
+    queryKey: ['shippingAddress', { id: userInfo?.id }],
     queryFn: async () =>
       await CustomerServices.getShippingAddress({
         userId: userInfo?.id,
@@ -22,6 +24,14 @@ const MyAccount = () => {
   });
 
   const hasShippingAddress = data && Object.keys(data).length > 0;
+
+  const { data: customerData } = useQuery({
+    queryKey: ['customer', { id: userInfo?.id }],
+    queryFn: async () => await CustomerServices.getCustomerById(userInfo?.id),
+    enabled: !!userInfo?.id,
+  });
+
+  const hasPreferences = customerData?.preferences && customerData.preferences.length > 0;
 
   // console.log("data", data?.shippingAddress);
 
@@ -36,7 +46,7 @@ const MyAccount = () => {
                 href="/user/update-profile"
                 className="absolute top-2 right-2 bg-cyan-600 text-white px-3 py-1 rounded hover:bg-cyan-700"
               >
-                Edit
+                {t('myAccount.editBtn')}
               </Link>
               <div className="flex items-center justify-center rounded-full text-xl text-center mr-4 bg-gray-200">
                 {userInfo?.image ? (
@@ -54,9 +64,7 @@ const MyAccount = () => {
                 )}
               </div>
               <div>
-                <h5 className="leading-none mb-2 text-base font-medium text-gray-700">
-                  {userInfo?.name}
-                </h5>
+                <h5 className="leading-none mb-2 text-base font-medium text-gray-700">{userInfo?.name}</h5>
                 <p className="text-sm text-gray-500">{userInfo?.email}</p>
                 <p className="text-sm text-gray-500">{userInfo?.phone}</p>
               </div>
@@ -71,7 +79,7 @@ const MyAccount = () => {
                   href={`/user/add-shipping-address?id=${userInfo?.id}`}
                   className="absolute top-2 right-2 bg-cyan-600 text-white px-3 py-1 rounded hover:bg-cyan-700"
                 >
-                  Edit
+                  {t('myAccount.editBtn')}
                 </Link>
                 <div className="flex-grow">
                   {!isLoading && error ? (
@@ -79,16 +87,13 @@ const MyAccount = () => {
                   ) : (
                     <>
                       <h5 className="leading-none mb-2 text-base font-medium text-gray-700">
-                        {data?.name}{" "}
-                        <span className="text-xs text-gray-500">
-                          (Default Shipping Address)
-                        </span>
+                        {data?.name}{' '}
+                        <span className="text-xs text-gray-500">({t('myAccount.defaultShippingAddress')})</span>
                       </h5>
                       <p className="text-sm text-gray-500">{data?.contact} </p>
                       <p className="text-sm text-gray-500">{data?.address} </p>
                       <p className="text-sm text-gray-500">
-                        {data?.country}, {data?.city}, {data?.area} -
-                        {data?.zipCode}
+                        {data?.country}, {data?.city}, {data?.area} -{data?.zipCode}
                       </p>
                     </>
                   )}
@@ -101,8 +106,39 @@ const MyAccount = () => {
                 href="/user/add-shipping-address"
                 className="flex items-center bg-cyan-600 text-white hover:bg-cyan-700 w-full rounded-lg py-3 px-4 text-center relative"
               >
-                <FiPlus className="text-xl font-bold text-center mr-4" /> Add
-                Default Shipping Address
+                <FiPlus className="text-xl font-bold text-center mr-4" />
+                {t('myAccount.addDefaultAdress')}
+              </Link>
+            </div>
+          )}
+
+          {hasPreferences ? (
+            <div className="flex h-full relative">
+              <div className="flex items-center border border-gray-200 w-full rounded-lg p-4 relative">
+                <Link
+                  href={`/user/add-more-preferences?id=${userInfo?.id}`}
+                  className="absolute top-2 right-2 bg-cyan-600 text-white px-3 py-1 rounded hover:bg-cyan-700"
+                >
+                  {t('myAccount.editBtn')}
+                </Link>
+                <div className="flex-grow">
+                  <h5 className="leading-none mb-2 text-base font-medium text-gray-700">
+                    {t('myAccount.selectedCategories')}
+                  </h5>
+                  <p className="text-sm text-gray-500">
+                    {customerData.preferences.length} {t('myAccount.selected')}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="flex h-full relative">
+              <Link
+                href="/user/add-more-preferences"
+                className="flex items-center bg-cyan-600 text-white hover:bg-cyan-700 w-full rounded-lg py-3 px-4 text-center relative"
+              >
+                <FiPlus className="text-xl font-bold text-center mr-4" />
+                {t('myAccount.addCategories')}
               </Link>
             </div>
           )}

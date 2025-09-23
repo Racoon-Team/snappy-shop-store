@@ -1,15 +1,17 @@
-import { useRouter } from "next/router";
-import React, { useContext } from "react";
-import { useCart } from "react-use-cart";
-import { IoBagCheckOutline, IoClose, IoBagHandle } from "react-icons/io5";
+import { useRouter } from 'next/router';
+import React, { useContext } from 'react';
+import { useCart } from 'react-use-cart';
+import { IoBagCheckOutline, IoClose, IoBagHandle } from 'react-icons/io5';
+import { useTranslation } from 'react-i18next';
 
 //internal import
-import { getUserSession } from "@lib/auth";
-import CartItem from "@components/cart/CartItem";
-import { SidebarContext } from "@context/SidebarContext";
-import useUtilsFunction from "@hooks/useUtilsFunction";
+import { getUserSession } from '@lib/auth';
+import CartItem from '@components/cart/CartItem';
+import { SidebarContext } from '@context/SidebarContext';
+import useUtilsFunction from '@hooks/useUtilsFunction';
 
 const Cart = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const { isEmpty, items, cartTotal } = useCart();
   const { closeCartDrawer } = useContext(SidebarContext);
@@ -29,7 +31,7 @@ const Cart = () => {
         router.push(`/auth/login?redirectUrl=checkout`);
         closeCartDrawer();
       } else {
-        router.push("/checkout");
+        router.push('/checkout');
         closeCartDrawer();
       }
     }
@@ -43,16 +45,14 @@ const Cart = () => {
             <span className="text-xl mr-2 mb-1">
               <IoBagCheckOutline />
             </span>
-            Shopping Cart
+            {t('cart.label')}
           </h2>
           <button
             onClick={closeCartDrawer}
             className="inline-flex text-base items-center justify-center text-gray-500 p-2 focus:outline-none transition-opacity hover:text-red-400"
           >
             <IoClose />
-            <span className="font-sens text-sm text-gray-500 hover:text-red-400 ml-1">
-              Close
-            </span>
+            <span className="font-sens text-sm text-gray-500 hover:text-red-400 ml-1">{t('cart.closeBtn')}</span>
           </button>
         </div>
         <div className="overflow-y-scroll flex-grow scrollbar-hide w-full max-h-full">
@@ -64,13 +64,8 @@ const Cart = () => {
                     <IoBagHandle />
                   </span>
                 </div>
-                <h3 className="font-serif font-semibold text-gray-700 text-lg pt-5">
-                  Your cart is empty
-                </h3>
-                <p className="px-12 text-center text-sm text-gray-500 pt-2">
-                  No items added in your cart. Please add product to your cart
-                  list.
-                </p>
+                <h3 className="font-serif font-semibold text-gray-700 text-lg pt-5">{t('cart.emptyCartMessage')}</h3>
+                <p className="px-12 text-center text-sm text-gray-500 pt-2">{t('cart.addItems')}</p>
               </div>
             </div>
           )}
@@ -84,9 +79,7 @@ const Cart = () => {
             onClick={handleCheckout}
             className="w-full py-3 px-3 rounded-lg bg-emerald-500 hover:bg-emerald-600 flex items-center justify-between bg-heading text-sm sm:text-base text-white focus:outline-none transition duration-300"
           >
-            <span className="align-middle font-medium">
-              Proceed To Checkout
-            </span>
+            <span className="align-middle font-medium">{t('cart.proceedBtn')}</span>
             <span className="rounded-lg font-bold py-2 px-3 bg-white text-emerald-600">
               {currency}
               {cartTotal.toFixed(2)}

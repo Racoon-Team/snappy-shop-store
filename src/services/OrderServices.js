@@ -1,20 +1,20 @@
-import requests from "./httpServices";
+import requests from './httpServices';
 
 const OrderServices = {
   addOrder: async (body, headers) => {
-    return requests.post("/order/add", body, headers);
+    return requests.post('/order/add', body, headers);
   },
 
   createPaymentIntent: async (body) => {
-    return requests.post("/order/create-payment-intent", body);
+    return requests.post('/order/create-payment-intent', body);
   },
 
   addRazorpayOrder: async (body) => {
-    return requests.post("/order/add/razorpay", body);
+    return requests.post('/order/add/razorpay', body);
   },
 
   createOrderByRazorPay: async (body) => {
-    return requests.post("/order/create/razorpay", body);
+    return requests.post('/order/create/razorpay', body);
   },
 
   getOrderCustomer: async ({ page = 1, limit = 8 }) => {
@@ -26,7 +26,7 @@ const OrderServices = {
 
   //for sending email invoice to customer
   sendEmailInvoiceToCustomer: async (body) => {
-    return requests.post("/order/customer/invoice", body);
+    return requests.post('/order/customer/invoice', body);
   },
 };
 

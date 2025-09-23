@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const uniqueArrayOfObjects = (arr) => {
   const map = new Map();
@@ -7,15 +7,13 @@ const uniqueArrayOfObjects = (arr) => {
 };
 
 const dynamicDataSlice = createSlice({
-  name: "data",
+  name: 'data',
   initialState: {
     dynamicData: [],
   },
   reducers: {
     addData: (state, action) => {
-      const existsItem = state.dynamicData.find(
-        (x) => x.name === action.payload.name
-      );
+      const existsItem = state.dynamicData.find((x) => x.name === action.payload.name);
       if (existsItem) {
         return {
           ...state,
@@ -34,23 +32,16 @@ const dynamicDataSlice = createSlice({
       }
     },
     addSingleData: (state, action) => {
-      const singleItem = state.dynamicData.find(
-        (x) => x.name === action.payload.name
-      );
+      const singleItem = state.dynamicData.find((x) => x.name === action.payload.name);
 
-      const items = state.dynamicData.filter(
-        (x) => x.name !== action.payload.name
-      );
+      const items = state.dynamicData.filter((x) => x.name !== action.payload.name);
 
       const uniqueArray = uniqueArrayOfObjects([
-        ...singleItem?.data,
+        ...(singleItem && Array.isArray(singleItem.data) ? singleItem.data : []),
         action.payload.data,
       ]);
 
-      const dynamicData = [
-        ...items,
-        { name: singleItem.name, data: uniqueArray },
-      ];
+      const dynamicData = [...items, { name: singleItem.name, data: uniqueArray }];
 
       return {
         ...state,
@@ -59,23 +50,14 @@ const dynamicDataSlice = createSlice({
     },
     updateSingleData: (state, action) => {
       // find single item
-      const updatedItem = state.dynamicData.find(
-        (x) => x.name === action.payload.name
-      );
+      const updatedItem = state.dynamicData.find((x) => x.name === action.payload.name);
 
-      const notUpdatedItems = state.dynamicData.filter(
-        (x) => x.name !== action.payload.name
-      );
+      const notUpdatedItems = state.dynamicData.filter((x) => x.name !== action.payload.name);
 
-      const result = updatedItem?.data?.filter(
-        (el) => el?._id !== action?.payload?.data?._id
-      );
+      const result = updatedItem?.data?.filter((el) => el?._id !== action?.payload?.data?._id);
       const updatedArr = [...result, action?.payload?.data];
 
-      const updatedData = [
-        ...notUpdatedItems,
-        { name: updatedItem.name, data: updatedArr },
-      ];
+      const updatedData = [...notUpdatedItems, { name: updatedItem.name, data: updatedArr }];
 
       return {
         ...state,
@@ -84,20 +66,16 @@ const dynamicDataSlice = createSlice({
     },
     updateMultipleData: (state, action) => {
       // console.log("action.payload>>>>", action.payload);
-      const updatedMultipleItem = state.dynamicData.find(
-        (x) => x.name === action.payload.name
-      );
+      const updatedMultipleItem = state.dynamicData.find((x) => x.name === action.payload.name);
 
-      const notUpdatedMultipleItems = state.dynamicData.filter(
-        (x) => x.name !== action.payload.name
-      );
+      const notUpdatedMultipleItems = state.dynamicData.filter((x) => x.name !== action.payload.name);
 
-      const multipleUpdatedData = updatedMultipleItem?.data?.filter(
-        (el) => !action?.payload?.ids?.includes(el?._id)
-      );
+      const multipleUpdatedData = Array.isArray(updatedMultipleItem?.data)
+        ? updatedMultipleItem.data.filter((el) => !action?.payload?.ids?.includes(el?._id))
+        : [];
       const updatedFinalArr = [
         ...multipleUpdatedData,
-        ...action?.payload?.data,
+        ...(Array.isArray(action?.payload?.data) ? action.payload.data : []),
       ];
 
       const updatedDatMultiple = [
@@ -118,17 +96,11 @@ const dynamicDataSlice = createSlice({
     },
     removeSingleData: (state, action) => {
       // find single item
-      const singleRemoveItem = state.dynamicData.find(
-        (x) => x.name === action.payload.name
-      );
+      const singleRemoveItem = state.dynamicData.find((x) => x.name === action.payload.name);
 
-      const notUpdatedRemovedData = state.dynamicData?.filter(
-        (x) => x.name !== action.payload.name
-      );
+      const notUpdatedRemovedData = state.dynamicData?.filter((x) => x.name !== action.payload.name);
 
-      const updatedSingleRemovedData = singleRemoveItem?.data?.filter(
-        (el) => el?._id !== action?.payload.id
-      );
+      const updatedSingleRemovedData = singleRemoveItem?.data?.filter((el) => el?._id !== action?.payload.id);
 
       const dynamicDataSingleRemoved = [
         ...notUpdatedRemovedData,
@@ -142,13 +114,9 @@ const dynamicDataSlice = createSlice({
     },
     removeMultipleData: (state, action) => {
       // find single item
-      const multipleRemoveItem = state.dynamicData.find(
-        (x) => x.name === action.payload.name
-      );
+      const multipleRemoveItem = state.dynamicData.find((x) => x.name === action.payload.name);
 
-      const notUpdatedMultipleRemovedData = state.dynamicData?.filter(
-        (x) => x.name !== action.payload.name
-      );
+      const notUpdatedMultipleRemovedData = state.dynamicData?.filter((x) => x.name !== action.payload.name);
 
       const updatedMultipleRemovedData = multipleRemoveItem?.data?.filter(
         (el) => !action?.payload?.ids?.includes(el?._id)

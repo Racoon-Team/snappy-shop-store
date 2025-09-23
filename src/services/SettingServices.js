@@ -1,17 +1,17 @@
-import requests from "./httpServices";
+import requests from './httpServices';
 
 const SettingServices = {
   //store setting all function
   getStoreSetting: async () => {
-    return requests.get("/setting/store-setting/all");
+    return requests.get('/setting/store-setting/all');
   },
 
   getStoreSeoSetting: async () => {
-    return requests.get("/setting/store-setting/seo");
+    return requests.get('/setting/store-setting/seo');
   },
   //store customization setting all function
   getStoreCustomizationSetting: async () => {
-    return requests.get("/setting/store/customization/all");
+    return requests.get('/setting/store/customization/all');
   },
 
   getShowingLanguage: async () => {
@@ -19,7 +19,11 @@ const SettingServices = {
   },
 
   getGlobalSetting: async () => {
-    return requests.get("/setting/global/all");
+    return requests.get('/setting/global/all');
+  },
+
+  getDeliveryPoints: async () => {
+    return requests.get('/setting/delivery-points');
   },
 };
 

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, createContext } from "react";
+import React, { useState, useMemo, createContext } from 'react';
 
 // create context
 export const SidebarContext = createContext();
@@ -45,7 +45,5 @@ export const SidebarProvider = ({ children }) => {
     [cartDrawerOpen, categoryDrawerOpen, isModalOpen, currentPage, isLoading]
   );
 
-  return (
-    <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>
-  );
+  return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>;
 };

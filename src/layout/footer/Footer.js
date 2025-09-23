@@ -1,20 +1,14 @@
-import Link from "next/link";
-import Image from "next/image";
-import dynamic from "next/dynamic";
-import useTranslation from "next-translate/useTranslation";
-import {
-  FacebookIcon,
-  LinkedinIcon,
-  PinterestIcon,
-  TwitterIcon,
-  WhatsappIcon,
-} from "react-share";
+import Link from 'next/link';
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
+import { useTranslation } from 'react-i18next';
+import { FacebookIcon, LinkedinIcon, PinterestIcon, TwitterIcon, WhatsappIcon } from 'react-share';
 
 //internal import
-import { getUserSession } from "@lib/auth";
-import useGetSetting from "@hooks/useGetSetting";
-import CMSkeleton from "@components/preloader/CMSkeleton";
-import useUtilsFunction from "@hooks/useUtilsFunction";
+import { getUserSession } from '@lib/auth';
+import useGetSetting from '@hooks/useGetSetting';
+import CMSkeleton from '@components/preloader/CMSkeleton';
+import useUtilsFunction from '@hooks/useUtilsFunction';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -47,9 +41,7 @@ const Footer = () => {
                       count={1}
                       height={10}
                       loading={loading}
-                      data={
-                        storeCustomizationSetting?.footer?.block1_sub_title1
-                      }
+                      data={storeCustomizationSetting?.footer?.block1_sub_title1}
                     />
                   </Link>
                 </li>
@@ -62,9 +54,7 @@ const Footer = () => {
                       count={1}
                       height={10}
                       loading={loading}
-                      data={
-                        storeCustomizationSetting?.footer?.block1_sub_title2
-                      }
+                      data={storeCustomizationSetting?.footer?.block1_sub_title2}
                     />
                   </Link>
                 </li>
@@ -73,16 +63,12 @@ const Footer = () => {
                     href={`${storeCustomizationSetting?.footer?.block1_sub_link3}`}
                     className="text-gray-600 inline-block w-full hover:text-emerald-500"
                   >
-                    {showingTranslateValue(
-                      storeCustomizationSetting?.footer_block_one_link_three_title
-                    )}
+                    {showingTranslateValue(storeCustomizationSetting?.footer_block_one_link_three_title)}
                     <CMSkeleton
                       count={1}
                       height={10}
                       loading={loading}
-                      data={
-                        storeCustomizationSetting?.footer?.block1_sub_title3
-                      }
+                      data={storeCustomizationSetting?.footer?.block1_sub_title3}
                     />
                   </Link>
                 </li>
@@ -95,9 +81,7 @@ const Footer = () => {
                       count={1}
                       height={10}
                       loading={loading}
-                      data={
-                        storeCustomizationSetting?.footer?.block1_sub_title4
-                      }
+                      data={storeCustomizationSetting?.footer?.block1_sub_title4}
                     />
                   </Link>
                 </li>
@@ -124,9 +108,7 @@ const Footer = () => {
                       count={1}
                       height={10}
                       loading={loading}
-                      data={
-                        storeCustomizationSetting?.footer?.block2_sub_title1
-                      }
+                      data={storeCustomizationSetting?.footer?.block2_sub_title1}
                     />
                   </Link>
                 </li>
@@ -140,9 +122,7 @@ const Footer = () => {
                       count={1}
                       height={10}
                       loading={loading}
-                      data={
-                        storeCustomizationSetting?.footer?.block2_sub_title2
-                      }
+                      data={storeCustomizationSetting?.footer?.block2_sub_title2}
                     />
                   </Link>
                 </li>
@@ -155,9 +135,7 @@ const Footer = () => {
                       count={1}
                       height={10}
                       loading={loading}
-                      data={
-                        storeCustomizationSetting?.footer?.block2_sub_title3
-                      }
+                      data={storeCustomizationSetting?.footer?.block2_sub_title3}
                     />
                   </Link>
                 </li>
@@ -170,9 +148,7 @@ const Footer = () => {
                       count={1}
                       height={10}
                       loading={loading}
-                      data={
-                        storeCustomizationSetting?.footer?.block2_sub_title4
-                      }
+                      data={storeCustomizationSetting?.footer?.block2_sub_title4}
                     />
                   </Link>
                 </li>
@@ -192,77 +168,53 @@ const Footer = () => {
               <ul className="text-sm lg:text-15px flex flex-col space-y-3">
                 <li className="flex items-baseline">
                   <Link
-                    href={`${
-                      userInfo?.email
-                        ? storeCustomizationSetting?.footer?.block3_sub_link1
-                        : "#"
-                    }`}
+                    href={`${userInfo?.email ? storeCustomizationSetting?.footer?.block3_sub_link1 : '#'}`}
                     className="text-gray-600 inline-block w-full hover:text-emerald-500"
                   >
                     <CMSkeleton
                       count={1}
                       height={10}
                       loading={loading}
-                      data={
-                        storeCustomizationSetting?.footer?.block3_sub_title1
-                      }
+                      data={storeCustomizationSetting?.footer?.block3_sub_title1}
                     />
                   </Link>
                 </li>
                 <li className="flex items-baseline">
                   <Link
-                    href={`${
-                      userInfo?.email
-                        ? storeCustomizationSetting?.footer?.block3_sub_link2
-                        : "#"
-                    }`}
+                    href={`${userInfo?.email ? storeCustomizationSetting?.footer?.block3_sub_link2 : '#'}`}
                     className="text-gray-600 inline-block w-full hover:text-emerald-500"
                   >
                     <CMSkeleton
                       count={1}
                       height={10}
                       loading={loading}
-                      data={
-                        storeCustomizationSetting?.footer?.block3_sub_title2
-                      }
+                      data={storeCustomizationSetting?.footer?.block3_sub_title2}
                     />
                   </Link>
                 </li>
                 <li className="flex items-baseline">
                   <Link
-                    href={`${
-                      userInfo?.email
-                        ? storeCustomizationSetting?.footer?.block3_sub_link3
-                        : "#"
-                    }`}
+                    href={`${userInfo?.email ? storeCustomizationSetting?.footer?.block3_sub_link3 : '#'}`}
                     className="text-gray-600 inline-block w-full hover:text-emerald-500"
                   >
                     <CMSkeleton
                       count={1}
                       height={10}
                       loading={loading}
-                      data={
-                        storeCustomizationSetting?.footer?.block3_sub_title3
-                      }
+                      data={storeCustomizationSetting?.footer?.block3_sub_title3}
                     />
                   </Link>
                 </li>
                 <li className="flex items-baseline">
                   <Link
-                    href={`${
-                      userInfo?.email
-                        ? storeCustomizationSetting?.footer?.block3_sub_link4
-                        : "#"
-                    }`}
+                    href={`${userInfo?.email ? storeCustomizationSetting?.footer?.block3_sub_link4 : '#'}`}
                     className="text-gray-600 inline-block w-full hover:text-emerald-500"
                   >
                     <CMSkeleton
                       count={1}
                       height={10}
                       loading={loading}
-                      data={
-                        storeCustomizationSetting?.footer?.block3_sub_title4
-                      }
+                      data={storeCustomizationSetting?.footer?.block3_sub_title4}
                     />
                   </Link>
                 </li>
@@ -271,11 +223,7 @@ const Footer = () => {
           )}
           {storeCustomizationSetting?.footer?.block4_status && (
             <div className="pb-3.5 sm:pb-0 col-span-1 md:col-span-2 lg:col-span-3">
-              <Link
-                href="/"
-                className="mr-3 lg:mr-12 xl:mr-12"
-                rel="noreferrer"
-              >
+              <Link href="/" className="mr-3 lg:mr-12 xl:mr-12" rel="noreferrer">
                 <div className="relative w-32 h-10">
                   <Image
                     // width={110}
@@ -284,10 +232,7 @@ const Footer = () => {
                     height="0"
                     sizes="100vw"
                     className="w-full h-auto"
-                    src={
-                      storeCustomizationSetting?.footer?.block4_logo ||
-                      "/logo/logo-color.svg"
-                    }
+                    src={storeCustomizationSetting?.footer?.block4_logo || '/logo/logo-color.svg'}
                     alt="logo"
                   />
                 </div>
@@ -300,15 +245,9 @@ const Footer = () => {
                   data={storeCustomizationSetting?.footer?.block4_address}
                 />
                 <br />
-                <span>
-                  {" "}
-                  Tel : {storeCustomizationSetting?.footer?.block4_phone}
-                </span>
+                <span> Tel : {storeCustomizationSetting?.footer?.block4_phone}</span>
                 <br />
-                <span>
-                  {" "}
-                  Email : {storeCustomizationSetting?.footer?.block4_email}
-                </span>
+                <span> Email : {storeCustomizationSetting?.footer?.block4_email}</span>
               </p>
             </div>
           )}
@@ -327,7 +266,7 @@ const Footer = () => {
                     storeCustomizationSetting?.footer?.social_linkedin ||
                     storeCustomizationSetting?.footer?.social_whatsapp) && (
                     <span className="text-base leading-7 font-medium block mb-2 pb-0.5">
-                      {t("common:footer-follow-us")}
+                      {t('footerScreen.follow')}
                     </span>
                   )}
                   <ul className="text-sm flex">
@@ -403,9 +342,7 @@ const Footer = () => {
             <div className="col-span-1 text-center hidden lg:block md:block">
               {storeCustomizationSetting?.footer?.bottom_contact_status && (
                 <div>
-                  <p className="text-base leading-7 font-medium block">
-                    {t("common:footer-call-us")}
-                  </p>
+                  <p className="text-base leading-7 font-medium block">{t('footerScreen.callUs')}</p>
                   <h5 className="text-2xl font-bold text-emerald-500 leading-7">
                     {/* +012345-67900 */}
                     {storeCustomizationSetting?.footer?.bottom_contact}
@@ -421,10 +358,7 @@ const Footer = () => {
                       width={274}
                       height={85}
                       className="w-full"
-                      src={
-                        storeCustomizationSetting?.footer?.payment_method_img ||
-                        "/payment-method/payment-logo.png"
-                      }
+                      src={storeCustomizationSetting?.footer?.payment_method_img || '/payment-method/payment-logo.png'}
                       alt="payment method"
                     />
                   </li>
@@ -437,16 +371,16 @@ const Footer = () => {
 
       <div className="mx-auto max-w-screen-2xl px-3 sm:px-10 flex justify-center py-4">
         <p className="text-sm text-gray-500 leading-6">
-          Copyright 2024 @{" "}
+          {t('footerScreen.copy')}{' '}
           <Link
             href="https://themeforest.net/user/htmllover"
             target="_blank"
             rel="noopener noreferrer"
             className="text-emerald-500"
           >
-            HtmlLover
+            {t('footerScreen.html')}
           </Link>
-          , All rights reserved.
+          {t('footerScreen.allRights')}
         </p>
       </div>
     </div>

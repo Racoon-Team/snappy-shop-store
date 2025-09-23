@@ -1,12 +1,12 @@
-import dynamic from "next/dynamic";
-import Image from "next/image";
-import { useRef } from "react";
-import { IoChevronBackOutline, IoChevronForward } from "react-icons/io5"; // requires a loader
-import { Autoplay, Controller, Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Swiper, SwiperSlide } from "swiper/react";
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import { useRef } from 'react';
+import { IoChevronBackOutline, IoChevronForward } from 'react-icons/io5'; // requires a loader
+import { Autoplay, Controller, Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 const ImageCarousel = ({ images, handleChangeImage }) => {
   const prevRef = useRef(null);

@@ -1,44 +1,32 @@
-import { useSearchParams } from "next/navigation";
+import { useSearchParams } from 'next/navigation';
 
 //internal imports
-import Dashboard from "./dashboard";
-import Error from "@components/form/Error";
-import { countries } from "@utils/countries";
-import InputArea from "@components/form/InputArea";
-import SelectOption from "@components/form/SelectOption";
-import useShippingAddressSubmit from "@hooks/useShippingAddressSubmit";
+import Dashboard from './dashboard';
+import Error from '@components/form/Error';
+import { countries } from '@utils/countries';
+import InputArea from '@components/form/InputArea';
+import SelectOption from '@components/form/SelectOption';
+import useShippingAddressSubmit from '@hooks/useShippingAddressSubmit';
+import { useTranslation } from 'react-i18next';
 
 const AddShippingAddress = () => {
-  const id = useSearchParams().get("id");
+  const { t } = useTranslation();
+  const id = useSearchParams().get('id');
 
   //   console.log("id", id);
 
-  const {
-    register,
-    onSubmit,
-    errors,
-    cities,
-    areas,
-    handleSubmit,
-    selectedValue,
-    isSubmitting,
-    handleInputChange,
-  } = useShippingAddressSubmit(id);
+  const { register, onSubmit, errors, cities, areas, handleSubmit, selectedValue, isSubmitting, handleInputChange } =
+    useShippingAddressSubmit(id);
 
   //   console.log("selectedValues", selectedValue);
 
   return (
-    <Dashboard
-      title="add-shipping-address"
-      description="This is my account page"
-    >
+    <Dashboard title="add-shipping-address" description="This is my account page">
       <div className="max-w-screen-2xl">
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1">
             <div className="px-4 sm:px-0">
-              <h2 className="text-xl font-semibold mb-5">
-                Add Shipping Address
-              </h2>
+              <h2 className="text-xl font-semibold mb-5">{t('myAccount.addAddressCard.label')}</h2>
             </div>
           </div>
         </div>
@@ -52,10 +40,10 @@ const AddShippingAddress = () => {
                       <div className="col-span-6 sm:col-span-3">
                         <InputArea
                           register={register}
-                          label="Full Name"
+                          label={t('myAccount.addAddressCard.fullName')}
                           name="name"
                           type="text"
-                          placeholder="Input your full name"
+                          placeholder={t('myAccount.addAddressCard.fullNamePH')}
                         />
 
                         <Error errorName={errors.name} />
@@ -64,10 +52,10 @@ const AddShippingAddress = () => {
                       <div className="col-span-6 sm:col-span-3">
                         <InputArea
                           register={register}
-                          label="Full Address"
+                          label={t('myAccount.addAddressCard.fullAddress')}
                           name="address"
                           type="text"
-                          placeholder="Input your full address"
+                          placeholder={t('myAccount.addAddressCard.fullNamePH')}
                         />
 
                         <Error errorName={errors.address} />
@@ -76,10 +64,10 @@ const AddShippingAddress = () => {
                       <div className="col-span-6 sm:col-span-3">
                         <InputArea
                           register={register}
-                          label="Phone"
+                          label={t('myAccount.addAddressCard.phone')}
                           name="contact"
                           type="tel"
-                          placeholder="Phone/Mobile"
+                          placeholder={t('myAccount.addAddressCard.phonePH')}
                         />
 
                         <Error errorName={errors.contact} />
@@ -87,10 +75,10 @@ const AddShippingAddress = () => {
                       <div className="col-span-6 sm:col-span-3">
                         <InputArea
                           register={register}
-                          label="Email"
+                          label={t('myAccount.addAddressCard.email')}
                           name="email"
                           type="tel"
-                          placeholder="Email"
+                          placeholder={t('myAccount.addAddressCard.emailPH')}
                           readOnly={true}
                         />
 
@@ -100,7 +88,7 @@ const AddShippingAddress = () => {
                       <div className="col-span-6 sm:col-span-3">
                         <SelectOption
                           name="country"
-                          label="Country"
+                          label={t('myAccount.addAddressCard.country')}
                           //   register={register}
                           //   required={true}
                           //   setValue={setValue}
@@ -113,7 +101,7 @@ const AddShippingAddress = () => {
                       <div className="col-span-6 sm:col-span-3">
                         <SelectOption
                           name="city"
-                          label="City"
+                          label={t('myAccount.addAddressCard.city')}
                           //   register={register}
                           //   required={true}
                           //   setValue={setValue}
@@ -126,7 +114,7 @@ const AddShippingAddress = () => {
                       <div className="col-span-6 sm:col-span-3">
                         <SelectOption
                           name="area"
-                          label="Area"
+                          label={t('myAccount.addAddressCard.area')}
                           options={areas?.map((area) => area)}
                           //   register={register}
                           //   required={true}
@@ -139,10 +127,10 @@ const AddShippingAddress = () => {
                       <div className="col-span-6 sm:col-span-3">
                         <InputArea
                           register={register}
-                          label="Zip Code"
+                          label={t('myAccount.addAddressCard.zipCode')}
                           name="zipCode"
                           type="text"
-                          placeholder="Zip Code"
+                          placeholder={t('myAccount.addAddressCard.zipCodePH')}
                           required={false}
                         />
 
@@ -156,13 +144,8 @@ const AddShippingAddress = () => {
                           type="submit"
                           className="cursor-progress md:text-sm leading-5 inline-flex items-center transition ease-in-out duration-300 font-medium text-center justify-center border-0 border-transparent rounded-md placeholder-white focus-visible:outline-none focus:outline-none bg-cyan-600 text-white px-5 md:px-6 lg:px-8 py-2 md:py-3 lg:py-3 hover:text-white hover:bg-cyan-700 h-12 mt-1 text-sm lg:text-sm w-full sm:w-auto"
                         >
-                          <img
-                            src="/loader/spinner.gif"
-                            alt="Loading"
-                            width={20}
-                            height={10}
-                          />
-                          <span className=" ml-2 font-light">Processing</span>
+                          <img src="/loader/spinner.gif" alt="Loading" width={20} height={10} />
+                          <span className=" ml-2 font-light">{t('myAccount.addAddressCard.processing')}</span>
                         </button>
                       ) : (
                         <button
@@ -170,7 +153,7 @@ const AddShippingAddress = () => {
                           type="submit"
                           className="md:text-sm leading-5 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-medium text-center justify-center border-0 border-transparent rounded-md placeholder-white focus-visible:outline-none focus:outline-none bg-cyan-600 text-white px-5 md:px-6 lg:px-8 py-2 md:py-3 lg:py-3 hover:text-white hover:bg-cyan-700 h-12 mt-1 text-sm lg:text-sm w-full sm:w-auto"
                         >
-                          Add Shipping Address
+                          {t('myAccount.addAddressCard.label')}
                         </button>
                       )}
                     </div>

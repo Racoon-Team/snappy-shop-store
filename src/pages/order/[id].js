@@ -1,26 +1,26 @@
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import dynamic from "next/dynamic";
-import { useRef } from "react";
-import { IoCloudDownloadOutline, IoPrintOutline } from "react-icons/io5";
-import ReactToPrint from "react-to-print";
-import { useQuery } from "@tanstack/react-query";
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import dynamic from 'next/dynamic';
+import { useRef } from 'react';
+import { IoCloudDownloadOutline, IoPrintOutline } from 'react-icons/io5';
+import ReactToPrint from 'react-to-print';
+import { useQuery } from '@tanstack/react-query';
 
 //internal import
 
-import Layout from "@layout/Layout";
-import useGetSetting from "@hooks/useGetSetting";
-import Invoice from "@components/invoice/Invoice";
-import Loading from "@components/preloader/Loading";
-import OrderServices from "@services/OrderServices";
-import useUtilsFunction from "@hooks/useUtilsFunction";
-import InvoiceForDownload from "@components/invoice/InvoiceForDownload";
+import Layout from '@layout/Layout';
+import useGetSetting from '@hooks/useGetSetting';
+import Invoice from '@components/invoice/Invoice';
+import Loading from '@components/preloader/Loading';
+import OrderServices from '@services/OrderServices';
+import useUtilsFunction from '@hooks/useUtilsFunction';
+import InvoiceForDownload from '@components/invoice/InvoiceForDownload';
 
 const Order = ({ params }) => {
   const printRef = useRef();
   const orderId = params.id;
 
   const { data, error, isLoading } = useQuery({
-    queryKey: ["order"],
+    queryKey: ['order'],
     queryFn: async () => await OrderServices.getOrderById(orderId),
   });
 
@@ -32,31 +32,18 @@ const Order = ({ params }) => {
       {isLoading ? (
         <Loading loading={isLoading} />
       ) : error ? (
-        <h2 className="text-xl text-center my-10 mx-auto w-11/12 text-red-400">
-          {error}
-        </h2>
+        <h2 className="text-xl text-center my-10 mx-auto w-11/12 text-red-400">{error}</h2>
       ) : (
         <div className="max-w-screen-2xl mx-auto py-10 px-3 sm:px-6">
           <div className="bg-emerald-100 rounded-md mb-5 px-4 py-3">
             <label>
-              {showingTranslateValue(
-                storeCustomizationSetting?.dashboard?.invoice_message_first
-              )}{" "}
-              <span className="font-bold text-emerald-600">
-                {data?.user_info?.name},
-              </span>{" "}
-              {showingTranslateValue(
-                storeCustomizationSetting?.dashboard?.invoice_message_last
-              )}
+              {showingTranslateValue(storeCustomizationSetting?.dashboard?.invoice_message_first)}{' '}
+              <span className="font-bold text-emerald-600">{data?.user_info?.name},</span>{' '}
+              {showingTranslateValue(storeCustomizationSetting?.dashboard?.invoice_message_last)}
             </label>
           </div>
           <div className="bg-white rounded-lg shadow-sm">
-            <Invoice
-              data={data}
-              printRef={printRef}
-              currency={currency}
-              globalSetting={globalSetting}
-            />
+            <Invoice data={data} printRef={printRef} currency={currency} globalSetting={globalSetting} />
             <div className="bg-white p-8 rounded-b-xl">
               <div className="flex lg:flex-row md:flex-row sm:flex-row flex-col justify-between invoice-btn">
                 <PDFDownloadLink
@@ -72,12 +59,10 @@ const Order = ({ params }) => {
                 >
                   {({ blob, url, loading, error }) =>
                     loading ? (
-                      "Loading..."
+                      'Loading...'
                     ) : (
                       <button className="mb-3 sm:mb-0 md:mb-0 lg:mb-0 flex items-center justify-center bg-emerald-500  text-white transition-all font-serif text-sm font-semibold h-10 py-2 px-5 rounded-md">
-                        {showingTranslateValue(
-                          storeCustomizationSetting?.dashboard?.download_button
-                        )}{" "}
+                        {showingTranslateValue(storeCustomizationSetting?.dashboard?.download_button)}{' '}
                         <span className="ml-2 text-base">
                           <IoCloudDownloadOutline />
                         </span>
@@ -89,9 +74,7 @@ const Order = ({ params }) => {
                 <ReactToPrint
                   trigger={() => (
                     <button className="mb-3 sm:mb-0 md:mb-0 lg:mb-0 flex items-center justify-center bg-emerald-500  text-white transition-all font-serif text-sm font-semibold h-10 py-2 px-5 rounded-md">
-                      {showingTranslateValue(
-                        storeCustomizationSetting?.dashboard?.print_button
-                      )}{" "}
+                      {showingTranslateValue(storeCustomizationSetting?.dashboard?.print_button)}{' '}
                       <span className="ml-2">
                         <IoPrintOutline />
                       </span>

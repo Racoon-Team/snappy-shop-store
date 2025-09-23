@@ -1,12 +1,12 @@
 // dynamicSettings.js
-import { QueryClient } from "@tanstack/react-query";
-import Google from "next-auth/providers/google";
-import GitHub from "next-auth/providers/github";
-import Facebook from "next-auth/providers/facebook";
-import Credentials from "next-auth/providers/credentials";
+import { QueryClient } from '@tanstack/react-query';
+import Google from 'next-auth/providers/google';
+import GitHub from 'next-auth/providers/github';
+import Facebook from 'next-auth/providers/facebook';
+import Credentials from 'next-auth/providers/credentials';
 
-import SettingServices from "@services/SettingServices";
-import CustomerServices from "@services/CustomerServices";
+import SettingServices from '@services/SettingServices';
+import CustomerServices from '@services/CustomerServices';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,7 +20,7 @@ const queryClient = new QueryClient({
 export const getDynamicAuthOptions = async () => {
   // Fetch store settings from the cache or trigger a fetch if not cached
   const storeSetting = await queryClient.fetchQuery({
-    queryKey: ["storeSetting"],
+    queryKey: ['storeSetting'],
     queryFn: async () => await SettingServices.getStoreSetting(),
     staleTime: 4 * 60 * 1000, // Api request after 4 minutes
   });
@@ -29,22 +29,22 @@ export const getDynamicAuthOptions = async () => {
 
   const providers = [
     Google({
-      clientId: storeSetting?.google_id || "",
-      clientSecret: storeSetting?.google_secret || "",
+      clientId: storeSetting?.google_id || '',
+      clientSecret: storeSetting?.google_secret || '',
     }),
     GitHub({
-      clientId: storeSetting?.github_id || "",
-      clientSecret: storeSetting?.github_secret || "",
+      clientId: storeSetting?.github_id || '',
+      clientSecret: storeSetting?.github_secret || '',
     }),
     Facebook({
-      clientId: storeSetting?.facebook_id || "",
-      clientSecret: storeSetting?.facebook_secret || "",
+      clientId: storeSetting?.facebook_id || '',
+      clientSecret: storeSetting?.facebook_secret || '',
     }),
     Credentials({
-      name: "Credentials",
+      name: 'Credentials',
       credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
       },
       authorize: async (credentials) => {
         try {
@@ -52,8 +52,7 @@ export const getDynamicAuthOptions = async () => {
           return userInfo;
         } catch (error) {
           // Handle custom error from backend
-          const message =
-            error.response?.data?.message || "Login failed! Please try again.";
+          const message = error.response?.data?.message || 'Login failed! Please try again.';
           throw new Error(message); // Propagate error to client
         }
       },
@@ -64,7 +63,7 @@ export const getDynamicAuthOptions = async () => {
     providers,
     callbacks: {
       async signIn({ user, account }) {
-        if (account.provider !== "credentials") {
+        if (account.provider !== 'credentials') {
           try {
             const res = await CustomerServices.signUpWithOauthProvider(user);
 
@@ -80,11 +79,11 @@ export const getDynamicAuthOptions = async () => {
               user.phone = res.phone;
               user.image = res.image;
             } else {
-              console.error("OAuth sign-in: No token received");
+              console.error('OAuth sign-in: No token received');
               return false;
             }
           } catch (error) {
-            console.error("OAuth sign-in exception:", error);
+            console.error('OAuth sign-in exception:', error);
             return false;
           }
         }
@@ -101,7 +100,7 @@ export const getDynamicAuthOptions = async () => {
           token.token = user.token;
         }
 
-        if (trigger === "update" && session) {
+        if (trigger === 'update' && session) {
           return {
             ...token,
             ...session.user,

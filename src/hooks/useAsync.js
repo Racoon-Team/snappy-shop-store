@@ -1,10 +1,10 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const useAsync = (asyncFunction) => {
-  const [data, setData] = useState([] || {});
-  const [error, setError] = useState("");
-  const [errCode, setErrCode] = useState("");
+  const [data, setData] = useState({});
+  const [error, setError] = useState('');
+  const [errCode, setErrCode] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const useAsync = (asyncFunction) => {
         if (!unmounted) {
           setData(res);
           // console.log("res", res);
-          setError("");
+          setError('');
           setLoading(false);
         }
       } catch (err) {
@@ -41,15 +41,14 @@ const useAsync = (asyncFunction) => {
 
     return () => {
       unmounted = true;
-      source.cancel("Cancelled in cleanup");
+      source.cancel('Cancelled in cleanup');
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     // }, [currentPage]);
   }, []);
 
   useEffect(() => {
     if (errCode === 401) {
-      console.log("status 401", errCode);
+      console.log('status 401', errCode);
       window.location.replace(`${process.env.NEXT_PUBLIC_STORE_DOMAIN}`);
     }
   }, [errCode]);

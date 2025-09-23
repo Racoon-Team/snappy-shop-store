@@ -1,28 +1,26 @@
-import Switch from "react-switch";
+import Switch from 'react-switch';
 
 const SwitchToggle = ({ id, title, handleProcess, processOption }) => {
   return (
     <>
-      <div className={`${"mb-3"}`}>
+      <div className={`${'mb-3'}`}>
         <div className="flex flex-wrap items-center">
-          <label className="text-sm font-semibold text-gray-600 mr-1">
-            {title}
-          </label>
+          <label className="text-sm font-semibold text-gray-600 mr-1">{title}</label>
 
           <Switch
-            id={id || title || ""}
+            id={id || title || ''}
             onChange={handleProcess}
             checked={processOption}
             className="react-switch md:ml-0 ml-3"
             uncheckedIcon={
               <div
                 style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100%",
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100%',
                   fontSize: 14,
-                  color: "white",
+                  color: 'white',
                   paddingRight: 5,
                   paddingTop: 1,
                 }}
@@ -38,12 +36,12 @@ const SwitchToggle = ({ id, title, handleProcess, processOption }) => {
             checkedIcon={
               <div
                 style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100%",
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100%',
                   fontSize: 14,
-                  color: "white",
+                  color: 'white',
                   paddingLeft: 8,
                   paddingTop: 1,
                 }}

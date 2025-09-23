@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import dynamic from "next/dynamic";
-import { useCart } from "react-use-cart";
-import { FiHome, FiUser, FiShoppingCart, FiAlignLeft } from "react-icons/fi";
+import React, { useContext, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
+import { useCart } from 'react-use-cart';
+import { FiHome, FiUser, FiShoppingCart, FiAlignLeft } from 'react-icons/fi';
 
 //internal imports
-import { getUserSession } from "@lib/auth";
-import { SidebarContext } from "@context/SidebarContext";
-import CategoryDrawer from "@components/drawer/CategoryDrawer";
+import { getUserSession } from '@lib/auth';
+import { SidebarContext } from '@context/SidebarContext';
+import CategoryDrawer from '@components/drawer/CategoryDrawer';
 
 const MobileFooter = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -31,12 +31,7 @@ const MobileFooter = () => {
             <FiAlignLeft className="w-6 h-6 drop-shadow-xl" />
           </span>
         </button>
-        <Link
-          href="/"
-          className="text-xl text-white"
-          rel="noreferrer"
-          aria-label="Home"
-        >
+        <Link href="/" className="text-xl text-white" rel="noreferrer" aria-label="Home">
           <FiHome className="w-6 h-6 drop-shadow-xl" />
         </Link>
 
@@ -49,26 +44,13 @@ const MobileFooter = () => {
           </span>
           <FiShoppingCart className="w-6 h-6 drop-shadow-xl" />
         </button>
-        <button
-          aria-label="User"
-          type="button"
-          className="text-xl text-white indicator justify-center"
-        >
+        <button aria-label="User" type="button" className="text-xl text-white indicator justify-center">
           {userInfo?.image ? (
             <Link href="/user/dashboard" className="relative top-1 w-6 h-6">
-              <Image
-                width={29}
-                height={29}
-                src={userInfo.image}
-                alt="user"
-                className="rounded-full"
-              />
+              <Image width={29} height={29} src={userInfo.image} alt="user" className="rounded-full" />
             </Link>
           ) : userInfo?.name ? (
-            <Link
-              href="/user/dashboard"
-              className="leading-none font-bold font-serif block"
-            >
+            <Link href="/user/dashboard" className="leading-none font-bold font-serif block">
               {userInfo?.name[0]}
             </Link>
           ) : (

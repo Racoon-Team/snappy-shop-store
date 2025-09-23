@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Error = ({ error, errorName }) => {
   // console.log("errorName", errorName);
@@ -16,9 +16,7 @@ const Error = ({ error, errorName }) => {
       ) : errorName ? (
         <span className="text-red-400 text-sm mt-2">{errorName.message}</span>
       ) : (
-        <span className="text-red-400 text-sm mt-2">
-          {error?.response?.data?.message || error?.message}
-        </span>
+        <span className="text-red-400 text-sm mt-2">{error?.response?.data?.message || error?.message}</span>
       )}
     </>
   );

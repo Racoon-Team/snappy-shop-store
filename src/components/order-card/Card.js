@@ -10,12 +10,8 @@ const Card = ({ title, Icon, quantity, className }) => {
           <Icon />
         </div>
         <div>
-          <h5 className="leading-none mb-2 text-base font-medium font-serif text-gray-700">
-            {title}
-          </h5>
-          <p className="text-xl font-bold font-serif leading-none text-gray-800">
-            {quantity}
-          </p>
+          <h5 className="leading-none mb-2 text-base font-medium font-serif text-gray-700">{title}</h5>
+          <p className="text-xl font-bold font-serif leading-none text-gray-800">{quantity}</p>
         </div>
       </div>
     </div>

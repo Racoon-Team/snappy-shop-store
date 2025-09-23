@@ -1,6 +1,6 @@
-import { addSetting, removeSetting } from "@redux/slice/settingSlice";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { addSetting, removeSetting } from '@redux/slice/settingSlice';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 // import io from "socket.io-client";
 
 // Create a single socket instance

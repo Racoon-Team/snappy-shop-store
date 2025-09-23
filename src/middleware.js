@@ -1,5 +1,5 @@
-import { getToken } from "next-auth/jwt";
-import { NextResponse } from "next/server";
+import { getToken } from 'next-auth/jwt';
+import { NextResponse } from 'next/server';
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request) {
@@ -26,9 +26,9 @@ export async function middleware(request) {
 // See "Matching Paths" below to learn more
 export const config = {
   matcher: [
-    "/user/:path*",
-    "/order/:path*",
-    "/checkout/:path*",
+    '/user/:path*',
+    '/order/:path*',
+    '/checkout/:path*',
     // "/auth/login/:path*",
   ],
 };

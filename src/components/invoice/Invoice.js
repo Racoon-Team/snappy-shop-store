@@ -1,88 +1,75 @@
-import dayjs from "dayjs";
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
+import dayjs from 'dayjs';
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 //internal import
-import OrderTable from "@components/order/OrderTable";
-import useUtilsFunction from "@hooks/useUtilsFunction";
+import OrderTable from '@components/order/OrderTable';
+import useUtilsFunction from '@hooks/useUtilsFunction';
 
 const Invoice = ({ data, printRef, globalSetting, currency }) => {
+  const { t } = useTranslation();
   // console.log('invoice data',data)
 
   const { getNumberTwo } = useUtilsFunction();
+
+  const statusColors = {
+    Delivered: 'text-emerald-500',
+    'POS-Completed': 'text-emerald-500',
+    Pending: 'text-orange-500',
+    Cancel: 'text-red-500',
+    Processing: 'text-indigo-500',
+    Deleted: 'text-red-700',
+  };
 
   return (
     <div ref={printRef}>
       <div className="bg-indigo-50 p-8 rounded-t-xl">
         <div className="flex lg:flex-row md:flex-row flex-col lg:items-center justify-between pb-4 border-b border-gray-50">
           <div>
-            <h1 className="font-bold font-serif text-2xl uppercase">Invoice</h1>
+            <h1 className="font-bold font-serif text-2xl uppercase">{t('common.invoiceDetails.title')}</h1>
             <h6 className="text-gray-700">
-              Status :{" "}
-              {data.status === "Delivered" && (
-                <span className="text-emerald-500">{data.status}</span>
-              )}
-              {data.status === "POS-Completed" && (
-                <span className="text-emerald-500">{data.status}</span>
-              )}
-              {data.status === "Pending" && (
-                <span className="text-orange-500">{data.status}</span>
-              )}
-              {data.status === "Cancel" && (
-                <span className="text-red-500">{data.status}</span>
-              )}
-              {data.status === "Processing" && (
-                <span className="text-indigo-500">{data.status}</span>
-              )}
-              {data.status === "Deleted" && (
-                <span className="text-red-700">{data.status}</span>
+              {t('common.invoiceDetails.status')}
+              {data.status && (
+                <span className={statusColors[data.status] || 'text-gray-500'}>
+                  {t(`common.invoiceDetails.invoiceStatus.${data.status}`)}
+                </span>
               )}
             </h6>
           </div>
           <div className="lg:text-right text-left">
             <h2 className="text-lg font-serif font-semibold mt-4 lg:mt-0 md:mt-0">
               <Link href="/">
-                <Image
-                  width={110}
-                  height={40}
-                  src="/logo/logo-color.svg"
-                  alt="logo"
-                />
+                <Image width={110} height={40} src="/logo/logo-color.svg" alt="logo" />
               </Link>
             </h2>
             <p className="text-sm text-gray-500">
-              {globalSetting?.address ||
-                "Cecilia Chapman, 561-4535 Nulla LA, <br /> United States 96522"}
+              {globalSetting?.address || 'Cecilia Chapman, 561-4535 Nulla LA, <br /> United States 96522'}
             </p>
           </div>
         </div>
         <div className="flex lg:flex-row md:flex-row flex-col justify-between pt-4">
           <div className="mb-3 md:mb-0 lg:mb-0 flex flex-col">
             <span className="font-bold font-serif text-sm uppercase text-gray-600 block">
-              Date
+              {t('common.invoiceDetails.date')}
             </span>
             <span className="text-sm text-gray-500 block">
-              {data.createdAt !== undefined && (
-                <span>{dayjs(data?.createdAt).format("MMMM D, YYYY")}</span>
-              )}
+              {data.createdAt !== undefined && <span>{dayjs(data?.createdAt).format('MMMM D, YYYY')}</span>}
             </span>
           </div>
           <div className="mb-3 md:mb-0 lg:mb-0 flex flex-col">
             <span className="font-bold font-serif text-sm uppercase text-gray-600 block">
-              Invoice No.
+              {t('common.invoiceDetails.number')}
             </span>
-            <span className="text-sm text-gray-500 block">
-              #{data?.invoice}
-            </span>
+            <span className="text-sm text-gray-500 block">#{data?.invoice}</span>
           </div>
           <div className="flex flex-col lg:text-right text-left">
             <span className="font-bold font-serif text-sm uppercase text-gray-600 block">
-              Invoice To.
+              {t('common.invoiceDetails.invoiceTo')}
             </span>
             <span className="text-sm text-gray-500 block">
               {data?.user_info?.name} <br />
-              {data?.user_info?.email}{" "}
-              <span className="ml-2">{data?.user_info?.contact}</span>
+              {data?.user_info?.email} <span className="ml-2">{data?.user_info?.contact}</span>
               <br />
               {data?.user_info?.address}
               <br />
@@ -101,32 +88,32 @@ const Invoice = ({ data, printRef, globalSetting, currency }) => {
                     scope="col"
                     className="font-serif font-semibold px-6 py-2 text-gray-700 uppercase tracking-wider text-left"
                   >
-                    Sr.
+                    {t('common.invoiceDetails.table.serieNo')}
                   </th>
                   <th
                     scope="col"
                     className="font-serif font-semibold px-6 py-2 text-gray-700 uppercase tracking-wider text-left"
                   >
-                    Product Name
+                    {t('common.invoiceDetails.table.articulos')}
                   </th>
                   <th
                     scope="col"
                     className="font-serif font-semibold px-6 py-2 text-gray-700 uppercase tracking-wider text-center"
                   >
-                    Quantity
+                    {t('common.invoiceDetails.table.quantity')}
                   </th>
                   <th
                     scope="col"
                     className="font-serif font-semibold px-6 py-2 text-gray-700 uppercase tracking-wider text-center"
                   >
-                    Item Price
+                    {t('common.invoiceDetails.table.itemPrice')}
                   </th>
 
                   <th
                     scope="col"
                     className="font-serif font-semibold px-6 py-2 text-gray-700 uppercase tracking-wider text-right"
                   >
-                    Amount
+                    {t('common.invoiceDetails.table.amount')}
                   </th>
                 </tr>
               </thead>
@@ -140,15 +127,13 @@ const Invoice = ({ data, printRef, globalSetting, currency }) => {
         <div className="flex lg:flex-row md:flex-row flex-col justify-between pt-4">
           <div className="mb-3 md:mb-0 lg:mb-0  flex flex-col sm:flex-wrap">
             <span className="mb-1 font-bold font-serif text-sm uppercase text-gray-600 block">
-              Payment Method
+              {t('common.invoiceDetails.table.paymentMethod')}
             </span>
-            <span className="text-sm text-gray-500 font-semibold font-serif block">
-              {data?.paymentMethod}
-            </span>
+            <span className="text-sm text-gray-500 font-semibold font-serif block">{data?.paymentMethod}</span>
           </div>
           <div className="mb-3 md:mb-0 lg:mb-0  flex flex-col sm:flex-wrap">
             <span className="mb-1 font-bold font-serif text-sm uppercase text-gray-600 block">
-              Shipping Cost
+              {t('common.invoiceDetails.table.shippingCost')}
             </span>
             <span className="text-sm text-gray-500 font-semibold font-serif block">
               {currency}
@@ -157,7 +142,7 @@ const Invoice = ({ data, printRef, globalSetting, currency }) => {
           </div>
           <div className="mb-3 md:mb-0 lg:mb-0  flex flex-col sm:flex-wrap">
             <span className="mb-1 font-bold font-serif text-sm uppercase text-gray-600 block">
-              Discount
+              {t('common.invoiceDetails.table.discount')}
             </span>
             <span className="text-sm text-gray-500 font-semibold font-serif block">
               {currency}
@@ -166,7 +151,7 @@ const Invoice = ({ data, printRef, globalSetting, currency }) => {
           </div>
           <div className="flex flex-col sm:flex-wrap">
             <span className="mb-1 font-bold font-serif text-sm uppercase text-gray-600 block">
-              Total Amount
+              {t('common.invoiceDetails.table.totalAmount')}
             </span>
             <span className="text-2xl font-serif font-bold text-red-500 block">
               {currency}

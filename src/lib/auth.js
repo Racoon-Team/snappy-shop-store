@@ -1,6 +1,7 @@
-import { useSession } from "next-auth/react";
+import { useSession } from 'next-auth/react';
 
 const getUserSession = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { data } = useSession();
 
   // console.log(

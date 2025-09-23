@@ -6,13 +6,8 @@ const TagInput = ({ notes, addNote, removeNote }) => {
       <ul id="tags">
         {notes.map((note, index) => (
           <li key={index} className="react-tag-input__tag">
-            <span className="tag-title react-tag-input__tag__content">
-              {note}
-            </span>
-            <span
-              className="react-tag-input__tag__remove"
-              onClick={() => removeNote(index)}
-            ></span>
+            <span className="tag-title react-tag-input__tag__content">{note}</span>
+            <span className="react-tag-input__tag__remove" onClick={() => removeNote(index)}></span>
           </li>
         ))}
       </ul>

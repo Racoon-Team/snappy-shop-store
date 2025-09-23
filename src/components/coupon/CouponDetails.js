@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import Image from "next/image";
-import dayjs from "dayjs";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import React, { useState } from 'react';
+import Image from 'next/image';
+import dayjs from 'dayjs';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import OfferTimer from "@components/coupon/OfferTimer";
+import OfferTimer from '@components/coupon/OfferTimer';
 
 const CouponDetails = ({ coupon }) => {
-  const [copiedCode, setCopiedCode] = useState("");
+  const [copiedCode, setCopiedCode] = useState('');
   const [copied, setCopied] = useState(false);
 
   const handleCopied = (code) => {
@@ -22,13 +22,7 @@ const CouponDetails = ({ coupon }) => {
       >
         <div className="tengah p-6 flex items-center justify-items-start">
           <figure>
-            <Image
-              src={coupon.logo}
-              alt={coupon.title}
-              width={120}
-              height={120}
-              className="rounded-lg"
-            />
+            <Image src={coupon.logo} alt={coupon.title} width={120} height={120} className="rounded-lg" />
           </figure>
           <div className="ml-5">
             {dayjs().isAfter(dayjs(coupon.endTime)) ? (
@@ -59,13 +53,11 @@ const CouponDetails = ({ coupon }) => {
               </span>
             )}
 
-            <h2 className="font-serif text-lg leading-6 font-medium mb-3">
-              {coupon.title}
-            </h2>
+            <h2 className="font-serif text-lg leading-6 font-medium mb-3">{coupon.title}</h2>
             <p className="font-serif font-bold text-xl text-gray-600">
               <span className="text-lg md:text-xl lg:text-2xl leading-12 text-red-500 font-extrabold">
                 {coupon.discountPercentage}%
-              </span>{" "}
+              </span>{' '}
               Off
             </p>
           </div>
@@ -78,30 +70,21 @@ const CouponDetails = ({ coupon }) => {
                   <span>Coupon</span>
                   <div className="ml-2">
                     {dayjs().isAfter(dayjs(coupon.endTime)) ? (
-                      <span className="text-red-600 inline-block">
-                        Inactive
-                      </span>
+                      <span className="text-red-600 inline-block">Inactive</span>
                     ) : (
-                      <span className="text-emerald-600 inline-block">
-                        Active
-                      </span>
+                      <span className="text-emerald-600 inline-block">Active</span>
                     )}
                   </div>
                 </div>
 
                 <div className="font-serif border border-dashed bg-emerald-50 py-2 border-emerald-300 rounded-lg text-center block">
-                  <CopyToClipboard
-                    text={coupon.couponCode}
-                    onCopy={() => handleCopied(coupon.couponCode)}
-                  >
+                  <CopyToClipboard text={coupon.couponCode} onCopy={() => handleCopied(coupon.couponCode)}>
                     <button className="block w-full">
                       {copied && coupon.couponCode === copiedCode ? (
-                        <span className="text-emerald-600 text-base leading-7 font-semibold">
-                          Copied!
-                        </span>
+                        <span className="text-emerald-600 text-base leading-7 font-semibold">Copied!</span>
                       ) : (
                         <span className="uppercase font-serif font-semibold text-base leading-7 text-emerald-600">
-                          {coupon.couponCode}{" "}
+                          {coupon.couponCode}{' '}
                         </span>
                       )}
                     </button>
@@ -109,11 +92,11 @@ const CouponDetails = ({ coupon }) => {
                 </div>
               </div>
               <p className="text-xs leading-5 text-gray-500 mt-2">
-                * This coupon code apply when you shopping more then{" "}
+                * This coupon code apply when you shopping more then{' '}
                 <span className="font-medium">
-                  {currency}
+                  {/*{currency} TODO: Review this */}
                   {coupon.minimumAmount}
-                </span>{" "}
+                </span>{' '}
               </p>
             </div>
           </div>

@@ -1,37 +1,33 @@
-import Link from "next/link";
-import PhoneInput, { formatPhoneNumberIntl } from "react-phone-number-input";
-import phone from "phone";
-import { Controller } from "react-hook-form";
+import Link from 'next/link';
+import PhoneInput, { formatPhoneNumberIntl } from 'react-phone-number-input';
+import phone from 'phone';
+import { Controller } from 'react-hook-form';
 
 //internal import
-import Layout from "@layout/Layout";
-import Label from "@components/form/Label";
-import useLoginSubmit from "@hooks/useLoginSubmit";
-import BottomNavigation from "@components/login/BottomNavigation";
+import Layout from '@layout/Layout';
+import Label from '@components/form/Label';
+import useLoginSubmit from '@hooks/useLoginSubmit';
+import BottomNavigation from '@components/login/BottomNavigation';
 
 const PhoneSignup = () => {
-  const { errors, control, loading, handleSubmit, submitHandler } =
-    useLoginSubmit();
+  const { errors, control, loading, handleSubmit, submitHandler } = useLoginSubmit();
 
-  const name = "phone";
+  const name = 'phone';
 
   const rules = {
     required: {
       value: true,
-      message: "Phone Number is required!",
+      message: 'Phone Number is required!',
     },
     validate: (value) => {
-      return phone(value)?.isValid || "Enter valid phone number!";
+      return phone(value)?.isValid || 'Enter valid phone number!';
     },
   };
 
   // console.log("phoneError", errors);
 
   return (
-    <Layout
-      title="Phone Signup"
-      description="this is phone number sign up page"
-    >
+    <Layout title="Phone Signup" description="this is phone number sign up page">
       <div className="mx-auto max-w-screen-2xl px-3 sm:px-10">
         <div className="py-4 flex flex-col lg:flex-row w-full">
           <div className="w-full sm:p-5 lg:p-8">
@@ -39,9 +35,7 @@ const PhoneSignup = () => {
               <div className="overflow-hidden mx-auto">
                 <div className="text-center mb-6">
                   <h2 className="text-3xl font-bold font-serif">Signing Up</h2>
-                  <p className="text-sm text-gray-500 mt-2 mb-8 sm:mb-10">
-                    Create an account by phone number.
-                  </p>
+                  <p className="text-sm text-gray-500 mt-2 mb-8 sm:mb-10">Create an account by phone number.</p>
                 </div>
 
                 <form
@@ -58,7 +52,7 @@ const PhoneSignup = () => {
                         name={name}
                         control={control}
                         rules={rules}
-                        defaultValue={formatPhoneNumberIntl("12345678900")}
+                        defaultValue={formatPhoneNumberIntl('12345678900')}
                         render={({ field }) => {
                           return (
                             <PhoneInput
@@ -75,9 +69,7 @@ const PhoneSignup = () => {
                         }}
                       />
                       {errors?.phone && (
-                        <span className="text-red-400 text-sm mt-2 ml-10">
-                          {errors?.phone?.message}
-                        </span>
+                        <span className="text-red-400 text-sm mt-2 ml-10">{errors?.phone?.message}</span>
                       )}
                     </div>
 
@@ -97,15 +89,8 @@ const PhoneSignup = () => {
                         type="submit"
                         className="md:text-sm leading-5 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-medium text-center justify-center border-0 border-transparent rounded-md placeholder-white focus-visible:outline-none focus:outline-none bg-emerald-500 text-white px-5 md:px-6 lg:px-8 py-2 md:py-3 lg:py-3 hover:text-white hover:bg-emerald-600 h-12 mt-1 text-sm lg:text-sm w-full sm:w-auto"
                       >
-                        <img
-                          src="/loader/spinner.gif"
-                          alt="Loading"
-                          width={20}
-                          height={10}
-                        />
-                        <span className="font-serif ml-2 font-light">
-                          Processing
-                        </span>
+                        <img src="/loader/spinner.gif" alt="Loading" width={20} height={10} />
+                        <span className="font-serif ml-2 font-light">Processing</span>
                       </button>
                     ) : (
                       <button
@@ -119,12 +104,7 @@ const PhoneSignup = () => {
                   </div>
                 </form>
 
-                <BottomNavigation
-                  desc
-                  route={"/auth/login"}
-                  pageName={"Login"}
-                  loginTitle="Sign Up"
-                />
+                <BottomNavigation desc route={'/auth/login'} pageName={'Login'} loginTitle="Sign Up" />
               </div>
             </div>
           </div>

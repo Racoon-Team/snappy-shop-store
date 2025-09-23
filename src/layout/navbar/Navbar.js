@@ -1,24 +1,24 @@
-import { useContext, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
-import { useCart } from "react-use-cart";
-import { IoSearchOutline } from "react-icons/io5";
-import { FiShoppingCart, FiUser, FiBell } from "react-icons/fi";
-import useTranslation from "next-translate/useTranslation";
+import { useContext, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { useCart } from 'react-use-cart';
+import { IoSearchOutline } from 'react-icons/io5';
+import { FiShoppingCart, FiUser, FiBell } from 'react-icons/fi';
+import { useTranslation } from 'react-i18next';
 
 //internal import
-import { getUserSession } from "@lib/auth";
-import useGetSetting from "@hooks/useGetSetting";
-import { handleLogEvent } from "src/lib/analytics";
-import NavbarPromo from "@layout/navbar/NavbarPromo";
-import CartDrawer from "@components/drawer/CartDrawer";
-import { SidebarContext } from "@context/SidebarContext";
+import { getUserSession } from '@lib/auth';
+import useGetSetting from '@hooks/useGetSetting';
+import { handleLogEvent } from 'src/lib/analytics';
+import NavbarPromo from '@layout/navbar/NavbarPromo';
+import CartDrawer from '@components/drawer/CartDrawer';
+import { SidebarContext } from '@context/SidebarContext';
 
 const Navbar = () => {
-  const { t, lang } = useTranslation("common");
-  const [searchText, setSearchText] = useState("");
+  const { t } = useTranslation();
+  const [searchText, setSearchText] = useState('');
   const { toggleCartDrawer } = useContext(SidebarContext);
   const { totalItems } = useCart();
   const router = useRouter();
@@ -27,7 +27,7 @@ const Navbar = () => {
 
   const { storeCustomizationSetting } = useGetSetting();
 
-  // console.log("storeCustomizationSetting", storeCustomizationSetting);
+  console.log('storeCustomizationSetting', storeCustomizationSetting);
 
   // console.log("t", t, "lang::::", lang);
 
@@ -37,11 +37,11 @@ const Navbar = () => {
     // return;
     if (searchText) {
       router.push(`/search?query=${searchText}`, null, { scroll: false });
-      setSearchText("");
-      handleLogEvent("search", `searched ${searchText}`);
+      setSearchText('');
+      handleLogEvent('search', `searched ${searchText}`);
     } else {
       router.push(`/ `, null, { scroll: false });
-      setSearchText("");
+      setSearchText('');
     }
   };
 
@@ -56,10 +56,7 @@ const Navbar = () => {
       <div className="bg-emerald-500 sticky top-0 z-20">
         <div className="max-w-screen-2xl mx-auto px-3 sm:px-10">
           <div className="top-bar h-16 lg:h-auto flex items-center justify-between py-4 mx-auto">
-            <Link
-              href="/"
-              className="mr-3 lg:mr-12 xl:mr-12 hidden md:hidden lg:block"
-            >
+            <Link href="/" className="mr-3 lg:mr-12 xl:mr-12 hidden md:hidden lg:block">
               <div className="relative w-32 h-10">
                 <Image
                   width="0"
@@ -67,10 +64,7 @@ const Navbar = () => {
                   sizes="100vw"
                   className="w-full h-auto"
                   priority
-                  src={
-                    storeCustomizationSetting?.navbar?.logo ||
-                    "/logo/logo-light.svg"
-                  }
+                  src={storeCustomizationSetting?.navbar?.logo || '/logo/logo-light.svg'}
                   alt="logo"
                 />
               </div>
@@ -87,7 +81,7 @@ const Navbar = () => {
                         onChange={(e) => setSearchText(e.target.value)}
                         value={searchText}
                         className="form-input w-full pl-5 appearance-none transition ease-in-out border text-input text-sm font-sans rounded-md min-h-10 h-10 duration-200 bg-white focus:ring-0 outline-none border-none focus:outline-none placeholder-gray-500 placeholder-opacity-75"
-                        placeholder={t("search-placeholder")}
+                        placeholder={t('navbar.search')}
                       />
                     </label>
                     <button
@@ -102,10 +96,7 @@ const Navbar = () => {
               </div>
             </div>
             <div className="hidden md:hidden md:items-center lg:flex xl:block absolute inset-y-0 right-0 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <button
-                className="pr-5 text-white text-2xl font-bold"
-                aria-label="Alert"
-              >
+              <button className="pr-5 text-white text-2xl font-bold" aria-label="Alert">
                 <FiBell className="w-6 h-6 drop-shadow-xl" />
               </button>
               <button
@@ -120,28 +111,13 @@ const Navbar = () => {
               </button>
               {/* Profile dropdown */}
 
-              <button
-                className="pl-5 text-white text-2xl font-bold"
-                aria-label="Login"
-              >
+              <button className="pl-5 text-white text-2xl font-bold" aria-label="Login">
                 {userInfo?.image ? (
-                  <Link
-                    href="/user/dashboard"
-                    className="relative top-1 w-6 h-6"
-                  >
-                    <Image
-                      width={29}
-                      height={29}
-                      src={userInfo?.image}
-                      alt="user"
-                      className="bg-white rounded-full"
-                    />
+                  <Link href="/user/dashboard" className="relative top-1 w-6 h-6">
+                    <Image width={29} height={29} src={userInfo?.image} alt="user" className="bg-white rounded-full" />
                   </Link>
                 ) : userInfo?.name ? (
-                  <Link
-                    href="/user/dashboard"
-                    className="leading-none font-bold font-serif block"
-                  >
+                  <Link href="/user/dashboard" className="leading-none font-bold font-serif block">
                     {userInfo?.name[0]}
                   </Link>
                 ) : (

@@ -1,21 +1,23 @@
-import React, { useState } from "react";
-import Image from "next/image";
-import dayjs from "dayjs";
-import { useQuery } from "@tanstack/react-query";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import React, { useState } from 'react';
+import Image from 'next/image';
+import dayjs from 'dayjs';
+import { useQuery } from '@tanstack/react-query';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useTranslation } from 'react-i18next';
 
 //internal import
-import CouponServices from "@services/CouponServices";
-import OfferTimer from "@components/coupon/OfferTimer";
-import useUtilsFunction from "@hooks/useUtilsFunction";
-import CMSkeletonTwo from "@components/preloader/CMSkeletonTwo";
+import CouponServices from '@services/CouponServices';
+import OfferTimer from '@components/coupon/OfferTimer';
+import useUtilsFunction from '@hooks/useUtilsFunction';
+import CMSkeletonTwo from '@components/preloader/CMSkeletonTwo';
 
 const Coupon = ({ couponInHome }) => {
-  const [copiedCode, setCopiedCode] = useState("");
+  const { t } = useTranslation();
+  const [copiedCode, setCopiedCode] = useState('');
   const [copied, setCopied] = useState(false);
 
   const { data, error, isLoading } = useQuery({
-    queryKey: ["coupon"],
+    queryKey: ['coupon'],
     queryFn: async () => await CouponServices.getShowingCoupons(),
     // staleTime: 5 * 60 * 1000, //default cache for 5 minute, if you want to without cache then comment this and gcTime lines
     // gcTime: 5 * 60 * 1000,
@@ -35,12 +37,7 @@ const Coupon = ({ couponInHome }) => {
   return (
     <>
       {isLoading ? (
-        <CMSkeletonTwo
-          count={10}
-          width={100}
-          error={error}
-          loading={isLoading}
-        />
+        <CMSkeletonTwo count={10} width={100} error={error} loading={isLoading} />
       ) : couponInHome ? (
         data?.slice(0, 2).map((coupon) => (
           <div
@@ -50,23 +47,23 @@ const Coupon = ({ couponInHome }) => {
             <div className="tengah py-2 px-3 flex items-center justify-items-start">
               <figure>
                 <Image
-                  src={coupon.logo || "/slider/slider-1.jpg"}
+                  src={coupon.logo || '/slider/slider-1.jpg'}
                   width={100}
                   height={100}
                   className="rounded-lg"
-                  alt={showingTranslateValue(coupon.title) || "coupon"}
+                  alt={showingTranslateValue(coupon.title) || 'coupon'}
                 />
               </figure>
               <div className="ml-3">
                 <div className="flex items-center font-serif">
                   <h6 className="pl-1 text-base font-medium text-gray-600">
                     <span className="text-lg md:text-xl lg:text-xl text-red-500 font-bold">
-                      {coupon?.discountType?.type === "fixed" ? (
+                      {coupon?.discountType?.type === 'fixed' ? (
                         <span>${coupon?.discountType?.value}</span>
                       ) : (
                         <span>{coupon?.discountType?.value}%</span>
                       )}
-                    </span>{" "}
+                    </span>{' '}
                     Off
                   </h6>
                   <div className="ml-2">
@@ -107,10 +104,7 @@ const Coupon = ({ couponInHome }) => {
                 ) : (
                   <span className="inline-block mb-2">
                     <div className="flex items-center font-semibold">
-                      <OfferTimer
-                        expiryTimestamp={new Date(coupon.endTime)}
-                        darkGreen
-                      />
+                      <OfferTimer expiryTimestamp={new Date(coupon.endTime)} darkGreen />
                     </div>
                   </span>
                 )}
@@ -121,18 +115,13 @@ const Coupon = ({ couponInHome }) => {
                 <div className="w-full">
                   <div className="block">
                     <div className="font-serif border border-dashed bg-emerald-50 py-1 border-emerald-300 rounded-lg text-center block">
-                      <CopyToClipboard
-                        text={coupon.couponCode}
-                        onCopy={() => handleCopied(coupon.couponCode)}
-                      >
+                      <CopyToClipboard text={coupon.couponCode} onCopy={() => handleCopied(coupon.couponCode)}>
                         <button className="block w-full">
                           {copied && coupon.couponCode === copiedCode ? (
-                            <span className="text-emerald-600 text-sm leading-7 font-semibold">
-                              Copied!
-                            </span>
+                            <span className="text-emerald-600 text-sm leading-7 font-semibold">Copied!</span>
                           ) : (
                             <span className="uppercase font-serif font-semibold text-sm leading-7 text-emerald-600">
-                              {coupon.couponCode}{" "}
+                              {coupon.couponCode}{' '}
                             </span>
                           )}
                         </button>
@@ -140,11 +129,11 @@ const Coupon = ({ couponInHome }) => {
                     </div>
                   </div>
                   <p className="text-xs leading-4 text-gray-500 mt-2">
-                    * This coupon apply when shopping more then{" "}
+                    {t('homeScreen.coupon')}{' '}
                     <span className="font-bold">
                       {currency}
                       {coupon.minimumAmount}
-                    </span>{" "}
+                    </span>{' '}
                   </p>
                 </div>
               </div>
@@ -161,7 +150,7 @@ const Coupon = ({ couponInHome }) => {
               <figure>
                 <Image
                   src={coupon.logo}
-                  alt={coupon.title || "coupon"}
+                  alt={coupon.title || 'coupon'}
                   width={120}
                   height={120}
                   className="rounded-lg"
@@ -201,13 +190,13 @@ const Coupon = ({ couponInHome }) => {
                 </h2>
                 <h2 className="pl-1 text-base font-medium text-gray-600">
                   <span className="text-lg md:text-xl lg:text-xl text-red-500 font-bold">
-                    {coupon?.discountType?.type === "fixed" ? (
+                    {coupon?.discountType?.type === 'fixed' ? (
                       <span>${coupon?.discountType?.value}</span>
                     ) : (
                       <span>{coupon?.discountType?.value}%</span>
                     )}
-                  </span>{" "}
-                  Off
+                  </span>{' '}
+                  {t('couponScreen.off')}
                 </h2>
               </div>
             </div>
@@ -216,33 +205,26 @@ const Coupon = ({ couponInHome }) => {
                 <div className="w-full">
                   <div className="block">
                     <div className="font-serif font-medium flex items-center mb-1">
-                      <span>Coupon</span>
+                      <span>{t('couponScreen.label')}</span>
                       <div className="ml-2">
                         {dayjs().isAfter(dayjs(coupon.endTime)) ? (
-                          <span className="text-red-600 inline-block">
-                            Inactive
-                          </span>
+                          <span className="text-red-600 inline-block">{t('couponScreen.stateInact')}</span>
                         ) : (
-                          <span className="text-emerald-600 inline-block">
-                            Active
-                          </span>
+                          <span className="text-emerald-600 inline-block">{t('couponScreen.stateAct')}</span>
                         )}
                       </div>
                     </div>
 
                     <div className="font-serif border border-dashed bg-emerald-50 py-2 border-emerald-300 rounded-lg text-center block">
-                      <CopyToClipboard
-                        text={coupon.couponCode}
-                        onCopy={() => handleCopied(coupon.couponCode)}
-                      >
+                      <CopyToClipboard text={coupon.couponCode} onCopy={() => handleCopied(coupon.couponCode)}>
                         <button className="block w-full">
                           {copied && coupon.couponCode === copiedCode ? (
                             <span className="text-emerald-600 text-base leading-7 font-semibold">
-                              Copied!
+                              {t('couponScreen.copied')}
                             </span>
                           ) : (
                             <span className="uppercase font-serif font-semibold text-base leading-7 text-emerald-600">
-                              {coupon.couponCode}{" "}
+                              {coupon.couponCode}{' '}
                             </span>
                           )}
                         </button>
@@ -250,11 +232,11 @@ const Coupon = ({ couponInHome }) => {
                     </div>
                   </div>
                   <p className="text-xs leading-5 text-gray-500 mt-2">
-                    * This coupon code will apply on when you shopping more then{" "}
+                    {t('couponScreen.text')}{' '}
                     <span className="font-bold text-gray-700">
                       {currency}
                       {coupon.minimumAmount}
-                    </span>{" "}
+                    </span>{' '}
                   </p>
                 </div>
               </div>

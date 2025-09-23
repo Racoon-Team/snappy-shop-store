@@ -1,49 +1,42 @@
 // import storage from "redux-persist/lib/storage/session";
-import createWebStorage from "redux-persist/lib/storage/createWebStorage";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 const createNoopStorage = () => {
   return {
     getItem(_key) {
+      console.log('getItem() with key: ', _key);
       return Promise.resolve(null);
     },
     setItem(_key, value) {
       return Promise.resolve(value);
     },
     removeItem(_key) {
+      console.log('removeItem() with key: ', _key);
       return Promise.resolve();
     },
   };
 };
 
-const storage =
-  typeof window !== "undefined"
-    ? createWebStorage("session")
-    : createNoopStorage();
+const storage = typeof window !== 'undefined' ? createWebStorage('session') : createNoopStorage();
 
-import {
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
+import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 
-import dynamicDataReducer from "./slice/dynamicDataSlice";
-import settingReducer from "./slice/settingSlice";
+import dynamicDataReducer from './slice/dynamicDataSlice';
+import settingReducer from './slice/settingSlice';
+import preferencesReducer from './slice/preferencesSlice';
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   version: 1,
   storage: storage,
-  blacklist: ["/"],
+  blacklist: ['/'],
 };
 
 const rootReducer = combineReducers({
   setting: settingReducer,
   data: dynamicDataReducer,
+  preferences: preferencesReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,8 +1,12 @@
-import requests from "./httpServices";
+import requests from './httpServices';
 
 const CategoryServices = {
   getShowingCategory: async () => {
-    return requests.get("/category/show");
+    return requests.get('/category/show');
+  },
+
+  getAllCategories: async () => {
+    return requests.get('/category/all');
   },
 };
 

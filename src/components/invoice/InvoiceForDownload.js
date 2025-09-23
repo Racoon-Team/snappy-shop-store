@@ -1,34 +1,26 @@
-import {
-  Document,
-  Font,
-  Image,
-  Page,
-  StyleSheet,
-  Text,
-  View,
-} from "@react-pdf/renderer";
-import dayjs from "dayjs";
+import { Document, Font, Image, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
+import dayjs from 'dayjs';
 
 Font.register({
-  family: "Open Sans",
+  family: 'Open Sans',
   fonts: [
     {
-      src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf",
+      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf',
     },
     {
-      src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600.ttf",
+      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600.ttf',
       fontWeight: 600,
     },
   ],
 });
 Font.register({
-  family: "DejaVu Sans",
+  family: 'DejaVu Sans',
   fonts: [
     {
-      src: "https://kendo.cdn.telerik.com/2017.2.621/styles/fonts/DejaVu/DejaVuSans.ttf",
+      src: 'https://kendo.cdn.telerik.com/2017.2.621/styles/fonts/DejaVu/DejaVuSans.ttf',
     },
     {
-      src: "https://kendo.cdn.telerik.com/2017.2.621/styles/fonts/DejaVu/DejaVuSans-Bold.ttf",
+      src: 'https://kendo.cdn.telerik.com/2017.2.621/styles/fonts/DejaVu/DejaVuSans-Bold.ttf',
     },
   ],
 });
@@ -43,46 +35,46 @@ const styles = StyleSheet.create({
     lineHeight: 1.5,
   },
   table: {
-    display: "table",
-    width: "auto",
-    color: "#4b5563",
+    display: 'table',
+    width: 'auto',
+    color: '#4b5563',
     marginRight: 10,
     marginBottom: 20,
     marginLeft: 10,
     marginTop: 0,
-    borderRadius: "8px",
-    borderColor: "#e9e9e9",
-    borderStyle: "solid",
+    borderRadius: '8px',
+    borderColor: '#e9e9e9',
+    borderStyle: 'solid',
     borderWidth: 0.5,
     padding: 0,
-    textAlign: "left",
+    textAlign: 'left',
   },
   tableRow: {
     // margin: 'auto',
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingBottom: 2,
     paddingTop: 2,
-    textAlign: "left",
+    textAlign: 'left',
     borderWidth: 0.8,
-    borderColor: "#E5E7EB",
-    borderBottom: "0",
+    borderColor: '#E5E7EB',
+    borderBottom: '0',
   },
   tableRowHeder: {
     // margin: 'auto',
-    flexDirection: "row",
-    backgroundColor: "#f9fafb",
+    flexDirection: 'row',
+    backgroundColor: '#f9fafb',
     paddingBottom: 4,
     paddingTop: 4,
     paddingLeft: 0,
     borderBottomWidth: 0.8,
-    borderColor: "#E5E7EB",
-    borderStyle: "solid",
-    textTransform: "uppercase",
-    textAlign: "left",
+    borderColor: '#E5E7EB',
+    borderStyle: 'solid',
+    textTransform: 'uppercase',
+    textAlign: 'left',
   },
   tableCol: {
-    width: "25%",
-    textAlign: "left",
+    width: '25%',
+    textAlign: 'left',
 
     // borderStyle: 'solid',
     // borderWidth: 1,
@@ -92,44 +84,44 @@ const styles = StyleSheet.create({
     // borderColor: '#d1d5db',
   },
   tableCell: {
-    margin: "auto",
+    margin: 'auto',
     marginTop: 5,
     fontSize: 10,
     // textAlign:'center',
-    paddingLeft: "0",
-    paddingRight: "0",
-    marginLeft: "13",
-    marginRight: "13",
+    paddingLeft: '0',
+    paddingRight: '0',
+    marginLeft: '13',
+    marginRight: '13',
   },
 
   tableCellQuantity: {
-    margin: "auto",
+    margin: 'auto',
     marginTop: 5,
     fontSize: 10,
-    textAlign: "center",
-    paddingLeft: "0",
-    paddingRight: "0",
-    marginLeft: "12",
-    marginRight: "12",
+    textAlign: 'center',
+    paddingLeft: '0',
+    paddingRight: '0',
+    marginLeft: '12',
+    marginRight: '12',
   },
 
   invoiceFirst: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingBottom: 18,
     paddingLeft: 10,
     paddingRight: 10,
     borderBottom: 1,
-    borderColor: "#f3f4f6",
+    borderColor: '#f3f4f6',
     // backgroundColor:'#EEF2FF',
   },
   invoiceSecond: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "flex-start",
-    justifyContent: "space-between",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
     paddingTop: 20,
     paddingBottom: 10,
     // backgroundColor:'#EEF2FF',
@@ -137,20 +129,20 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   invoiceThird: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "baseline",
-    justifyContent: "space-between",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
     paddingTop: 20,
     paddingBottom: 20,
     paddingLeft: 10,
     paddingRight: 10,
     borderTop: 1,
-    borderColor: "#ffffff",
-    backgroundColor: "#f4f5f7",
+    borderColor: '#ffffff',
+    backgroundColor: '#f4f5f7',
     borderRadius: 12,
-    marginLeft: "13",
-    marginRight: "13",
+    marginLeft: '13',
+    marginRight: '13',
 
     // backgroundColor:'#F2FCF9',
   },
@@ -160,142 +152,134 @@ const styles = StyleSheet.create({
     bottom: 5,
     right: 10,
     marginBottom: 10,
-    textAlign: "right",
-    color: "#4b5563",
-    fontFamily: "Open Sans",
-    fontWeight: "bold",
+    textAlign: 'right',
+    color: '#4b5563',
+    fontFamily: 'Open Sans',
+    fontWeight: 'bold',
     fontSize: 10.3,
 
-    marginRight: "39%",
-    textTransform: "uppercase",
+    marginRight: '39%',
+    textTransform: 'uppercase',
   },
   title: {
-    color: "#2f3032",
-    fontFamily: "Open Sans",
-    fontWeight: "bold",
+    color: '#2f3032',
+    fontFamily: 'Open Sans',
+    fontWeight: 'bold',
     fontSize: 8.1,
-    textTransform: "uppercase",
+    textTransform: 'uppercase',
   },
   info: {
     fontSize: 9,
-    color: "#6b7280",
+    color: '#6b7280',
   },
   infoCost: {
     fontSize: 10,
-    color: "#6b7280",
-    marginLeft: "4%",
-    marginTop: "7px",
-    textAlign: "left",
-    width: "25%",
+    color: '#6b7280',
+    marginLeft: '4%',
+    marginTop: '7px',
+    textAlign: 'left',
+    width: '25%',
   },
   invoiceNum: {
     fontSize: 9,
-    color: "#6b7280",
-    marginLeft: "6%",
+    color: '#6b7280',
+    marginLeft: '6%',
   },
   topAddress: {
     fontSize: 10,
-    color: "#6b7280",
-    width: "100%",
+    color: '#6b7280',
+    width: '100%',
 
     // textAlign: "right",
     // whiteSapce: "nowrap",
   },
   amount: {
     fontSize: 10,
-    color: "#ef4444",
+    color: '#ef4444',
   },
   totalAmount: {
     fontSize: 10,
-    color: "#ef4444",
-    fontFamily: "Open Sans",
-    fontWeight: "bold",
-    textTransform: "uppercase",
-    textAlign: "right",
+    color: '#ef4444',
+    fontFamily: 'Open Sans',
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    textAlign: 'right',
   },
   status: {
-    color: "#10b981",
+    color: '#10b981',
   },
   quantity: {
-    color: "#1f2937",
-    textAlign: "center",
+    color: '#1f2937',
+    textAlign: 'center',
   },
   itemPrice: {
-    color: "#1f2937",
-    textAlign: "left",
+    color: '#1f2937',
+    textAlign: 'left',
   },
   header: {
-    color: "#6b7280",
+    color: '#6b7280',
     fontSize: 9,
-    fontFamily: "Open Sans",
-    fontWeight: "bold",
-    textTransform: "uppercase",
-    textAlign: "left",
+    fontFamily: 'Open Sans',
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    textAlign: 'left',
   },
 
   thanks: {
-    color: "#22c55e",
+    color: '#22c55e',
   },
   infoRight: {
-    textAlign: "right",
+    textAlign: 'right',
     fontSize: 9,
-    color: "#6b7280",
-    width: "25%",
-    marginRight: "39%",
-    fontFamily: "Open Sans",
-    fontWeight: "bold",
+    color: '#6b7280',
+    width: '25%',
+    marginRight: '39%',
+    fontFamily: 'Open Sans',
+    fontWeight: 'bold',
   },
   titleRight: {
-    textAlign: "right",
-    fontFamily: "Open Sans",
-    fontWeight: "bold",
+    textAlign: 'right',
+    fontFamily: 'Open Sans',
+    fontWeight: 'bold',
     fontSize: 8.1,
-    width: "25%",
-    marginRight: "39%",
-    textTransform: "uppercase",
-    color: "#2f3032",
+    width: '25%',
+    marginRight: '39%',
+    textTransform: 'uppercase',
+    color: '#2f3032',
   },
   topBg: {
     // backgroundColor:'#EEF2FF',
   },
   invoiceDiv: {
-    alignItems: "baseline",
+    alignItems: 'baseline',
   },
 });
 
-const InvoiceForDownload = ({
-  data,
-  currency,
-  globalSetting,
-  getNumberTwo,
-}) => {
+const InvoiceForDownload = ({ data, currency, globalSetting, getNumberTwo }) => {
   return (
     <>
       <Document>
         <Page size="A4" style={styles.page}>
           <View style={styles.invoiceFirst}>
             <View>
-              <Text style={{ fontFamily: "Open Sans", fontWeight: "bold" }}>
-                INVOICE
-              </Text>
+              <Text style={{ fontFamily: 'Open Sans', fontWeight: 'bold' }}>INVOICE</Text>
               <Text style={styles.info}>Status : {data?.status}</Text>
             </View>
             <View style={styles.topBg}>
               <Text
                 style={{
-                  width: "100%",
-                  marginRight: "40%",
+                  width: '100%',
+                  marginRight: '40%',
                 }}
               >
                 <Image
                   src="https://res.cloudinary.com/ahossain/image/upload/v1681454665/logo/logo-color_qw1trc.png"
                   alt="Invoice"
-                  style={{ width: 80, textAlign: "right" }}
+                  style={{ width: 80, textAlign: 'right' }}
                 />
               </Text>
               <Text style={styles.topAddress}>
-                {globalSetting?.address ||
-                  "Cecilia Chapman, 561-4535 Nulla LA, United States 96522"}
+                {globalSetting?.address || 'Cecilia Chapman, 561-4535 Nulla LA, United States 96522'}
               </Text>
               {/* <Text style={styles.info}> United States 96522</Text> */}
             </View>
@@ -304,9 +288,7 @@ const InvoiceForDownload = ({
           <View style={styles.invoiceSecond}>
             <View>
               <Text style={styles.title}>DATE</Text>
-              <Text style={styles.info}>
-                {dayjs(data?.createdAt).format("MMMM D, YYYY")}
-              </Text>
+              <Text style={styles.info}>{dayjs(data?.createdAt).format('MMMM D, YYYY')}</Text>
             </View>
             <View>
               <Text style={styles.title}>INVOICE NO</Text>
@@ -315,13 +297,9 @@ const InvoiceForDownload = ({
             <View>
               <Text style={styles.title}>INVOICE TO</Text>
               <Text style={styles.info}>{data?.user_info?.name}</Text>
+              <Text style={styles.info}> {data?.user_info?.address?.substring(0, 25)}</Text>
               <Text style={styles.info}>
-                {" "}
-                {data?.user_info?.address?.substring(0, 25)}
-              </Text>
-              <Text style={styles.info}>
-                {data?.user_info?.city}, {data?.user_info?.country},{" "}
-                {data?.user_info?.zipCode}
+                {data?.user_info?.city}, {data?.user_info?.country}, {data?.user_info?.zipCode}
               </Text>
             </View>
           </View>
@@ -350,7 +328,7 @@ const InvoiceForDownload = ({
 
               <View style={styles.tableCol}>
                 <Text style={styles.tableCell}>
-                  {" "}
+                  {' '}
                   <Text style={styles.header}>Amount</Text>
                 </Text>
               </View>
@@ -365,17 +343,17 @@ const InvoiceForDownload = ({
                 </View>
                 <View style={styles.tableCol}>
                   <Text style={styles.tableCell}>
-                    {" "}
-                    <Text style={styles.quantity}>{item.quantity}</Text>{" "}
+                    {' '}
+                    <Text style={styles.quantity}>{item.quantity}</Text>{' '}
                   </Text>
                 </View>
                 <View style={styles.tableCol}>
                   <Text style={styles.tableCell}>
-                    {" "}
+                    {' '}
                     <Text style={styles.quantity}>
                       {currency}
                       {getNumberTwo(item.price)}
-                    </Text>{" "}
+                    </Text>{' '}
                   </Text>
                 </View>
 
@@ -384,7 +362,7 @@ const InvoiceForDownload = ({
                     <Text style={styles.amount}>
                       {currency}
                       {getNumberTwo(item.itemTotal)}
-                    </Text>{" "}
+                    </Text>{' '}
                   </Text>
                 </View>
               </View>
@@ -406,7 +384,7 @@ const InvoiceForDownload = ({
             <View>
               <Text style={styles.title}>Discount</Text>
               <Text style={styles.info}>
-                {" "}
+                {' '}
                 {currency}
                 {getNumberTwo(data.discount)}
               </Text>
@@ -423,15 +401,14 @@ const InvoiceForDownload = ({
 
           <View
             style={{
-              textAlign: "center",
+              textAlign: 'center',
               fontSize: 12,
               paddingBottom: 50,
               paddingTop: 50,
             }}
           >
             <Text>
-              Thank you <Text style={styles.thanks}>{data.name},</Text> Your
-              order have been received !
+              Thank you <Text style={styles.thanks}>{data.name},</Text> Your order have been received !
             </Text>
           </View>
         </Page>

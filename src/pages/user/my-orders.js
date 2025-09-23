@@ -1,22 +1,23 @@
-import { useContext, useEffect } from "react";
-import Link from "next/link";
-import { IoBagHandle } from "react-icons/io5";
-import ReactPaginate from "react-paginate";
-import { useQuery } from "@tanstack/react-query";
+import { useContext, useEffect } from 'react';
+import Link from 'next/link';
+import { IoBagHandle } from 'react-icons/io5';
+import ReactPaginate from 'react-paginate';
+import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 //internal import
-import Dashboard from "@pages/user/dashboard";
-import useGetSetting from "@hooks/useGetSetting";
-import OrderServices from "@services/OrderServices";
-import Loading from "@components/preloader/Loading";
-import useUtilsFunction from "@hooks/useUtilsFunction";
-import OrderHistory from "@components/order/OrderHistory";
-import { SidebarContext } from "@context/SidebarContext";
-import CMSkeletonTwo from "@components/preloader/CMSkeletonTwo";
+import Dashboard from '@pages/user/dashboard';
+import useGetSetting from '@hooks/useGetSetting';
+import OrderServices from '@services/OrderServices';
+import Loading from '@components/preloader/Loading';
+import useUtilsFunction from '@hooks/useUtilsFunction';
+import OrderHistory from '@components/order/OrderHistory';
+import { SidebarContext } from '@context/SidebarContext';
+import CMSkeletonTwo from '@components/preloader/CMSkeletonTwo';
 
 const MyOrders = () => {
-  const { currentPage, handleChangePage, isLoading, setIsLoading } =
-    useContext(SidebarContext);
+  const { t } = useTranslation();
+  const { currentPage, handleChangePage, isLoading, setIsLoading } = useContext(SidebarContext);
 
   const { storeCustomizationSetting } = useGetSetting();
   const { showingTranslateValue } = useUtilsFunction();
@@ -26,7 +27,7 @@ const MyOrders = () => {
     error,
     isLoading: loading,
   } = useQuery({
-    queryKey: ["orders", { currentPage }],
+    queryKey: ['orders', { currentPage }],
     queryFn: async () =>
       await OrderServices.getOrderCustomer({
         limit: 10,
@@ -47,34 +48,23 @@ const MyOrders = () => {
         <Loading loading={isLoading} />
       ) : (
         <Dashboard
-          title={showingTranslateValue(
-            storeCustomizationSetting?.dashboard?.my_order
-          )}
+          title={showingTranslateValue(storeCustomizationSetting?.dashboard?.my_order)}
           description="This is user order history page"
         >
           <div className="overflow-hidden rounded-md font-serif">
             <div className="flex flex-col">
-              <h2 className="text-xl font-serif font-semibold mb-5">
-                My Orders
-              </h2>
+              <h2 className="text-xl font-serif font-semibold mb-5">{t('userScreen.myOrders.title')}</h2>
               <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="align-middle inline-block border border-gray-100 rounded-md min-w-full pb-2 sm:px-6 lg:px-8">
                   <div className="overflow-hidden border-b last:border-b-0 border-gray-100 rounded-md">
                     {loading ? (
-                      <CMSkeletonTwo
-                        count={20}
-                        width={100}
-                        error={error}
-                        loading={loading}
-                      />
+                      <CMSkeletonTwo count={20} width={100} error={error} loading={loading} />
                     ) : data?.orders?.length === 0 ? (
                       <div className="text-center">
                         <span className="flex justify-center my-30 pt-16 text-emerald-500 font-semibold text-6xl">
                           <IoBagHandle />
                         </span>
-                        <h2 className="font-medium text-md my-4 text-gray-600">
-                          You Have no order Yet!
-                        </h2>
+                        <h2 className="font-medium text-md my-4 text-gray-600">{t('userScreen.dashboard.message')}</h2>
                       </div>
                     ) : (
                       <table className="table-auto min-w-full border border-gray-100 divide-y divide-gray-200">
@@ -84,38 +74,38 @@ const MyOrders = () => {
                               scope="col"
                               className="text-left text-xs font-serif font-semibold px-6 py-2 text-gray-700 uppercase tracking-wider"
                             >
-                              ID
+                              {t('common.table.id')}
                             </th>
                             <th
                               scope="col"
                               className="text-center text-xs font-serif font-semibold px-6 py-2 text-gray-700 uppercase tracking-wider"
                             >
-                              OrderTime
+                              {t('common.table.time')}
                             </th>
 
                             <th
                               scope="col"
                               className="text-center text-xs font-serif font-semibold px-6 py-2 text-gray-700 uppercase tracking-wider"
                             >
-                              Method
+                              {t('common.table.method')}
                             </th>
                             <th
                               scope="col"
                               className="text-center text-xs font-serif font-semibold px-6 py-2 text-gray-700 uppercase tracking-wider"
                             >
-                              Status
+                              {t('common.table.status')}
                             </th>
                             <th
                               scope="col"
                               className="text-center text-xs font-serif font-semibold px-6 py-2 text-gray-700 uppercase tracking-wider"
                             >
-                              Total
+                              {t('common.table.total')}
                             </th>
                             <th
                               scope="col"
                               className="text-right text-xs font-serif font-semibold px-6 py-2 text-gray-700 uppercase tracking-wider"
                             >
-                              Action
+                              {t('common.table.action')}
                             </th>
                           </tr>
                         </thead>
@@ -128,7 +118,7 @@ const MyOrders = () => {
                                   className="px-3 py-1 bg-emerald-100 text-xs text-emerald-600 hover:bg-emerald-500 hover:text-white transition-all font-semibold rounded-full"
                                   href={`/order/${order._id}`}
                                 >
-                                  Details
+                                  {t('common.table.details')}
                                 </Link>
                               </td>
                             </tr>

@@ -1,5 +1,6 @@
-import React from "react";
-import Label from "@components/form/Label";
+import React from 'react';
+import Label from '@components/form/Label';
+import { useTranslation } from 'react-i18next';
 
 const InputArea = ({
   name,
@@ -13,8 +14,9 @@ const InputArea = ({
   placeholder,
   required = true,
   pattern, // Added pattern as a prop
-  patternMessage = "Invalid input", // Optional: Custom error message for pattern validation
+  patternMessage = 'Invalid input', // Optional: Custom error message for pattern validation
 }) => {
+  const { t } = useTranslation();
   return (
     <>
       <Label label={label} />
@@ -28,7 +30,7 @@ const InputArea = ({
         )}
         <input
           {...register(`${name}`, {
-            required: required ? `${label} is required!` : false,
+            required: required ? `${label} ${t('common.isRequired')}` : false,
             pattern: pattern
               ? {
                   value: pattern,
@@ -43,9 +45,9 @@ const InputArea = ({
           placeholder={placeholder}
           autoComplete={autocomplete}
           className={`${
-            Icon ? "py-2 pl-10" : "py-2 px-4 md:px-5"
+            Icon ? 'py-2 pl-10' : 'py-2 px-4 md:px-5'
           } w-full appearance-none border text-sm opacity-75 text-input rounded-md placeholder-body min-h-12 transition duration-200 focus:ring-0 ease-in-out bg-white border-gray-200 focus:outline-none focus:border-emerald-500 h-11 md:h-12 ${
-            readOnly ? "bg-gray-100 cursor-not-allowed text-gray-500" : ""
+            readOnly ? 'bg-gray-100 cursor-not-allowed text-gray-500' : ''
           }`}
         />
       </div>
