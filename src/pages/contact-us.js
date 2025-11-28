@@ -20,6 +20,7 @@ const ContactUs = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -28,6 +29,7 @@ const ContactUs = () => {
 
   const submitHandler = () => {
     notifySuccess(t('contactUsScreen.sentMessageNotification'));
+    reset();
   };
 
   return (
