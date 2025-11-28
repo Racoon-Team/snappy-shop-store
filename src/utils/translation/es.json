@@ -230,7 +230,8 @@
     "lowercaseValidation": "3. La contraseña debe contener al menos una letra minúscula.",
     "numberValidation": "4. La contraseña debe contener al menos un número.",
     "specialValidation": "5. La contraseña debe contener al menos un carácter especial.",
-    "passwordChangeNotification": "Correo electrónico o contraseña actual no válidos"
+    "passwordChangeNotification": "Correo electrónico o contraseña actual no válidos",
+    "changePassword": "¡Su contraseña ha sido cambiada exitosamente!"
   },
 
   "locationRegistrationScreen": {
