@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { IoClose } from 'react-icons/io5';
 import { useQuery } from '@tanstack/react-query';
 import { getSession } from 'next-auth/react';
-import useTranslation from 'next-translate/useTranslation';
+import { useTranslation } from 'react-i18next';
 //internal import
 import { pages } from '@utils/data';
 import Loading from '@components/preloader/Loading';
@@ -74,7 +74,7 @@ const Category = () => {
       <div className="w-full max-h-full">
         {categoryDrawerOpen && (
           <h2 className="font-semibold font-serif text-lg m-0 text-heading flex align-center border-b px-8 py-3">
-            {t('common:allCategorie')}
+            {t('sidebarScreen.title.allCategorie')}
           </h2>
         )}
         {isLoading ? (
@@ -115,7 +115,7 @@ const Category = () => {
         {categoryDrawerOpen && (
           <div className="relative grid gap-2 mt-5">
             <h3 className="font-semibold font-serif text-lg m-0 text-heading flex align-center border-b px-8 py-3">
-              {t('common:Pages')}
+              {t('sidebarScreen.title.pages')}
             </h3>
             <div className="relative grid gap-1 p-6">
               {pages.map((item) => (
@@ -126,7 +126,7 @@ const Category = () => {
                 >
                   <item.icon className="flex-shrink-0 h-4 w-4" aria-hidden="true" />
                   <p className="inline-flex items-center justify-between ml-2 text-sm font-medium w-full hover:text-emerald-600">
-                    {item.title}
+                    {t(`sidebarScreen.pages.${item.title}`)}
                   </p>
                 </a>
               ))}
