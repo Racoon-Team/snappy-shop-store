@@ -259,7 +259,9 @@
     "callUs": "Llámanos",
     "copy": "Derechos de autor 2025 @",
     "html": "Amante del HTML",
-    "allRights": " , Reservados todos los derechos."
+    "allRights": " , Reservados todos los derechos.",
+    "phone":"Telefono:",
+    "email":"Correo electrónico:"
   },
 
   "homeScreen": {

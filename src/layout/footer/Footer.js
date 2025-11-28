@@ -245,9 +245,9 @@ const Footer = () => {
                   data={storeCustomizationSetting?.footer?.block4_address}
                 />
                 <br />
-                <span> Tel : {storeCustomizationSetting?.footer?.block4_phone}</span>
+                <span> {t('footerScreen.phone')} {storeCustomizationSetting?.footer?.block4_phone}</span>
                 <br />
-                <span> Email : {storeCustomizationSetting?.footer?.block4_email}</span>
+                <span> {t('footerScreen.email')} {storeCustomizationSetting?.footer?.block4_email}</span>
               </p>
             </div>
           )}
