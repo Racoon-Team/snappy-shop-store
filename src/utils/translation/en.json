@@ -132,7 +132,11 @@
     },
 
     "myOrders": {
-      "title": "My Orders"
+      "title": "My Orders",
+      "payment": {
+        "Cash": "Cash",
+        "QR": "QR Payment"
+      }
     }
   },
 
