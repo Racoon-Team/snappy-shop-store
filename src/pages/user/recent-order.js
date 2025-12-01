@@ -39,7 +39,7 @@ const RecentOrder = ({ data, loading, error }) => {
                       <span className="flex justify-center my-30 pt-16 text-emerald-500 font-semibold text-6xl">
                         <IoBagHandle />
                       </span>
-                      <h2 className="font-medium text-md my-4 text-gray-600">You Have no order Yet!</h2>
+                      <h2 className="font-medium text-md my-4 text-gray-600">{t('userScreen.dashboard.message')}</h2>
                     </div>
                   ) : (
                     <table className="table-auto min-w-full border border-gray-100 divide-y divide-gray-200">
