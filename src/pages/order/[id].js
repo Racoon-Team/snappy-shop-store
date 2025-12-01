@@ -14,10 +14,12 @@ import Loading from '@components/preloader/Loading';
 import OrderServices from '@services/OrderServices';
 import useUtilsFunction from '@hooks/useUtilsFunction';
 import InvoiceForDownload from '@components/invoice/InvoiceForDownload';
+import { useTranslation } from 'react-i18next';
 
 const Order = ({ params }) => {
   const printRef = useRef();
   const orderId = params.id;
+  const { i18n } = useTranslation();
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['order'],
@@ -47,8 +49,10 @@ const Order = ({ params }) => {
             <div className="bg-white p-8 rounded-b-xl">
               <div className="flex lg:flex-row md:flex-row sm:flex-row flex-col justify-between invoice-btn">
                 <PDFDownloadLink
+                  key={i18n.language}
                   document={
                     <InvoiceForDownload
+                      key={i18n.language}
                       data={data}
                       currency={currency}
                       globalSetting={globalSetting}
