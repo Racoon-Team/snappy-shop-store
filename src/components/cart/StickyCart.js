@@ -6,11 +6,12 @@ import { useCart } from 'react-use-cart';
 //internal import
 import useGetSetting from '@hooks/useGetSetting';
 import { SidebarContext } from '@context/SidebarContext';
+import { useTranslation } from 'react-i18next';
 
 const StickyCart = () => {
   const { totalItems, cartTotal } = useCart();
   const { toggleCartDrawer } = useContext(SidebarContext);
-
+  const { t } = useTranslation();
   const { globalSetting } = useGetSetting();
 
   const currency = globalSetting?.default_currency || '$';
@@ -22,7 +23,9 @@ const StickyCart = () => {
           <span className="text-2xl mb-1 text-emerald-600">
             <IoBagHandleOutline />
           </span>
-          <span className="px-2 text-sm font-serif font-medium">{totalItems} Items</span>
+          <span className="px-2 text-sm font-serif font-medium">
+            {totalItems} {t('common.items')}
+          </span>
         </div>
         <div className="flex flex-col items-center justify-center bg-emerald-700 p-2 text-white text-base font-serif font-medium rounded-bl-lg mx-auto">
           {currency}

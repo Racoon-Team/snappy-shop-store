@@ -2,6 +2,7 @@
   "common": {
     "text": "Inicia sesion con email y contraseña",
     "isRequired": "es obligatorio",
+    "items": "Artículos",
 
     "imgUploader": {
       "description": "Arrastra tu imagen aqui",

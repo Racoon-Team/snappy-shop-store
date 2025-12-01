@@ -2,6 +2,7 @@
   "common": {
     "text": "Login with your email and password",
     "isRequired": "is required!",
+    "items": "Items",
 
     "imgUploader": {
       "description": "Drag your image here",
