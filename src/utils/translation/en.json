@@ -230,7 +230,8 @@
     "lowercaseValidation": "3. Password must contain at least one lowercase letter.",
     "numberValidation": "4. Password must contain at least one number.",
     "specialValidation": "5. Password must contain at least one special character.",
-    "passwordChangeNotification": "Invalid email or current password"
+    "passwordChangeNotification": "Invalid email or current password",
+    "changePassword": "Your password changed successfully!"
   },
 
   "locationRegistrationScreen": {

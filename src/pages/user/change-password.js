@@ -34,7 +34,7 @@ const ChangePassword = () => {
         currentPassword,
         newPassword,
       });
-      notifySuccess(res.message);
+      notifySuccess(t('changePasswordScreen.changePassword'));
       setLoading(false);
     } catch (error) {
       setLoading(false);
