@@ -288,5 +288,22 @@
     "lowToHigh": "De menor a mayor",
     "highToLow": "De mayor a menor",
     "loadMoreBtn": "Cargar más"
+  },
+
+  "sidebarScreen": {
+    "title": {
+      "allCategorie": "Todas las categorías",
+      "pages": "Páginas"
+    },
+    "pages": {
+      "offerPage": "Ofertas",
+      "checkoutPage": "Caja",
+      "faqPage": "Preguntas frecuentes",
+      "aboutUsPage": "Sobre nosotros",
+      "contactUsPage": "Contáctanos",
+      "privacyPolicyPage": "Política de privacidad",
+      "termsAndConditionsPage": "Términos y condiciones",
+      "notFoundPage": "404"
+    }
   }
 }

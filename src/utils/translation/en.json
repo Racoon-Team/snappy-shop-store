@@ -288,5 +288,22 @@
     "lowToHigh": "Low to High",
     "highToLow": "High to Low",
     "loadMoreBtn": "Load More"
+  },
+
+  "sidebarScreen": {
+    "title": {
+      "allCategorie": "All categories",
+      "pages": "Pages"
+    },
+    "pages": {
+      "offerPage": "Offers",
+      "checkoutPage": "Checkout",
+      "faqPage": "FAQ",
+      "aboutUsPage": "About us",
+      "contactUsPage": "Contact us",
+      "privacyPolicyPage": "Privacy Policy",
+      "termsAndConditionsPage": "Terms & Conditions",
+      "notFoundPage": "404"
+    }
   }
 }

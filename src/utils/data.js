@@ -19,48 +19,43 @@ import {
 } from 'react-icons/fi';
 
 const pages = [
-  // {
-  //   title: 'User',
-  //   href: '/user/dashboard',
-  //   icon: FiUser,
-  // },
   {
-    title: 'offer-page',
+    title: 'offerPage',
     href: '/offer',
     icon: FiGift,
   },
   {
-    title: 'checkout-page',
+    title: 'checkoutPage',
     href: '/checkout',
     icon: FiShoppingBag,
   },
   {
-    title: 'faq-page',
+    title: 'faqPage',
     href: '/faq',
     icon: FiHelpCircle,
   },
   {
-    title: 'about-us-page',
+    title: 'aboutUsPage',
     href: '/about-us',
     icon: FiUsers,
   },
   {
-    title: 'contact-us-page',
+    title: 'contactUsPage',
     href: '/contact-us',
     icon: FiPhoneIncoming,
   },
   {
-    title: 'privacy-policy-page',
+    title: 'privacyPolicyPage',
     href: '/privacy-policy',
     icon: FiPocket,
   },
   {
-    title: 'terms-and-conditions-page',
+    title: 'termsAndConditionsPage',
     href: '/terms-and-conditions',
     icon: FiFileText,
   },
   {
-    title: 'not-found-page',
+    title: 'notFoundPage',
     href: '/404',
     icon: FiAlertCircle,
   },
