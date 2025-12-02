@@ -259,7 +259,9 @@
     "callUs": "Footer Call Us",
     "copy": "Copyright 2025 @",
     "html": "HtmlLover",
-    "allRights": " , All rights reserved."
+    "allRights": " , All rights reserved.",
+    "phone":"Phone:",
+    "email":"Email:"
   },
 
   "homeScreen": {
