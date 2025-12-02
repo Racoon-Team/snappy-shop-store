@@ -132,7 +132,11 @@
     },
 
     "myOrders": {
-      "title": "Mis pedidos"
+      "title": "Mis pedidos",
+      "payment": {
+        "Cash": "Efectivo",
+        "QR": "Pago QR"
+      }
     }
   },
 
