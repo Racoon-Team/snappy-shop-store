@@ -88,7 +88,7 @@ const useLoginSubmit = () => {
           localStorage.setItem('customerId', user._id);
           localStorage.setItem('customerEmail', user.email);
 
-          if (!user.location) {
+          if (!user.location && !user.locationSkipped) {
             router.push('/auth/signup-location');
             setLoading(false);
             return;
