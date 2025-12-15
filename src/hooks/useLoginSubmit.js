@@ -88,11 +88,18 @@ const useLoginSubmit = () => {
           localStorage.setItem('customerId', user._id);
           localStorage.setItem('customerEmail', user.email);
 
-          if (!user.location && localStorage.getItem('skippedLocation') !== 'true') {
+          if (!user.location) {
             router.push('/auth/signup-location');
-          } else {
-            router.push('/user/dashboard');
+            setLoading(false);
+            return;
           }
+          if (!user.preferences || user.preferences.length === 0) {
+            router.push('/auth/category-preference-registration');
+            setLoading(false);
+            return;
+          }
+
+          router.push('/user/dashboard');
           setLoading(false);
         }
       }
