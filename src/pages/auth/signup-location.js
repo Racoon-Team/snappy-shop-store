@@ -14,7 +14,7 @@ import useLoginSubmit from '@hooks/useLoginSubmit';
 import requests from '@services/httpServices';
 import BottomNavigation from '@components/login/BottomNavigation';
 import AdminServices from '@services/AdminServices';
-
+import CustomerServices from '@services/CustomerServices';
 const SignUpLocation = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -45,6 +45,20 @@ const SignUpLocation = () => {
       router.push('/auth/category-preference-registration');
     } catch (error) {
       console.error('Error al registrar ubicación:', error);
+    }
+  };
+  const handleSkipLocation = async () => {
+    try {
+      const sessionEmail = localStorage.getItem('customerEmail');
+      if (!sessionEmail) throw new Error('No email found');
+
+      await CustomerServices.skipLocation({ email: sessionEmail });
+
+      localStorage.setItem('skippedLocation', 'true');
+
+      router.push('/auth/category-preference-registration');
+    } catch (err) {
+      console.error('Error skipping location:', err);
     }
   };
 
@@ -122,10 +136,7 @@ const SignUpLocation = () => {
 
                     <button
                       type="button"
-                      onClick={() => {
-                        localStorage.setItem('skippedLocation', 'true');
-                        router.push('/auth/category-preference-registration');
-                      }}
+                      onClick={handleSkipLocation}
                       className="w-full text-center py-3 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all focus:outline-none my-1"
                     >
                       {t('locationRegistrationScreen.skip')}

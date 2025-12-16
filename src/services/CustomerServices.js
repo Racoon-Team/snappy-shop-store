@@ -63,6 +63,10 @@ const CustomerServices = {
   getCustomerById: async (id) => {
     return requests.get(`/customer/${id}`);
   },
+
+  skipLocation: async (data) => {
+    return requests.post('/customer/skip-location', data);
+  },
 };
 
 export default CustomerServices;
