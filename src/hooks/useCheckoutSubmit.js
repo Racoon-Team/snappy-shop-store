@@ -17,7 +17,7 @@ import NotificationServices from '@services/NotificationServices';
 import OrderServices from '@services/OrderServices';
 import { notifyError, notifySuccess } from '@utils/toast';
 import useUtilsFunction from './useUtilsFunction';
-
+import { useTranslation } from 'react-i18next';
 const useCheckoutSubmit = (storeSetting) => {
   const { dispatch } = useContext(UserContext);
 
@@ -40,7 +40,7 @@ const useCheckoutSubmit = (storeSetting) => {
   const couponRef = useRef('');
   const [Razorpay] = useRazorpay();
   const { isEmpty, emptyCart, items, cartTotal } = useCart();
-
+  const { t } = useTranslation();
   const userInfo = getUserSession();
   const { showDateFormat, currency, globalSetting } = useUtilsFunction();
 
@@ -206,7 +206,7 @@ const useCheckoutSubmit = (storeSetting) => {
 
       // Proceed with order success
       router.push(`/order/${orderResponse?._id}`);
-      notifySuccess('Your Order Confirmed! The invoice will be emailed to you shortly.');
+      notifySuccess(t('checkoutScreen.message.notification'));
       Cookies.remove('couponInfo');
       emptyCart();
       setIsCheckoutSubmit(false);

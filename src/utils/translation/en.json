@@ -3,6 +3,8 @@
     "text": "Login with your email and password",
     "isRequired": "is required!",
     "items": "Items",
+    "yes": "Si",
+    "no": "No",
 
     "imgUploader": {
       "description": "Drag your image here",
@@ -100,6 +102,7 @@
     "paymentMethodCash": "Cash",
     "paymentMethodQr": "QR Payment",
     "couponCode": "Input your coupon code",
+    "useDefault": "Use Default Shipping Address",
 
     "modalQr": {
       "title": "QR Payment",
@@ -115,7 +118,8 @@
       "default": "Please scan the QR code with your bank's app, then verify with the Verify QR Payment button.",
       "pending": "Transaction pending payment. Scan the QR code with your bank's app.",
       "success": "Transaction executed successfully, your invoice will be sent to your email, please wait a few minutes.",
-      "error": "Transaction error, please try again."
+      "error": "Transaction error, please try again.",
+      "notification": " Your Order Confirmed! The invoice will be emailed to you shortly."
     }
   },
 
@@ -264,8 +268,8 @@
     "copy": "Copyright 2025 @",
     "html": "HtmlLover",
     "allRights": " , All rights reserved.",
-    "phone":"Phone:",
-    "email":"Email:"
+    "phone": "Phone:",
+    "email": "Email:"
   },
 
   "homeScreen": {

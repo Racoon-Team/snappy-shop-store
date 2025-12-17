@@ -3,6 +3,8 @@
     "text": "Inicia sesion con email y contraseña",
     "isRequired": "es obligatorio",
     "items": "Artículos",
+    "yes": "Si",
+    "no": "No",
 
     "imgUploader": {
       "description": "Arrastra tu imagen aqui",
@@ -100,6 +102,7 @@
     "paymentMethodCash": "Efectivo",
     "paymentMethodQr": "Pago QR",
     "couponCode": "Ingresa tu código de cupón",
+    "useDefault": "Utilizar la dirección de envío predeterminada",
 
     "modalQr": {
       "title": "Pago QR",
@@ -115,7 +118,8 @@
       "default": "Escanea el código QR con la app de tu banco y luego verifica con el botón 'Verificar Pago QR'.",
       "pending": "Transacción pendiente de pago. Escanea el código QR con la app de tu banco.",
       "success": "Transacción ejecutada correctamente. Tu factura se enviará a tu correo electrónico. Espera unos minutos.",
-      "error": "Error en la transacción. Inténtalo de nuevo."
+      "error": "Error en la transacción. Inténtalo de nuevo.",
+      "notification": "¡Su pedido está confirmado! Recibirá la factura por correo electrónico en breve."
     }
   },
 
@@ -264,8 +268,8 @@
     "copy": "Derechos de autor 2025 @",
     "html": "Amante del HTML",
     "allRights": " , Reservados todos los derechos.",
-    "phone":"Telefono:",
-    "email":"Correo electrónico:"
+    "phone": "Telefono:",
+    "email": "Correo electrónico:"
   },
 
   "homeScreen": {
