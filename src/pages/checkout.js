@@ -129,7 +129,7 @@ const Checkout = () => {
                     <div className="flex justify-end my-2">
                       <SwitchToggle
                         id="shipping-address"
-                        title="Use Default Shipping Address"
+                        title={t('checkoutScreen.useDefault')}
                         processOption={useExistingAddress}
                         handleProcess={handleDefaultShippingAddress}
                       />

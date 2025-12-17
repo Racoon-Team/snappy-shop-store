@@ -1,6 +1,7 @@
 import Switch from 'react-switch';
-
+import { useTranslation } from 'react-i18next';
 const SwitchToggle = ({ id, title, handleProcess, processOption }) => {
+  const { t } = useTranslation();
   return (
     <>
       <div className={`${'mb-3'}`}>
@@ -25,7 +26,7 @@ const SwitchToggle = ({ id, title, handleProcess, processOption }) => {
                   paddingTop: 1,
                 }}
               >
-                No
+                {t('common.no')}
               </div>
             }
             width={80}
@@ -46,7 +47,7 @@ const SwitchToggle = ({ id, title, handleProcess, processOption }) => {
                   paddingTop: 1,
                 }}
               >
-                Yes
+                {t('common.yes')}
               </div>
             }
           />
