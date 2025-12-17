@@ -9,6 +9,7 @@ import NavBarTop from './navbar/NavBarTop';
 import FooterTop from '@layout/footer/FooterTop';
 import MobileFooter from '@layout/footer/MobileFooter';
 import FeatureCard from '@components/feature-card/FeatureCard';
+import WhatsAppButton from '@components/WhatsAppButton';
 
 const Layout = ({ title, description, children }) => {
   return (
@@ -32,11 +33,12 @@ const Layout = ({ title, description, children }) => {
           <div className="hidden relative lg:block mx-auto max-w-screen-2xl py-6 px-3 sm:px-10">
             <FeatureCard />
           </div>
-          <hr className="hr-line"></hr>
+          <hr className="hr-line"/>
           <div className="border-t border-gray-100 w-full">
             <Footer />
           </div>
         </div>
+        <WhatsAppButton />
       </div>
     </>
   );
