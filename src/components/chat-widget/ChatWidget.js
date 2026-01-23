@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { sendChatMessage } from '@services/ChatServices';
 
 const ChatWidget = () => {
   const [open, setOpen] = useState(false);
@@ -9,6 +10,41 @@ const ChatWidget = () => {
   // loading deepchat web component in client
   useEffect(() => {
     import('deep-chat');
+  }, []);
+
+  // testing request
+  useEffect(() => {
+    async function simulateChatProtocol() {
+      try {
+        console.log('-- Chat protocol test --');
+
+        let response;
+
+        response = await sendChatMessage({
+          sessionId: 'session_frontend_01',
+          message: 'hola',
+        });
+        console.log('1. hola →', response);
+
+        response = await sendChatMessage({
+          sessionId: 'session_frontend_01',
+          message: 'alimentos',
+        });
+        console.log('2. alimentos →', response);
+
+        response = await sendChatMessage({
+          sessionId: 'session_frontend_01',
+          message: 'frutas',
+        });
+        console.log('3. frutas →', response);
+
+        console.log('-- End protocol test --');
+      } catch (error) {
+        console.error('Error of chat test:', error);
+      }
+    }
+
+    simulateChatProtocol();
   }, []);
 
   useEffect(() => {
@@ -23,6 +59,28 @@ const ChatWidget = () => {
     };
 
     chat.messageStyles = {
+      default: {
+        shared: {
+          bubble: {
+            borderRadius: '12px',
+            padding: '10px 12px',
+            fontSize: '14px',
+            lineHeight: '1.35',
+          },
+        },
+        ai: {
+          bubble: {
+            backgroundColor: '#10B981',
+            color: '#ffffffff',
+          },
+        },
+        user: {
+          bubble: {
+            backgroundColor: '#e5e7eb',
+            color: '#111827',
+          },
+        },
+      },
       html: {
         shared: {
           bubble: {
@@ -49,30 +107,59 @@ const ChatWidget = () => {
 
   return (
     <>
-      <button
-        onClick={() => setOpen(!open)}
-        aria-label={open ? 'Close chat' : 'Open chat'}
-        className={[
-          'fixed bottom-4 right-6 z-50',
-          'h-14 w-14 rounded-full',
-          'shadow-lg',
-          'flex items-center justify-center',
-          'transition-all duration-200 ease-out',
-          'hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0',
-          open ? 'bg-gray-800 text-white' : 'bg-green-600 text-white',
-          'focus:outline-none focus:ring-4 focus:ring-green-200',
-        ].join(' ')}
-      >
-        {!open && (
+      {!open && (
+        <button
+          onClick={() => setOpen(true)}
+          aria-label="Open chat"
+          className={[
+            'fixed bottom-4 right-6 z-50',
+            'h-14 w-14 rounded-full',
+            'shadow-lg',
+            'flex items-center justify-center',
+            'transition-all duration-200 ease-out',
+            'hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0',
+            'bg-green-600 text-white',
+            'focus:outline-none focus:ring-4 focus:ring-green-200',
+          ].join(' ')}
+        >
           <span className="absolute inline-flex h-full w-full rounded-full bg-green-600 opacity-20 animate-ping" />
-        )}
-
-        <span className="relative text-xl leading-none">{open ? '✕' : '💬'}</span>
-      </button>
+          <span className="relative text-xl leading-none">💬</span>
+        </button>
+      )}
 
       {open && (
-        <div className="fixed bottom-20 right-1 z-50 bg-white shadow-xl rounded-lg">
-          <deep-chat ref={chatRef} style={{ width: '360px', height: '520px', display: 'block' }} />
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '24px',
+            right: '5px',
+            zIndex: 9999,
+            background: '#ffffff',
+            borderRadius: '12px',
+            boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '8px 12px',
+              borderBottom: '1px solid #e5e7eb',
+            }}
+          >
+            <span style={{ fontSize: '14px', fontWeight: 500 }}>KaChat </span>
+            <button onClick={() => setOpen(false)}>✕</button>
+          </div>
+
+          <deep-chat
+            ref={chatRef}
+            style={{
+              width: '360px',
+              height: '480px',
+              display: 'block',
+            }}
+          />
         </div>
       )}
     </>
@@ -94,7 +181,7 @@ function injectButtons(chat, options) {
             class="deep-chat-suggestion-button"
             style="
               background:transparent;
-              border:1px solid #225eb8ff;
+              border:1px solid #10B981;
               color:#374151;
               padding:4px 10px;
               border-radius:6px;
