@@ -6,46 +6,46 @@ import { sendChatMessage } from '@services/ChatServices';
 const ChatWidget = () => {
   const [open, setOpen] = useState(false);
   const chatRef = useRef(null);
+  const lastCategoryRef = useRef(null);
 
-  // loading deepchat web component in client
   useEffect(() => {
     import('deep-chat');
   }, []);
 
   // testing request
-  useEffect(() => {
-    async function simulateChatProtocol() {
-      try {
-        console.log('-- Chat protocol test --');
+  // useEffect(() => {
+  //   async function simulateChatProtocol() {
+  //     try {
+  //       console.log('-- Chat protocol test --');
 
-        let response;
+  //       let response;
 
-        response = await sendChatMessage({
-          sessionId: 'session_frontend_01',
-          message: 'hola',
-        });
-        console.log('1. hola →', response);
+  //       response = await sendChatMessage({
+  //         sessionId: 'session_frontend_01',
+  //         message: 'hola',
+  //       });
+  //       console.log('1. hola →', response);
 
-        response = await sendChatMessage({
-          sessionId: 'session_frontend_01',
-          message: 'alimentos',
-        });
-        console.log('2. alimentos →', response);
+  //       response = await sendChatMessage({
+  //         sessionId: 'session_frontend_01',
+  //         message: 'alimentos',
+  //       });
+  //       console.log('2. alimentos →', response);
 
-        response = await sendChatMessage({
-          sessionId: 'session_frontend_01',
-          message: 'frutas',
-        });
-        console.log('3. frutas →', response);
+  //       response = await sendChatMessage({
+  //         sessionId: 'session_frontend_01',
+  //         message: 'frutas',
+  //       });
+  //       console.log('3. frutas →', response);
 
-        console.log('-- End protocol test --');
-      } catch (error) {
-        console.error('Error of chat test:', error);
-      }
-    }
+  //       console.log('-- End protocol test --');
+  //     } catch (error) {
+  //       console.error('Error of chat test:', error);
+  //     }
+  //   }
 
-    simulateChatProtocol();
-  }, []);
+  //   simulateChatProtocol();
+  // }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -56,6 +56,19 @@ const ChatWidget = () => {
     chat.connect = {
       url: 'http://localhost:5055/api/chat',
       method: 'POST',
+    };
+
+    const SESSION_ID = 'session_deepchat_01';
+
+    chat.requestInterceptor = (requestDetails) => {
+      const lastText = requestDetails?.body?.messages?.at(-1)?.text || requestDetails?.body?.text || '';
+
+      requestDetails.body = {
+        session_id: SESSION_ID,
+        message: String(lastText),
+      };
+
+      return requestDetails;
     };
 
     chat.messageStyles = {
@@ -93,11 +106,47 @@ const ChatWidget = () => {
     };
 
     chat.responseInterceptor = (response) => {
-      const options = response?.options || [];
+      if (response?.data) {
+        const reply = response.data.reply || '';
+        const ctx = response.data.context || {};
+        let options = ctx.options || [];
 
-      if (options.length) {
+        if (ctx.category && ctx.ambiguous === false) {
+          lastCategoryRef.current = ctx.category;
+        }
+
+        if (ctx.ambiguous === true && lastCategoryRef.current) {
+          options = [
+            {
+              label: lastCategoryRef.current,
+              sendText: lastCategoryRef.current,
+            },
+            ...options,
+          ];
+        }
+
+        if (options.length > 0) {
+          setTimeout(() => {
+            injectButtons(chat, options);
+          }, 0);
+
+          return {
+            type: 'options',
+            text: reply,
+            options,
+          };
+        }
+
+        return {
+          type: 'text',
+          text: reply,
+        };
+      }
+
+      const legacyOptions = response?.options || [];
+      if (legacyOptions.length) {
         setTimeout(() => {
-          injectButtons(chat, options);
+          injectButtons(chat, legacyOptions);
         }, 0);
       }
 
@@ -177,27 +226,32 @@ function injectButtons(chat, options) {
       ${options
         .map(
           (opt) => `
-          <button
-            class="deep-chat-suggestion-button"
-            style="
-              background:transparent;
-              border:1px solid #10B981;
-              color:#374151;
-              padding:4px 10px;
-              border-radius:6px;
-              font-size:13px;
-              cursor:pointer;
-              line-height:1.4;
-            "
-            onmouseover="this.style.background='#acacacff'"
-            onmouseout="this.style.background='transparent'"
-            onclick="this.parentElement.style.display='none'"
-          >
-            ${escapeHtml(opt)}
-          </button>
-        `
+  <button
+    class="deep-chat-suggestion-button"
+    style="
+      background:transparent;
+      border:1px solid #10B981;
+      color:#374151;
+      padding:4px 10px;
+      border-radius:6px;
+      font-size:13px;
+      cursor:pointer;
+      line-height:1.4;
+    "
+    onclick="
+      this.parentElement.style.display='none';
+      this.closest('deep-chat')
+        ?.dispatchEvent(new CustomEvent('deep-chat-suggestion', {
+          detail: { text: '${escapeHtml(opt.sendText || opt.label)}', value: '${opt.value || ''}' }
+        }));
+    "
+  >
+    ${escapeHtml(opt.label)}
+  </button>
+`
         )
         .join('')}
+
     </div>
   `;
 
