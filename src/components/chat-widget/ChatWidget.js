@@ -109,6 +109,8 @@ const ChatWidget = () => {
       if (response?.data) {
         const reply = response.data.reply || '';
         const ctx = response.data.context || {};
+        const products = response.data.products || [];
+        const hasProducts = products.length > 0;
         let options = ctx.options || [];
 
         if (ctx.category && ctx.ambiguous === false) {
@@ -123,6 +125,22 @@ const ChatWidget = () => {
             },
             ...options,
           ];
+        }
+
+        if (hasProducts) {
+          const actionOptions = [];
+
+          actionOptions.push({
+            label: 'Agregar al carrito',
+            sendText: '__ADD_TO_CART__',
+          });
+
+          actionOptions.push({
+            label: 'Inicio',
+            sendText: 'inicio',
+          });
+
+          options = [...options, ...actionOptions];
         }
 
         if (options.length > 0) {
