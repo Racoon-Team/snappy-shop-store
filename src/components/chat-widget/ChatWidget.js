@@ -1,57 +1,112 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { sendChatMessage } from '@services/ChatServices';
+import ChatServices from '@services/ChatServices';
+
+function handleChatResponse({ response, chat, lastCategoryRef, lastProductsRef }) {
+  if (!response?.data) return response;
+
+  const reply = response.data.reply || '';
+  const ctx = response.data.context || {};
+  const products = response.data.products || [];
+  const hasProducts = products.length > 0;
+  let options = ctx.options || [];
+
+  if (ctx.category && ctx.ambiguous === false) {
+    lastCategoryRef.current = ctx.category;
+  }
+
+  if (ctx.ambiguous === true && lastCategoryRef.current) {
+    options = [{ label: lastCategoryRef.current }, ...options];
+  }
+
+  if (hasProducts) {
+    lastProductsRef.current = products;
+    options = [...options, { label: 'Agregar al carrito' }, { label: 'Inicio' }];
+  }
+
+  if (ctx.intent === 'add_to_cart') {
+    const productOptions = (lastProductsRef.current || []).map((p) => ({
+      label: p.name,
+    }));
+
+    if (productOptions.length > 0) {
+      setTimeout(() => injectButtons(chat, productOptions), 0);
+    }
+
+    return {
+      type: 'text',
+      text: reply,
+    };
+  }
+
+  if (options.length > 0) {
+    setTimeout(() => injectButtons(chat, options), 0);
+    return {
+      type: 'options',
+      text: reply,
+      options,
+    };
+  }
+
+  return {
+    type: 'text',
+    text: reply,
+  };
+}
+
+const CHAT_MESSAGE_STYLES = {
+  default: {
+    shared: {
+      bubble: {
+        borderRadius: '12px',
+        padding: '10px 12px',
+        fontSize: '14px',
+        lineHeight: '1.35',
+      },
+    },
+    ai: {
+      bubble: {
+        backgroundColor: '#10B981',
+        color: '#ffffff',
+      },
+    },
+    user: {
+      bubble: {
+        backgroundColor: '#e5e7eb',
+        color: '#111827',
+      },
+    },
+  },
+  html: {
+    shared: {
+      bubble: {
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
+        padding: '0px',
+      },
+    },
+  },
+};
 
 const ChatWidget = () => {
   const [open, setOpen] = useState(false);
   const chatRef = useRef(null);
   const lastCategoryRef = useRef(null);
+  const lastProductsRef = useRef([]);
+  const initializedRef = useRef(false);
 
   useEffect(() => {
     import('deep-chat');
   }, []);
 
-  // testing request
-  // useEffect(() => {
-  //   async function simulateChatProtocol() {
-  //     try {
-  //       console.log('-- Chat protocol test --');
-
-  //       let response;
-
-  //       response = await sendChatMessage({
-  //         sessionId: 'session_frontend_01',
-  //         message: 'hola',
-  //       });
-  //       console.log('1. hola →', response);
-
-  //       response = await sendChatMessage({
-  //         sessionId: 'session_frontend_01',
-  //         message: 'alimentos',
-  //       });
-  //       console.log('2. alimentos →', response);
-
-  //       response = await sendChatMessage({
-  //         sessionId: 'session_frontend_01',
-  //         message: 'frutas',
-  //       });
-  //       console.log('3. frutas →', response);
-
-  //       console.log('-- End protocol test --');
-  //     } catch (error) {
-  //       console.error('Error of chat test:', error);
-  //     }
-  //   }
-
-  //   simulateChatProtocol();
-  // }, []);
-
   useEffect(() => {
     if (!open) return;
-
     const chat = chatRef.current;
     if (!chat) return;
+
+    if (initializedRef.current) return;
+    initializedRef.current = true;
 
     chat.connect = {
       url: 'http://localhost:5055/api/chat',
@@ -71,104 +126,17 @@ const ChatWidget = () => {
       return requestDetails;
     };
 
-    chat.messageStyles = {
-      default: {
-        shared: {
-          bubble: {
-            borderRadius: '12px',
-            padding: '10px 12px',
-            fontSize: '14px',
-            lineHeight: '1.35',
-          },
-        },
-        ai: {
-          bubble: {
-            backgroundColor: '#10B981',
-            color: '#ffffffff',
-          },
-        },
-        user: {
-          bubble: {
-            backgroundColor: '#e5e7eb',
-            color: '#111827',
-          },
-        },
-      },
-      html: {
-        shared: {
-          bubble: {
-            backgroundColor: 'transparent',
-            boxShadow: 'none',
-            padding: '0px',
-          },
-        },
-      },
-    };
+    chat.messageStyles = CHAT_MESSAGE_STYLES;
+
+    chat.textInput = { placeholder: { text: 'Escribe tu busqueda' } };
 
     chat.responseInterceptor = (response) => {
-      if (response?.data) {
-        const reply = response.data.reply || '';
-        const ctx = response.data.context || {};
-        const products = response.data.products || [];
-        const hasProducts = products.length > 0;
-        let options = ctx.options || [];
-
-        if (ctx.category && ctx.ambiguous === false) {
-          lastCategoryRef.current = ctx.category;
-        }
-
-        if (ctx.ambiguous === true && lastCategoryRef.current) {
-          options = [
-            {
-              label: lastCategoryRef.current,
-              sendText: lastCategoryRef.current,
-            },
-            ...options,
-          ];
-        }
-
-        if (hasProducts) {
-          const actionOptions = [];
-
-          actionOptions.push({
-            label: 'Agregar al carrito',
-            sendText: '__ADD_TO_CART__',
-          });
-
-          actionOptions.push({
-            label: 'Inicio',
-            sendText: 'inicio',
-          });
-
-          options = [...options, ...actionOptions];
-        }
-
-        if (options.length > 0) {
-          setTimeout(() => {
-            injectButtons(chat, options);
-          }, 0);
-
-          return {
-            type: 'options',
-            text: reply,
-            options,
-          };
-        }
-
-        return {
-          type: 'text',
-          text: reply,
-        };
-      }
-
-      const legacyOptions = response?.options || [];
-      if (legacyOptions.length) {
-        setTimeout(() => {
-          injectButtons(chat, legacyOptions);
-        }, 0);
-      }
-
-      return response;
+      return handleChatResponse({
+        response,
+        chat,
+        lastCategoryRef,
+        lastProductsRef,
+      });
     };
   }, [open]);
 
@@ -194,41 +162,40 @@ const ChatWidget = () => {
         </button>
       )}
 
-      {open && (
+      <div
+        style={{
+          position: 'fixed',
+          bottom: '24px',
+          right: '5px',
+          zIndex: 9999,
+          background: '#ffffff',
+          borderRadius: '12px',
+          boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
+          display: open ? 'block' : 'none',
+        }}
+      >
         <div
           style={{
-            position: 'fixed',
-            bottom: '24px',
-            right: '5px',
-            zIndex: 9999,
-            background: '#ffffff',
-            borderRadius: '12px',
-            boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '8px 12px',
+            borderBottom: '1px solid #e5e7eb',
           }}
         >
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '8px 12px',
-              borderBottom: '1px solid #e5e7eb',
-            }}
-          >
-            <span style={{ fontSize: '14px', fontWeight: 500 }}>KaChat </span>
-            <button onClick={() => setOpen(false)}>✕</button>
-          </div>
-
-          <deep-chat
-            ref={chatRef}
-            style={{
-              width: '360px',
-              height: '480px',
-              display: 'block',
-            }}
-          />
+          <span style={{ fontSize: '14px', fontWeight: 500 }}>KaChat </span>
+          <button onClick={() => setOpen(false)}>✕</button>
         </div>
-      )}
+
+        <deep-chat
+          ref={chatRef}
+          style={{
+            width: '360px',
+            height: '480px',
+            display: 'block',
+          }}
+        />
+      </div>
     </>
   );
 };
@@ -260,7 +227,7 @@ function injectButtons(chat, options) {
       this.parentElement.style.display='none';
       this.closest('deep-chat')
         ?.dispatchEvent(new CustomEvent('deep-chat-suggestion', {
-          detail: { text: '${escapeHtml(opt.sendText || opt.label)}', value: '${opt.value || ''}' }
+          detail: { text: '${escapeHtml(opt.label)}', value: '${opt.value || ''}' }
         }));
     "
   >
