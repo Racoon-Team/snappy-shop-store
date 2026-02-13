@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 import useAddToCart from '@hooks/useAddToCart';
-
 import ChatServices from '@services/ChatServices';
+import { CHAT_MESSAGE_STYLES, CHAT_CONTAINER_STYLE, CHAT_HEADER_STYLE, DEEP_CHAT_STYLE } from './chatStyles';
 
 function handleChatResponse({ response, chat, lastCategoryRef, lastProductsRef }) {
   if (!response?.data) return response;
@@ -57,40 +57,6 @@ function handleChatResponse({ response, chat, lastCategoryRef, lastProductsRef }
     text: reply,
   };
 }
-
-const CHAT_MESSAGE_STYLES = {
-  default: {
-    shared: {
-      bubble: {
-        borderRadius: '12px',
-        padding: '10px 12px',
-        fontSize: '14px',
-        lineHeight: '1.35',
-      },
-    },
-    ai: {
-      bubble: {
-        backgroundColor: '#10B981',
-        color: '#ffffff',
-      },
-    },
-    user: {
-      bubble: {
-        backgroundColor: '#e5e7eb',
-        color: '#111827',
-      },
-    },
-  },
-  html: {
-    shared: {
-      bubble: {
-        backgroundColor: 'transparent',
-        boxShadow: 'none',
-        padding: '0px',
-      },
-    },
-  },
-};
 
 const ChatWidget = () => {
   const [open, setOpen] = useState(false);
@@ -214,37 +180,16 @@ const ChatWidget = () => {
 
       <div
         style={{
-          position: 'fixed',
-          bottom: '24px',
-          right: '5px',
-          zIndex: 9999,
-          background: '#ffffff',
-          borderRadius: '12px',
-          boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
+          ...CHAT_CONTAINER_STYLE,
           display: open ? 'block' : 'none',
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: '8px 12px',
-            borderBottom: '1px solid #e5e7eb',
-          }}
-        >
+        <div style={CHAT_HEADER_STYLE}>
           <span style={{ fontSize: '14px', fontWeight: 500 }}>KaChat </span>
           <button onClick={() => setOpen(false)}>✕</button>
         </div>
 
-        <deep-chat
-          ref={chatRef}
-          style={{
-            width: '360px',
-            height: '480px',
-            display: 'block',
-          }}
-        />
+        <deep-chat ref={chatRef} style={DEEP_CHAT_STYLE} />
       </div>
     </>
   );
