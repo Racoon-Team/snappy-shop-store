@@ -12,6 +12,7 @@ import MobileFooter from '@layout/footer/MobileFooter';
 import FeatureCard from '@components/feature-card/FeatureCard';
 import WhatsAppButton from '@components/whatsAppButton';
 import SettingServices from '@services/SettingServices';
+import ChatWidget from '@components/chat-widget/ChatWidget';
 
 const Layout = ({ title, description, children }) => {
   const [whatsappConfig, setWhatsappConfig] = useState({ phone: '', message: '' });
@@ -57,6 +58,7 @@ const Layout = ({ title, description, children }) => {
           </div>
         </div>
         <WhatsAppButton phoneNumber={whatsappConfig.phone} message={whatsappConfig.message} />
+        <ChatWidget />
       </div>
     </>
   );
