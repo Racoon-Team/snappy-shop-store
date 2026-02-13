@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import useAddToCart from '@hooks/useAddToCart';
+
 import ChatServices from '@services/ChatServices';
 
 function handleChatResponse({ response, chat, lastCategoryRef, lastProductsRef }) {
@@ -28,6 +30,7 @@ function handleChatResponse({ response, chat, lastCategoryRef, lastProductsRef }
   if (ctx.intent === 'add_to_cart') {
     const productOptions = (lastProductsRef.current || []).map((p) => ({
       label: p.name,
+      value: p.id,
     }));
 
     if (productOptions.length > 0) {
@@ -95,6 +98,7 @@ const ChatWidget = () => {
   const lastCategoryRef = useRef(null);
   const lastProductsRef = useRef([]);
   const initializedRef = useRef(false);
+  const { handleAddItem } = useAddToCart();
 
   useEffect(() => {
     import('deep-chat');
@@ -117,6 +121,27 @@ const ChatWidget = () => {
 
     chat.requestInterceptor = (requestDetails) => {
       const lastText = requestDetails?.body?.messages?.at(-1)?.text || requestDetails?.body?.text || '';
+
+      const selectedProduct = lastProductsRef.current.find((p) => p.name === lastText);
+
+      if (selectedProduct) {
+        const newItem = {
+          id: selectedProduct.id,
+          title: selectedProduct.name,
+          price: selectedProduct.price,
+          image: selectedProduct.image || '',
+          stock: selectedProduct.stock,
+        };
+
+        handleAddItem(newItem);
+
+        requestDetails.body = {
+          session_id: SESSION_ID,
+          message: 'cart_product_key',
+        };
+
+        return requestDetails;
+      }
 
       requestDetails.body = {
         session_id: SESSION_ID,
