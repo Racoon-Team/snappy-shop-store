@@ -163,6 +163,31 @@ const ChatWidget = () => {
         lastProductsRef,
       });
     };
+
+    (async () => {
+      try {
+        const response = await ChatServices.sendMessage({
+          session_id: SESSION_ID,
+          message: '__init__',
+        });
+
+        const parsed = handleChatResponse({
+          response,
+          chat,
+          lastCategoryRef,
+          lastProductsRef,
+        });
+
+        if (parsed?.text) {
+          chat.addMessage({
+            role: 'ai',
+            text: parsed.text,
+          });
+        }
+      } catch (error) {
+        console.error('Init chat error:', error);
+      }
+    })();
   }, [open]);
 
   return (
