@@ -75,7 +75,7 @@
     "redux-thunk": "^2.4.1",
     "sharp": "^0.32.6",
     "socket.io-client": "^4.4.0",
-    "swiper": "^11.2.2",
+    "swiper": "^12.1.2",
     "tailwind-scrollbar-hide": "^1.0.4",
     "use-local-storage-state": "^13.0.0",
     "uuid": "^11.1.0"
